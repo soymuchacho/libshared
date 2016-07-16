@@ -1,0 +1,247 @@
+/**
+ *	> Copyright(c) 2015 guqi
+ *
+ *	> LIBSHARED  VERSION :		0.0.1 
+ *
+ *	> File Name			 :		Min_Heap.cpp
+ *
+ *	> Author			 :		guqi
+ *
+ *	> Mail				 :		guqi_282@126.com
+ *
+ *	> Created Time		 :		2015-10
+ *
+ * */
+
+#include <network/Min_Heap.h>
+#include <network/MemoryPool.h>
+#include <network/TimerEvent.h>
+#include <base/Log.h>
+#include <base/TimeManager.h>
+
+namespace Shared
+{
+
+initializeSingleton(MinHeap);
+
+MinHeap::MinHeap()
+{
+	bool ret = Initialize(10);
+	ASSERT(ret == true);
+}
+
+MinHeap::~MinHeap()
+{
+	ClearAllEvent();
+}
+
+bool MinHeap::Initialize(int capacity)
+{
+	m_cursize = 0;
+	m_capacity = capacity;
+	m_min_heap = new TimerEvent *[m_capacity];
+	if(m_min_heap == NULL)
+	{
+		LOGDWORN("debug","heap malloc error!");
+		return false;
+	}
+	for(int i = 0; i < m_capacity;i++)
+	{
+		m_min_heap[i] = NULL;
+	}
+	return true;
+}
+
+bool MinHeap::AddTimerEvent(TimerEvent * ev)
+{
+	MutexLockGuard guard(&m_mutex);
+	
+	if(m_cursize + 1 > m_capacity)
+	{
+		IncreaseCapacity();
+	}
+
+	m_min_heap[m_cursize] = ev;
+	// 上滤操作
+	min_heap_shift_up(m_cursize);
+	m_cursize++;
+	return true;
+}
+
+bool MinHeap::DelTimerEvent(TimerEvent * ev)
+{
+	MutexLockGuard guard(&m_mutex);
+	// 将时间间隔置为 0 , 回调函数 置为NULL
+	// 延迟消除
+	ev->interval = 0;
+	ev->handler = NULL;
+	return true;
+}
+
+void MinHeap::ClearAllEvent()
+{
+	for(int i = 0; i < m_cursize; i++)
+	{
+		MM_DELETE(m_min_heap[i]);
+	}
+	delete [] m_min_heap;
+	m_cursize = 0;
+}
+
+bool MinHeap::min_heap_shift_down(int hole_index)
+{
+	// 堆下滤操作！
+	int child_index = 0;
+
+	TimerEvent * event = m_min_heap[hole_index];
+
+	if(event == NULL)
+	{
+		LOGDEBUG("debug","min_heap_shift_down : event = null");
+		return false;
+	}
+
+	for(;(hole_index * 2 + 1) < m_cursize;hole_index = child_index)
+	{
+		child_index = hole_index * 2 + 1;
+		if(m_min_heap[child_index] == NULL)
+			break;
+		if(child_index < (m_cursize - 1) && m_min_heap[child_index + 1]->alarm_time < m_min_heap[child_index]->alarm_time)
+		{
+			++child_index;
+		}
+
+		if (m_min_heap[child_index]->alarm_time < event->alarm_time)
+		{
+			m_min_heap[hole_index] = m_min_heap[child_index];
+		}
+		else
+			break;
+	}
+	m_min_heap[hole_index] = event;
+	return true;
+}
+
+bool MinHeap::min_heap_shift_up(int hole_index)
+{
+	// 堆上滤操作！
+	int father_index = 0;
+	
+	TimerEvent * event = m_min_heap[hole_index];
+	
+	if(event == NULL)
+	{
+		LOGDEBUG("debug","min_heap_shift_down : event = null");
+		return false;
+	}
+
+	for(;hole_index > 0; hole_index = father_index)
+	{
+		father_index = (hole_index - 1) / 2;
+		if(m_min_heap[father_index] == NULL)
+			break;
+		if( event->alarm_time >= m_min_heap[father_index]->alarm_time)
+		{
+			break;
+		}
+		m_min_heap[hole_index] = m_min_heap[father_index];
+	}
+	m_min_heap[hole_index] = event;
+
+	return true;
+}
+
+bool MinHeap::IncreaseCapacity()
+{
+	int capacity = m_capacity * 2;
+	TimerEvent ** min_heap = new TimerEvent*[capacity];
+	if(min_heap == NULL)
+	{
+		LOGDWORN("debug","min_heap malloc error!");
+		return false;
+	}
+	
+	for(int i = 0; i < capacity; i++)
+	{
+		if(i < m_cursize)
+			min_heap[i] = m_min_heap[i];
+		else
+			min_heap[i] = NULL;
+	}
+
+	m_capacity = capacity;
+	delete [] m_min_heap;
+	m_min_heap = min_heap;
+	min_heap = NULL;
+	return true;
+}
+
+void MinHeap::pop_timer()
+{
+	//LOGDEBUG("debug","pop_timer");
+	if( Empty() )
+		return;
+	MutexLockGuard guard(&m_mutex);
+	TimerEvent * event = m_min_heap[0];
+
+	if(event != NULL)
+	{
+		if(event->ev_attr == EVENT_ATTR_CYCLE)	
+		{
+			event->alarm_time += event->interval;
+		}
+		else
+		{
+			MM_DELETE(event);
+			m_min_heap[0] = m_min_heap[--m_cursize];
+			m_min_heap[m_cursize] = NULL;
+		}
+		// 下滤操作
+		min_heap_shift_down(0);
+	}
+	else
+	{
+		m_min_heap[0] = m_min_heap[--m_cursize];
+		m_min_heap[m_cursize] = NULL;
+		// 下滤操作
+		min_heap_shift_down(0);
+	}
+}
+
+bool MinHeap::Empty()
+{
+	if(m_cursize == 0)
+		return true;
+	return false;
+}
+
+void MinHeap::Tick()
+{
+	TimerEvent * event = m_min_heap[0];	
+	time_t now_time = CURRENTTIME();
+	while(!Empty())
+	{
+		if(event == NULL)
+			break;
+		if(event->alarm_time > now_time)
+			break;
+		if(event->handler)
+			event->handler(event->arg);
+		pop_timer();
+		event = m_min_heap[0];
+	}
+}
+
+void MinHeap::Display()
+{
+	for(int i = 0; i < m_cursize;i++)
+	{
+		if(m_min_heap[i] == NULL)
+			printf("[%d(null)] ",i);
+		else
+			printf("[%d(%u)]",i,m_min_heap[i]->alarm_time);
+	}
+	printf("\n----------------------------------\n");
+}
+
+}

@@ -1,0 +1,179 @@
+/**
+ *	> Copyright(c) 2015 guqi
+ *
+ *	> LIBSHARED  VERSION :		0.0.1 
+ *
+ *	> File Name			 :		MemoryPool.h
+ *
+ *	> Author			 :		guqi
+ *
+ *	> Mail				 :		guqi_282@126.com
+ *
+ *	> Created Time		 :		2015-10
+ *
+ * */
+
+#ifndef SHARED_MEMORY_POOL_H
+#define SHARED_MEMORY_POOL_H
+
+
+/*
+ *	@brief 内存池
+ *	
+ *	- 此类预先申请一块较大的内存，服务器中申请释放内存均
+ *	  通过此类
+ *
+ *	- 内存池的优点：可控性，提高效率，避免系统内存碎片等等，
+ *	  总之就是好,尼玛，好苍白。
+ *  
+ *  - 在不改动原有代码的情况下，接替new 和 delete ,malloc 和 free(目前没实现)
+ *    能够展示内存数据使用的情况（便于查找内存泄露）
+ *    快速实现内存回收和再利用
+ *    支持多线程内存申请
+ * 
+ *	- 版本1 ：固定内存池，即内存池由一系列大小的内存块组成，每一个
+ *	  内存块又包含了固定数量和大小的内存单元。内存单元用数组保存
+ *
+ *	  版本2 ： 内存池由一系列大小相同的内存块组成，每一个内存块可分为若干
+ *	  大小的内存单元，内存单元动态划分，初始化完成后，只有一个内存单元，每
+ *	  申请一次，分出一个内存单元，释放时，和前后两个空闲内存单元合并成一个
+ *	  内存单元。内存单元用双链表保存。
+ *
+ *	  目前采用版本2
+ *
+ *	- 内存池初始化后，只向系统申请一个内存块，随后会根据需要动态向系统
+ *	  申请更多的内存块。
+ *  
+ *  - 申请内存的前两个字节，用来存放申请信息。所以实际申请大小为用户size + 4
+ * 
+ * */
+//////////////////////////////////////////////////////////////
+#include <network/MemInc.h>
+#include <base/Mutex.h>
+#include <base/Singleton.h>
+#include <base/Log.h>
+namespace Shared
+{
+
+// 单键
+class MemoryPool : public Singleton< MemoryPool >
+{
+	friend class Singleton < MemoryPool >; 
+private:
+	MemoryPool();
+	~MemoryPool();
+public:
+	// 申请一段内存
+	// size 申请内存的大小
+
+	void * Malloc(size_t size);
+	// 释放一段内存
+	// 释放内存的头指针
+	void Free(void * ptr);
+
+	bool DisplayPool();
+
+private:
+	void InitMemBlock(MemBlock * block,size_t size);	// 初始化一个内存块	
+	MemBlock * IncreaseMemBlock();				// 增加一个内存块
+	
+	/*
+	 *	@brief 从内存块中查找合适的内存单元，并从内存单元中划分内存，并返回，用于版本2
+	 *
+	 */
+	void * CheckAndSet(MemBlock * pBlock,size_t size);
+	/*
+	 *	@brief 内存单元中划分内存,哦嗯与版本2
+	 */
+	void * DivisionUnit(MemBlock * pBlock,MemUnit * pUnit,size_t size);
+	/* 
+	 * @brief	打印内存块
+	 * @retval	true	验证成功
+	 * @retval	false	要打印的内存非法
+	 * */
+	bool DisplayMemBlock(MemBlock * pBlock);
+	void DestoryPool();						// 销毁内存池
+	// 检测内存泄露
+	bool CheckMemoryLeak();
+protected:
+	MemBlock *	m_Block;				// 块链表头
+	uint32		m_BlockNum;				// 块数量
+	Mutex		m_mutex;				// 信号量，多线程有用
+};
+
+static inline MemoryPool & Shared_MemPool()
+{
+	return MemoryPool::getSingleton();
+}
+
+static void * MM_MALLOC(unsigned int size)
+{
+	return MemoryPool::getSingleton().Malloc(size);
+}
+
+// placement new
+
+// 只使用于不带参数的构造函数的类
+template<class T>
+static T * MM_NEW()
+{
+	unsigned int size = sizeof(T);
+	void * mem = MemoryPool::getSingleton().Malloc(size);
+	T * ptr = new (mem) T();
+	return ptr;
+}
+
+// 用于与new相对应的delete
+template<class T>
+static void MM_DELETE(T *& ptr)
+{
+	if(ptr != NULL)
+	{
+		(ptr)->~T();
+		MemoryPool::getSingleton().Free(ptr);
+		ptr = NULL;
+	}
+}
+
+template<class T>
+static void MM_FREE(T *& ptr)
+{
+	if(ptr != NULL)
+	{
+		MemoryPool::getSingleton().Free(ptr);
+		ptr = NULL;
+	}
+}
+
+}
+
+/*
+#define sMemPool Shared::MemoryPool::getSingleton()
+
+#define MALLOC( size ) Shared::MemoryPool::getSingleton().Malloc((size))
+
+#define FREE( ptr ) \
+	if((ptr) != NULL) \
+	{ \
+		Shared::MemoryPool::getSingleton().Free((ptr)); \
+		(ptr) = NULL; \
+	} 
+
+// placement new
+#define MM_NEW(type) \
+	new ( MALLOC( ( sizeof( type ) ) ) )  
+
+#define MM_NEW2(type) Shared::mm_new<type>()
+
+#define MM_DELETE(type,ptr)	 \
+	if( (ptr) != NULL) \
+	{ \
+		(ptr)->~type(); \
+		FREE( (ptr) ); \
+	} 
+
+#define MM_DELETE2(ptr) Shared::mm_del(&ptr) 
+*/
+
+#endif
+
