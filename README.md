@@ -1,4 +1,4 @@
-![](https://github.com/soymuchacho/libshared/share.jpg)
+![](https://github.com/soymuchacho/GitImage/raw/master/share.gif)
 libshared
 ==============
 Lightweight multithreaded network library for Linux
