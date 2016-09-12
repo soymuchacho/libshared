@@ -19,82 +19,198 @@
 #include <network/MemoryPool.h>
 #include <network/Epoll_Engine.h>
 #include <network/Min_Heap.h>
+#include <network/BaseSocket.h>
+#include <network/TcpSocket.h>
+#include <network/ListenSocket.h>
+#include <base/TimeManager.h>
+#include <base/Log.h>
 #include <Event.h>
-
+#include <network/Global_Val.h>
 namespace Shared
 {
+
+
+#define shared_registerioevent(engine,evid,callback) \
+	do{\
+		Shared::RegisterEvent(engine,Shared::CreateEvent(evid, \
+					Shared::EVENT_TYPE_IO,Shared::EVENT_ATTR_CYCLE, \
+					callback)); \
+	}while(0)
+
+#define shared_registertimerevent(engine,ev,callback,fd,arg,args,interval) \
+	do{\
+		ev = CreateEvent(0,Shared::EVENT_TYPE_TIMER,Shared::EVENT_ATTR_CYCLE, \
+				callback,fd,arg,args,interval); \
+		Shared::RegisterEvent(engine,ev);\
+	}while(0)
+
+#define shared_registersignalevent(engine,ev,sig,callbakc,fd,arg,args) \
+	do{ \
+		ev = CreateEvent(sig,Shared::EVENT_TYPE_TIMER,Shared::EVENT_ATTR_CYCLE, \
+				callback,fd,arg,args); \
+		Shared::RegisterEvent(engine,ev);\
+	}while(0)
 /*
- *	@brief : 初始化消息分发器(套接字引擎类)
+ *	@brief : 初始化消息分发器(套接字管理引擎类)
  *	
  *	@param : type	消息分发器类型
  */
 template<class T>
-static inline T * Init_Engine() 
+static inline void Init_Engine(sockengine_sptr & sptr) 
 {
+	// 消息分发器分配空间
 	T * ptr = MM_NEW<T>();
+
+	// 消息分发器进行初始化
 	if(ptr != NULL)
-		ptr->Initialize();
-	return ptr;
-}
-	
-/*
- *	@brief : 向消息分发器中注册定时事件
- *	EVENT_ATTR_ONCE = 0,		**< 事件只执行一次 >*
- *	EVENT_ATTR_CYCLE,			**< 事件总是执行,即永久事件 >*
- */
-
-static inline void RegisterTimerEvent(Socket_Engine * engine,Event_Attr ev_attr,uint32 interval,CallBackHandler callback,void * arg)
-{ 
-	if( engine != NULL)
-	{ 
-		engine->AddTimerEvent(ev_attr,interval,callback,arg);
-	} 
+	{
+		sptr.reset(ptr,SHARED_DELETE<T>());
+		// 初始化全局消息分发器弱引用
+		g_wpCurrentEngine = sptr;
+		sptr->Initialize();
+	}
 }
 
 /*
- *	@brief : 向消息分发器中注册信号事件
- */
-static inline void RegisterSigEvent(Socket_Engine * engine,Event_Attr ev_attr,uint32 sig,CallBackHandler callback,void * arg) 
-{ 
-		if( engine != NULL) 
-		{ 
-			engine->AddSigEvent(ev_attr,sig,callback,arg); 
-		} 
-}
-/*
- *	@brief : 向消息分发器中注册事件
+ *	@brief : 创建事件结构体,必须由RemoveEvent来销毁
  *
- *	@param : engine		消息分发器类型
- *			 ev_type	事件类型 （时间？信号？）
- *			 ev_attr	事件属性 （一次？多次？）
- *			 interval	若为定时事件，此为时间间隔(单位毫秒)，否则填0
- *			 sig		若为信号时间，此为信号，否则填0
- *			 callback	事件的回调函数
- *			 arg		回调函数参数
+ *	@param : eid 事件id，由用户自己指定，若为sig事件，则为sig信号值，若为时间事件，则为0
+ *	@param : type 事件类型，详见EVENT_TYPE 
+ *	@param : attr 事件属性，详见EVENT_ATTR
+ *	@param : callback 事件回调函数
+ *	@param : fd IO事件时为socket文件描述符，信号事件为sig信号值，回调函数返回值之一
+ *	@param : arg 回调函数返回值
+ *	@param : args 回调函数返回值
+ *	@param : interval 时间事件时，用于设置时间事件间隔时间，单位为毫秒
  */
-static inline void RegisterEvent(Socket_Engine * engine,Event_Type ev_type,Event_Attr ev_attr,uint32 interval,uint32 sig,CallBackHandler callback,void * arg) 
-{ 
-	if( ev_type == Shared::EVENT_TYPE_TIMER) 
-	{ 
-		RegisterTimerEvent(engine,ev_attr,interval,callback,arg); 
-	} 
-	else if( ev_type == Shared::EVENT_TYPE_SIGNAL) 
-	{ 
-		RegisterSigEvent(engine,ev_attr,sig,callback,arg); 
-	} 
+static inline
+Event * CreateEvent(EVENT_ID eid,EVENT_TYPE type,EVENT_ATTR attr,ev_callback callback,int fd = 0,int arg = 0,void * args = NULL,unsigned int interval = 0)
+{
+
+	Event * ev = MM_NEW<Event>();
+	if(ev == NULL)
+	{
+		LOGDWORN("Worn","create Event error !");
+		return NULL;
+	}
+
+	ev->m_eid = eid;
+	ev->m_eType = type;
+	ev->m_attr = attr;
+	ev->m_alarm = CURRENTTIME() + interval;
+	ev->m_interval = interval;
+	ev->m_call = callback;
+	ev->m_fd = fd;
+	ev->m_arg = arg;
+	ev->m_args = args;
+	
+	return ev;
 }
+
+/*
+ *	@brief : 注册事件
+ *	
+ *	@param : bs 事件处理器 BaseSocket的智能指针
+ *	@param : ev 事件
+ */
+static inline 
+void RegisterEvent(sockengine_sptr se,Event *ev)
+{
+	if(se)
+		se->Event_Add(ev);
+}
+
+
+/*
+ *	@brief : 删除事件
+ *
+ *	@param : bs 事件处理器 BaseSocket的智能指针
+ *	@param : ev 事件
+ *
+ */
+static inline 
+void RemoveEvent(sockengine_sptr se,Event *ev) 
+{ 
+	if(se)
+		se->Event_Del(ev);
+}
+
+
+/*
+ *	@brief : 创建监听
+ *
+ *	@param : se 消息分发器引擎的智能指针
+ *	@param : hostname ip地址
+ *	@param : port 端口
+ */
+template <class T>
+bool CreateListenSocket(sockengine_sptr se,char * hostname,u_short port)
+{
+	ListenSocket<T> * s = new  ListenSocket<T>();
+	s->SetCtime(time(NULL));
+	s->SetSocketEngine(se);
+	if(s->Open(hostname,port) == false)
+	{
+		LOGDWORN("Worn","create listen ip%s , port%d error!",hostname,port);
+		s->Disconnect();
+		return false;
+	}
+	return true;
+}
+
+/*
+ *	@biref : 连接socket
+ *
+ *	@param : sptr 消息分发器引擎的智能指针
+ *	@param : hostname ip地址
+ *	@param : port 端口
+ */
+template <class T>
+bool ConnectTCPSocket(sockengine_sptr sptr,const char * hostname,u_short port,basesocket_sptr & bsptr)
+{
+	sockaddr_in conn;
+	conn.sin_family = AF_INET;
+	conn.sin_addr.s_addr = inet_addr(hostname);
+	conn.sin_port = ntohs(port);
+
+	int fd = socket(AF_INET,SOCK_STREAM,0);
+	int result = connect(fd,(const sockaddr *)&conn,sizeof(sockaddr_in));
+	if(result < 0)
+	{
+		LOGDWORN("Worn","connect ip%s , port%d error!",hostname,port);
+		close(fd);
+		return false;
+	}
+
+	T * s = MM_NEW<T>(fd,&conn);
+	if(s == NULL)
+	{
+		LOGDWORN("Worn","Tcp malloc error !");
+		close(fd);
+		return false;
+	}
+	bsptr.reset(s,SHARED_DELETE<T>());
+
+	s->SetSocketEngine(sptr);
+	s->SetCtime(time(NULL));
+	s->Finalize(bsptr);
+	
+	return true;
+}
+
 /*
  *  @brief : 回收消息分发器（套接字引擎类）
  *
- *	@param : type	消息分发器（套接字引擎类）类型，如Epoll_Engine
- *	@param : engine	引擎指针
+ *	@param : sptr	引擎智能指针
  */
-static void Delete_Engine(Socket_Engine * engine) 
-{ 
-	if(engine != NULL)
-	{
-		engine->ShutDown(); 
-		MM_DELETE(engine); 
+
+static inline 
+void Shutdown_Engine(sockengine_sptr & sptr)
+{
+	if(sptr) 
+	{ 
+		sptr->ShutDown();  
+		sptr.reset();
 	}
 }
 

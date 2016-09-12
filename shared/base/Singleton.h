@@ -28,7 +28,7 @@ namespace Shared
 	template<> pthread_once_t Shared::Singleton<type>::ponce_ = PTHREAD_ONCE_INIT
 
 template<class type>
-class Singleton : noncopyable
+class Singleton : public noncopyable
 {
 protected:
 	Singleton()

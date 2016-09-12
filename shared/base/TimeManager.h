@@ -216,5 +216,5 @@ static unsigned int CURRENTTIME()
 	return TimeManager::getSingleton().CurrentTime();
 }
 
-}
+}// END NAMESPACE SHARED
 #endif

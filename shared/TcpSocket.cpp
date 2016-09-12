@@ -77,6 +77,7 @@ TcpSocket::~TcpSocket()
 
 bool TcpSocket::OnRead()
 {
+	LOGDEBUG("debug","TcpSocket OnRead");
 	int total = 0;
 	MutexLockGuard lock(&m_readMutex);
 	while(true)
@@ -170,10 +171,8 @@ bool TcpSocket::OnWrite()
 //			LOGDATA(writeBuffer->GetReadOffSet(),size);
 			total += size;
 			writeBuffer->IncrementRead(size);
-			if(writeBuffer->GetReadSize() == 0)
+			if(size < bytes)
 				break;
-			//if(size == bytes)
-			//	break;
 		}
 	}
 
@@ -195,20 +194,27 @@ int TcpSocket::Write(void * data,int size)
 	{
 		++m_writeLock;
 		basesocket_sptr s;
-		if(se->GetSocket(GetFd(),GetCtime(),s))
-			se->WantWrite(s);
+		sockengine_sptr sptr;
+		if(GetSocketEngine(sptr))
+		{
+			if(sptr->GetSocket(GetFd(),GetCtime(),s))
+				sptr->WantWrite(s);
+		}
 	}
 	UnLockWriteBuffer();
 }
 
-void TcpSocket::Finalize()
+void TcpSocket::Finalize(basesocket_sptr s)
 {
-	basesocket_sptr s = basesocket_sptr(this);
 	if(s)
 	{
-		se->AddSocket(s);
-		m_connected = true;
-		OnConnect();
+		sockengine_sptr sptr;
+		if(GetSocketEngine(sptr))
+		{
+			sptr->AddSocket(s);
+			m_connected = true;
+			OnConnect();
+		}
 	}
 	else
 	{
@@ -245,8 +251,12 @@ void TcpSocket::Disconnect()
 void TcpSocket::Delete()
 {
 	basesocket_sptr s;
-	if(se->GetSocket(GetFd(),GetCtime(),s))
-		se->DeleteSocket(s);//delete this;
+	sockengine_sptr sptr;
+	if(GetSocketEngine(sptr))
+	{
+		if(sptr->GetSocket(GetFd(),GetCtime(),s))
+			sptr->DeleteSocket(s);//delete this;
+	}
 }
 
 bool TcpSocket::Writeable()

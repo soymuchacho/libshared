@@ -55,11 +55,6 @@ void Buffer::IncrementWritten(int bytes)
 int Buffer::GetWriteSpace()
 {
 	int space = 0;
-	if(curwptr->cwsize == 0)
-	{
-		curwptr = curwptr->pnext;
-	}
-
 	if(curwptr == NULL)
 	{
 		malloc_buffer_node();

@@ -21,49 +21,13 @@
 #include <network/mm_ThreadPool.h>
 #include <network/mm_Task.h>
 #include <network/MemoryPool.h>
-#include <network/TimerEvent.h>
-#include <network/Min_Heap.h>
-#include <network/SigEvent.h>
-#include <network/SigEventMgr.h>
+#include <network/Global_Val.h>
 #include <base/TimeManager.h>
 
 namespace Shared
 {
 
-static const int	TIME_OUT = 60;
-static int			pipefd[2];
-static int			timeout = 60;
 
-// 设置非阻塞
-void __shared_setnonblocking(int fd)
-{
-	int old_option = fcntl(fd,F_GETFL);
-	int new_option = old_option | O_NONBLOCK;
-	fcntl(fd,F_GETFL,new_option);
-}
-
-
-// 信号处理函数
-void __shared_signal_handler(int sig)
-{
-	//LOGDEBUG("debug","收到信号sig = %d",sig);
-	int save_errno = errno;
-	int msg = sig;
-	if(send(pipefd[1],(char *)&msg,1,0) <= 0)
-		LOGDEBUG("debug","send error!");
-	errno = save_errno;
-}
-
-// 注册信号信号
-void __shared_register_signal(int sig)
-{
-	struct sigaction sa;
-	memset(&sa,'\0',sizeof(sa));
-	sa.sa_handler = __shared_signal_handler;
-	sa.sa_flags |= SA_RESTART;
-	sigfillset( &sa.sa_mask );
-	ASSERT( sigaction(sig,&sa,NULL) != -1);
-}
 //////////////////////////////////////////////////////////////////////////////
 //					华丽的分割线		
 ////////////////////////////////////////////////////////////////////////////
@@ -75,30 +39,28 @@ Epoll_Engine::Epoll_Engine()
 
 Epoll_Engine::~Epoll_Engine()
 {
-	MM_DELETE(m_timeHeap);
-	MM_DELETE(m_sigMgr);
 	ShutDown();
 }
 
 void Epoll_Engine::Initialize()
 {
 
-	printf("分配最小堆空间\n");
-	m_timeHeap = MM_NEW<MinHeap>();
-	ASSERT(m_timeHeap != NULL);
-	printf("分配信号事件集合空间\n");
-	m_sigMgr = MM_NEW<SigEventMgr>();
-	ASSERT(m_sigMgr != NULL);
+
+	// 初始化epoll
 	m_EpollFd = epoll_create(MAX_DESCRIPTORS);
 	ASSERT(m_EpollFd > 0);
 	m_FdNum = 0;
 	m_bRunning = true;
+	// 初始化线程池
 	bool ret = sMMThreads.InitThreadPool();
 	ASSERT(ret != false);
 }
 
 bool Epoll_Engine::AddSocket(basesocket_sptr & socket)
 {
+	// 这里不需要加锁...
+	// 因为每个连接的fd都是一一对应的，也就是唯一的。这里
+	// 不存在同时操作一个fds[fd]，因此不需要加锁。
 	if(!socket)
 	{
 		LOGDEBUG("debug","AddSocket socket is null");
@@ -107,6 +69,7 @@ bool Epoll_Engine::AddSocket(basesocket_sptr & socket)
 	int fd = socket->GetFd();
 	int use_count = fds[fd].use_count();
 	//LOGDWORN("debug","fd %d use_count %d",fd,use_count);
+	// 检测当前连接是否还在被占用，若被占用，将old connection 关闭
 	if(use_count != 0)
 	{
 		//LOGDWORN("debug","base is not null! so disconnect,use_count %d",use_count);
@@ -214,7 +177,7 @@ void Epoll_Engine::ShutDown()
 }
 
 
-void Epoll_Engine::Epoll_Loop()
+void Epoll_Engine::Engine_Loop()
 {
 	const static int maxevents = 1024;
 	struct epoll_event events[1024];
@@ -243,7 +206,6 @@ void Epoll_Engine::Epoll_Loop()
 		{
 			time_end = CURRENTTIME();
 			timeout = time_end - time_start;
-			
 			for(int i = 0; i < nfds; i++)
 			{
 				int fd = events[i].data.fd;
@@ -384,49 +346,96 @@ bool Epoll_Engine::OnRecvSignal()
 			m_sigMgr->Execute((int)signals[i]);
 		}
 	}
+
+	// EPOLLONESHUT 每次触发后，需要重新添加
 	RemoveFd(pipefd[0]);
 	AddFd(pipefd[0]);
 	return true;
 }
 
 /*
- *	@brief	添加时间事件
- */
-void Epoll_Engine::AddTimerEvent(int ev_attr,int interval,void (*callback)(void *),void * arg)
+ * @ brief 添加事件
+ *
+ * @ param 详见Event.h 中struct Event
+ */ 
+
+bool Epoll_Engine::Event_Add(EVENT * ev)
 {
-	TimerEvent * ev = MM_NEW<TimerEvent>();
 	if(ev == NULL)
 	{
-		LOGDWORN("debug","malloc error");
-		return ;
+		LOGDWORN("debug","Event_Add : ev or basesocket is null");
+		return false;
 	}
-	ev->ev_attr = (Event_Attr)ev_attr;
-	ev->alarm_time = CURRENTTIME() + interval;
-	ev->interval = interval;
-	ev->handler = callback;
-	ev->arg = arg;
-	m_timeHeap->AddTimerEvent(ev);
-	return ;
+
+	switch(ev->m_eType)
+	{
+		case EVENT_TYPE_TIMER:
+			{
+				// 添加时间事件				
+				m_timeHeap->AddTimerEvent(ev);
+			}
+			break;
+		case EVENT_TYPE_SIGNAL:
+			{
+				// 添加信号事件
+				m_sigMgr->AddSigEvent(ev);
+				// 注册信号
+				__shared_register_signal(ev->m_eid);
+			}
+			break;
+		case EVENT_TYPE_IO:
+			{
+				m_evMgr->Register_Event(ev);	
+			}
+			break;
+		default:
+			LOGDWORN("debug","none event type %d",ev->m_eType);
+			return false;
+	}
+	return true;
 }
 
-/*
- *	@brief 添加信号事件
- *
- */
-void Epoll_Engine::AddSigEvent(int ev_attr,int sig,void (*callback)(void *),void * arg)
+bool Epoll_Engine::Event_IO_Excute(EVENT_ID eid,int fd,int arg,void * args)
 {
-	SigEvent * ev = MM_NEW<SigEvent>();
+	if(m_evMgr)
+	{
+		return m_evMgr->Event_Excute(eid,fd,arg,args);
+	}
+	return false;
+}
+
+bool Epoll_Engine::Event_Del(EVENT * ev)
+{
 	if(ev == NULL)
 	{
-		LOGDWORN("debug","malloc error");
-		return;
+		LOGDWORN("debug","Event_Del : ev or basesocket is null");
+		return false;
 	}
-	ev->sig_attr = (Event_Attr)ev_attr;
-	ev->sig = sig;
-	ev->handler = callback;
-	ev->arg = arg;
-	m_sigMgr->AddSigEvent(ev);
-	__shared_register_signal(sig);
+
+	switch(ev->m_eType)
+	{
+		case EVENT_TYPE_TIMER:
+			{
+				// 移除时间事件				
+				m_timeHeap->DelTimerEvent(ev);
+			}
+			break;
+		case EVENT_TYPE_SIGNAL:
+			{
+				// 移除信号事件
+				m_sigMgr->RemoveSigEvent(ev->m_eid);
+			}
+			break;
+		case EVENT_TYPE_IO:
+			{
+				// 移除IO事件
+				m_evMgr->UnRegister_Event(ev->m_eid);	
+				MM_DELETE(ev);
+			}
+			break;
+		default:
+			LOGDWORN("debug","none event type %d",ev->m_eType);
+	}
 }
 
 }

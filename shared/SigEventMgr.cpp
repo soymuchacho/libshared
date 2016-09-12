@@ -14,8 +14,8 @@
  * */
 
 #include <network/SigEventMgr.h>
-#include <network/SigEvent.h>
 #include <network/MemoryPool.h>
+#include <utility/ObjectMgr.hpp>
 
 namespace Shared
 {
@@ -30,71 +30,38 @@ SigEventMgr::~SigEventMgr()
 	Clear();
 }
 
-void SigEventMgr::AddSigEvent(SigEvent * ev)
+bool SigEventMgr::AddSigEvent(Event * ev)
 {
-	if(ev == NULL)
-	{
-		return;
-	}
+	if(!ev)
+		return false;
 
-	MutexLockGuard guard(&m_mutex);
-	map<int,SigEvent *>::iterator itr;
-	itr = m_sigmap.find(ev->sig);
-	if(itr != m_sigmap.end())
-	{
-		SigEvent * oldev = itr->second;
-		MM_DELETE(oldev);
-	}
-	m_sigmap[ev->sig] = ev;
+	return Append(ev->m_eid,ev);
 }
 
-SigEvent * SigEventMgr::GetSigEvent(int sig)
+bool SigEventMgr::GetSigEvent(int sig,event_sptr& ev)
 {
-	MutexLockGuard guard(&m_mutex);
-	map<int,SigEvent *>::iterator itr;
-	itr = m_sigmap.find(sig);
-	if(itr != m_sigmap.end())
-	{
-		return itr->second;
-	}
-	return NULL;
+	return Get(sig,ev);
 }
 
-void SigEventMgr::RemoveSigEvent(int sig)
+bool SigEventMgr::RemoveSigEvent(int sig)
 {
-	MutexLockGuard guard(&m_mutex);
-	map<int,SigEvent *>::iterator itr;
-	itr = m_sigmap.find(sig);
-	if(itr != m_sigmap.end())
-	{
-		SigEvent * ev = itr->second;
-		MM_DELETE(ev);
-		m_sigmap.erase(itr);
-	}
+	return Remove(sig);
 }
 
 void SigEventMgr::Clear()
 {
-	MutexLockGuard guard(&m_mutex);
-	map<int,SigEvent *>::iterator itr;
-	for(itr = m_sigmap.begin(); itr != m_sigmap.end(); itr++)
-	{
-		SigEvent * ev = itr->second;
-		MM_DELETE(ev);
-	}
-	m_sigmap.clear();
+	Clear();
 }
 
 void SigEventMgr::Execute(int sig)
 {
-	SigEvent * ev = GetSigEvent(sig);
-	if(ev != NULL)
+	event_sptr ev;
+	if(GetSigEvent(sig,ev))
 	{
-		if(ev->handler != NULL)
+		if(ev->m_call)
 		{
-			ev->handler(ev->arg);
+			ev->m_call(ev->m_fd,ev->m_arg,ev->m_args);
 		}
-//		RemoveSigEvent(sig);
 	}
 }
 

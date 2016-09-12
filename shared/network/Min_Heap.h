@@ -22,7 +22,7 @@
 namespace Shared
 {
 
-class TimerEvent;
+class Event;
 
 class MinHeap 
 {
@@ -35,8 +35,8 @@ public:
 	bool Empty();
 	void Display();
 public:
-	bool AddTimerEvent(TimerEvent * ev);
-	bool DelTimerEvent(TimerEvent * ev);
+	bool AddTimerEvent(Event * ev);
+	bool DelTimerEvent(Event * ev);
 	void ClearAllEvent();
 private:
 	// 下滤操作
@@ -50,10 +50,10 @@ private:
 	// 删除顶端事件
 	void pop_timer();
 protected:
-	mutable Mutex m_mutex;			// 保证线程安全
-	TimerEvent ** m_min_heap;
-	unsigned int m_capacity;
-	unsigned int m_cursize;
+	mutable Mutex	m_mutex;			// 保证线程安全
+	Event **		m_min_heap;
+	unsigned int	m_capacity;
+	unsigned int	m_cursize;
 };
 
 }

@@ -17,6 +17,11 @@
 #define SHARED_SELECT_ENGINE_H
 
 #include <network/Socket_Engine.h>
+#include <network/Min_Heap.h>
+#include <sys/select.h>
+#include <sys/time.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 namespace Shared
 {
@@ -27,22 +32,33 @@ public:
 	Select_Engine();
 	virtual ~Select_Engine();
 public:
-	bool AddSocket(BaseSocket *);
-	void DeleteSocket(BaseSocket *);
-	bool RemoveSocket(BaseSocket *);
-	void WantRead(BaseSocket *);
-	void WantWrite(BaseSocket *);
+	void Initialize();
+	bool AddSocket(basesocket_sptr &);
+	void DeleteSocket(basesocket_sptr &);
+	bool RemoveSocket(basesocket_sptr &);
+	void WantRead(const basesocket_sptr &);
+	void WantWrite(const basesocket_sptr &);
 	void ShutDown();
-	BaseSocket * GetSocket(int);
-	BaseSocket * GetSocket(unsigned long ,unsigned long);
+	bool GetSocket(int,basesocket_sptr &);
+	bool GetSocket(unsigned long,unsigned long,basesocket_sptr &);
+	void AddTimeEvent(int ev_attr,int interval,void(*callback)(void *),void * arg);
+	void AddSigEvent(int ev_attr,int sig,void (*callback)(void *),void * arg);
 public:
 	void Select_Loop();
+private:
+	bool AddFd(int fd);
+	bool RemoveFd(int fd);
+	bool OnRecvSignal();
+	// select 每次完成select后，需要重新设置fd
+	void ResetFd();
 protected:
-	int m_fdread;
-	int m_fdwrite;
-	int m_fdexception;
-	int m_maxfd;
-	int FdNum;
+	MinHeap			* m_timeHeap;
+	SigEventMgr		* m_sigMgr;
+	fd_set			m_fdread;
+	fd_set			m_fdwrite;
+	fd_set			m_fdexception;
+	int				m_maxfd;
+	int				m_FdNum;
 };
 
 }

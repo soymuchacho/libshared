@@ -113,6 +113,7 @@ static void * MM_MALLOC(unsigned int size)
 
 // placement new
 
+
 // 只使用于不带参数的构造函数的类
 template<class T>
 static T * MM_NEW()
@@ -120,6 +121,27 @@ static T * MM_NEW()
 	unsigned int size = sizeof(T);
 	void * mem = MemoryPool::getSingleton().Malloc(size);
 	T * ptr = new (mem) T();
+	return ptr;
+}
+
+// 用于BaseSocket类的构造
+template<class T>
+static T * MM_NEW(int fd , const struct sockaddr_in * peer)
+{
+
+	unsigned int size = sizeof(T);
+	void * mem = MemoryPool::getSingleton().Malloc(size);
+	T * ptr = new (mem) T(fd,peer);
+	return ptr;
+}
+
+template<class T>
+static T * MM_NEW(unsigned int fd,unsigned int ctime)
+{
+	
+	unsigned int size = sizeof(T);
+	void * mem = MemoryPool::getSingleton().Malloc(size);
+	T * ptr = new (mem) T(fd,ctime);
 	return ptr;
 }
 
@@ -134,6 +156,22 @@ static void MM_DELETE(T *& ptr)
 		ptr = NULL;
 	}
 }
+
+// 用于智能指针释放
+template<class T>
+struct SHARED_DELETE
+{
+	void operator () (T * ptr)
+	{
+		if(ptr != NULL)
+		{
+			LOGDEBUG("debug","SHARED_DELETE");
+			(ptr)->~T();
+			MemoryPool::getSingleton().Free(ptr);
+			ptr = NULL;
+		}
+	}
+};
 
 template<class T>
 static void MM_FREE(T *& ptr)

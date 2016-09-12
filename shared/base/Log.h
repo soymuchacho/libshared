@@ -26,10 +26,11 @@ namespace Shared
 
 enum LOGLEVEL
 {
-	LOG_INLIVID = 0,
-	LOG_ERROR,
-	LOG_WORN,
-	LOG_DEBUG,
+	LOG_INLIVID = 0,			// 空
+	LOG_ERROR,					// 错误
+	LOG_WORN,					// 警告
+	LOG_RELEASE,				// 发布版本打印
+	LOG_DEBUG,					// 调试版本打印
 };
 
 static void * ThreadWriteLog(void *);
@@ -46,7 +47,7 @@ public:
 	void Release();
 	void Write(LOGLEVEL level,const char * type,const char * fn,int line,const char * fmt,...);
 	void WriteLog(LOGLEVEL level,const char * type,const char * type1,const char * idtype,unsigned int id,const char * fmt, ...);
-	void WriteData(unsigned char * data,unsigned int size);
+	void WriteData(LOGLEVEL level,unsigned char * data,unsigned int size);
 
 	string GetTimestamp();
 	void OutTime(FILE * stream);
@@ -56,14 +57,14 @@ public:
 	void AddWriteTask(string & s);
 	bool GetWriteTask(string & s);
 private:
-	mutable Mutex m_mutex;
-	FILE		*logFile; 
-	int			log_file_lines;	
-	LOGLEVEL	log_level;
-	string		fn;
-	string		path;
+	mutable Mutex	m_mutex;
+	FILE			*logFile; 
+	int				log_file_lines;	
+	LOGLEVEL		log_level;
+	string			fn;
+	string			path;
 private:
-	list< string > m_list;
+	list< string >	m_list;
 };
 
 static inline Log & Shared_Log()
@@ -73,8 +74,9 @@ static inline Log & Shared_Log()
 
 }// END NAMESPACE
 
+// 二进制打印
 #define LOGDATA(data,size) \
-	Shared::Shared_Log().WriteData((unsigned char *)(data),size)
+	Shared::Shared_Log().WriteData(Shared::LOG_DEBUG,(unsigned char *)(data),size)
 
 #define LOGDEBUG(type,fmt, ...) \
 	Shared::Shared_Log().Write(Shared::LOG_DEBUG,type,__FILE__,__LINE__,fmt,##__VA_ARGS__)
@@ -86,9 +88,9 @@ static inline Log & Shared_Log()
 	Shared::Shared_Log().Write(Shared::LOG_ERROR,__FILE__,__LINE__,fmt,##__VA_ARGS__)
 
 #define LOG(type,type1,idtype,id,fmt,...) \
-	Shared::Shared_Log().WriteLog(Shared::LOG_DEBUG,type,type1,idtype,id,fmt,##__VA_ARGS__)
+	Shared::Shared_Log().WriteLog(Shared::LOG_RELEASE,type,type1,idtype,id,fmt,##__VA_ARGS__)
 
 #define LOG2(type,type1,fmt,...) \
-	Shared::Shared_Log().WriteLog(Shared::LOG_DEBUG,type,type1,"",0,fmt,##__VA_ARGS__)
+	Shared::Shared_Log().WriteLog(Shared::LOG_RELEASE,type,type1,"",0,fmt,##__VA_ARGS__)
 
 #endif// END SHARED_LOG_H

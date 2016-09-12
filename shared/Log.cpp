@@ -183,8 +183,10 @@ void Log::WriteLog(LOGLEVEL level,const char * type,const char * type1,const cha
 	AddWriteTask(s);
 }
 
-void Log::WriteData(unsigned char * data,unsigned int size)
+void Log::WriteData(LOGLEVEL level,unsigned char * data,unsigned int size)
 {
+	if(level > log_level)
+		return;
 	if(data == NULL)
 		return;
 	unsigned char * start = data;

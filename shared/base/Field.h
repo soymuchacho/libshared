@@ -16,6 +16,8 @@
 #ifndef SHARED_FIELD_H
 #define SHARED_FIELD_H
 
+#include <include/Common.h>
+
 namespace Shared
 {
 

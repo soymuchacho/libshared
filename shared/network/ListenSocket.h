@@ -27,8 +27,7 @@ template <class T>
 class ListenSocket : public BaseSocket
 {
 public:
-	ListenSocket()
-	{
+	ListenSocket(){
 		m_uFd = socket(AF_INET,SOCK_STREAM,0);
 
 		u_long arg = 1;
@@ -38,72 +37,93 @@ public:
 		m_connected = false;
 		m_bIsListen = true;
 	}
-	virtual ~ListenSocket()
-	{
+
+	virtual ~ListenSocket(){
 	
 	}
+
 public:
-	Socket_Engine * GetSocketEngine()	{	return se;	}
-	void SetSocketEngine(Socket_Engine * _se) {	se = _se;	}
-public:
-	void OnAccept(void * pointer) {}
-	void OnError() {}
+	void OnAccept(void * pointer) {
 	
-	bool OnRead()
-	{
+	}
+	
+	void OnError() {
+	
+	}
+	
+	bool OnRead() {
 		if(!m_connected) return true;
 		socklen_t len = sizeof(sockaddr_in);
 		new_fd = accept(m_uFd,(sockaddr *)&new_peer,&len);
 		if(new_fd > 0)
 		{
-			T * s = new T(new_fd,&new_peer);
+			T * s = MM_NEW<T>(new_fd,&new_peer);
 			if(s == NULL)
 			{
-				LOGDEBUG("debug","new T error!");
+				LOGDWORN("Worn","accept new T error!");
 				return true;
 			}
 			s->SetFd(new_fd);
-			s->SetSocketEngine(se);
+			
+			std::tr1::shared_ptr<Socket_Engine> eng_sptr;
+			GetSocketEngine(eng_sptr);
+			s->SetSocketEngine(eng_sptr);
+			
 			s->SetIp(inet_ntoa(new_peer.sin_addr));
 			s->SetCtime(time(NULL));
-			s->Finalize();
+			basesocket_sptr sptr(s,SHARED_DELETE<T>());
+			s->Finalize(sptr);
 		}
 		return true;
 	}
 	
-	bool OnWrite()	{}
+	bool OnWrite() {
 	
-	bool OnRecvData()	{}
+	}
 	
-	int Write(void *,int) {}
+	bool OnRecvData() {
 	
-	void Finalize()	{}
-	void Connect()	{}
+	}
 	
-	void OnDisconnect()
-	{
+	int Write(void *,int) {
+	
+	}
+	
+	void Finalize(basesocket_sptr s)	{
+	
+	}
+	
+	void Connect() {
+	
+	}
+	
+	void OnDisconnect() {
 	
 	}
 
-	void Disconnect()
-	{
+	void Disconnect() {
 		if(!m_connected)	return;
 		m_connected = false;
 		OnDisconnect();
 		basesocket_sptr s;
-		if(se->GetSocket(GetFd(),GetCtime(),s))
-			se->RemoveSocket(s);
+		std::tr1::shared_ptr<Socket_Engine> eng_sptr;
+		if(GetSocketEngine(eng_sptr))
+		{
+			if(eng_sptr->GetSocket(GetFd(),GetCtime(),s))
+				eng_sptr->RemoveSocket(s);
+		}
 		close(m_uFd);
 	}
 	
-	void Delete()
-	{
+	void Delete() {
 		delete this;
 	}
 	
-	bool Writeable() {	return false;	}
-	bool Open(char * hostname,u_short port)
-	{
+	bool Writeable() {	
+		return false;	
+	}
+
+	bool Open(char * hostname,u_short port) {
 		if(m_uFd < 0)
 			return false;
 
@@ -125,30 +145,18 @@ public:
 			return false;
 		}
 		m_connected = true;
-		basesocket_sptr s = basesocket_sptr(this);
-		se->AddSocket(s);
+		basesocket_sptr s = basesocket_sptr(this,SHARED_DELETE<BaseSocket>());
+		std::tr1::shared_ptr<Socket_Engine> eng_sptr;
+		if(GetSocketEngine(eng_sptr))
+			eng_sptr->AddSocket(s);
 		return true;
 	}
 protected:
-	int new_fd;
-	sockaddr_in new_peer;
-	sockaddr_in address;
-	Socket_Engine * se;
+	int			new_fd;				// 新接收的连接
+	sockaddr_in new_peer;			// 新接收连接的节点
+	sockaddr_in address;			// 当前监听的节点
 };
 
-template <class T>
-bool CreateListenSocket(Socket_Engine * se,char * hostname,u_short port)
-{
-	ListenSocket<T> * s = new  ListenSocket<T>();
-	s->SetCtime(time(NULL));
-	s->SetSocketEngine(se);
-	if(s->Open(hostname,port) == false)
-	{
-		s->Disconnect();
-		return false;
-	}
-	return true;
-}
 
 }
 #endif

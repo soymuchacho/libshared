@@ -19,27 +19,24 @@
 
 #include <base/Singleton.h>
 #include <base/Mutex.h>
+#include <utility/ObjectMgr.hpp>
+#include <Event.h>
 
 namespace Shared
 {
 
-class SigEvent;
-
-class SigEventMgr
+class SigEventMgr : public Utility::ObjectMgr< int , Event >
 {
 public:
 	SigEventMgr();
 	~SigEventMgr();
 public:
-	void AddSigEvent(SigEvent * ev);
-	SigEvent * GetSigEvent(int sig);
-	void RemoveSigEvent(int sig);
+	bool AddSigEvent(Event * ev);
+	bool GetSigEvent(int sig,event_sptr& ev);
+	bool RemoveSigEvent(int sig);
 	void Execute(int sig);
 private:
 	void Clear();
-protected:
-	mutable Mutex m_mutex;
-	map<int,SigEvent *> m_sigmap;
 };
 
 }

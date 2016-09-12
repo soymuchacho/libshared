@@ -15,7 +15,7 @@
 
 #include <network/Min_Heap.h>
 #include <network/MemoryPool.h>
-#include <network/TimerEvent.h>
+#include <Event.h>
 #include <base/Log.h>
 #include <base/TimeManager.h>
 
@@ -39,7 +39,7 @@ bool MinHeap::Initialize(int capacity)
 {
 	m_cursize = 0;
 	m_capacity = capacity;
-	m_min_heap = new TimerEvent *[m_capacity];
+	m_min_heap = new Event *[m_capacity];
 	if(m_min_heap == NULL)
 	{
 		LOGDWORN("debug","heap malloc error!");
@@ -52,7 +52,7 @@ bool MinHeap::Initialize(int capacity)
 	return true;
 }
 
-bool MinHeap::AddTimerEvent(TimerEvent * ev)
+bool MinHeap::AddTimerEvent(Event * ev)
 {
 	MutexLockGuard guard(&m_mutex);
 	
@@ -68,13 +68,13 @@ bool MinHeap::AddTimerEvent(TimerEvent * ev)
 	return true;
 }
 
-bool MinHeap::DelTimerEvent(TimerEvent * ev)
+bool MinHeap::DelTimerEvent(Event * ev)
 {
 	MutexLockGuard guard(&m_mutex);
 	// 将时间间隔置为 0 , 回调函数 置为NULL
 	// 延迟消除
-	ev->interval = 0;
-	ev->handler = NULL;
+	ev->m_interval = 0;
+	ev->m_call = NULL;
 	return true;
 }
 
@@ -93,7 +93,7 @@ bool MinHeap::min_heap_shift_down(int hole_index)
 	// 堆下滤操作！
 	int child_index = 0;
 
-	TimerEvent * event = m_min_heap[hole_index];
+	Event * event = m_min_heap[hole_index];
 
 	if(event == NULL)
 	{
@@ -106,12 +106,12 @@ bool MinHeap::min_heap_shift_down(int hole_index)
 		child_index = hole_index * 2 + 1;
 		if(m_min_heap[child_index] == NULL)
 			break;
-		if(child_index < (m_cursize - 1) && m_min_heap[child_index + 1]->alarm_time < m_min_heap[child_index]->alarm_time)
+		if(child_index < (m_cursize - 1) && m_min_heap[child_index + 1]->m_alarm < m_min_heap[child_index]->m_alarm)
 		{
 			++child_index;
 		}
 
-		if (m_min_heap[child_index]->alarm_time < event->alarm_time)
+		if (m_min_heap[child_index]->m_alarm < event->m_alarm)
 		{
 			m_min_heap[hole_index] = m_min_heap[child_index];
 		}
@@ -127,7 +127,7 @@ bool MinHeap::min_heap_shift_up(int hole_index)
 	// 堆上滤操作！
 	int father_index = 0;
 	
-	TimerEvent * event = m_min_heap[hole_index];
+	Event * event = m_min_heap[hole_index];
 	
 	if(event == NULL)
 	{
@@ -140,7 +140,7 @@ bool MinHeap::min_heap_shift_up(int hole_index)
 		father_index = (hole_index - 1) / 2;
 		if(m_min_heap[father_index] == NULL)
 			break;
-		if( event->alarm_time >= m_min_heap[father_index]->alarm_time)
+		if( event->m_alarm >= m_min_heap[father_index]->m_alarm)
 		{
 			break;
 		}
@@ -154,7 +154,7 @@ bool MinHeap::min_heap_shift_up(int hole_index)
 bool MinHeap::IncreaseCapacity()
 {
 	int capacity = m_capacity * 2;
-	TimerEvent ** min_heap = new TimerEvent*[capacity];
+	Event ** min_heap = new Event*[capacity];
 	if(min_heap == NULL)
 	{
 		LOGDWORN("debug","min_heap malloc error!");
@@ -178,17 +178,16 @@ bool MinHeap::IncreaseCapacity()
 
 void MinHeap::pop_timer()
 {
-	//LOGDEBUG("debug","pop_timer");
 	if( Empty() )
 		return;
 	MutexLockGuard guard(&m_mutex);
-	TimerEvent * event = m_min_heap[0];
+	Event * event = m_min_heap[0];
 
 	if(event != NULL)
 	{
-		if(event->ev_attr == EVENT_ATTR_CYCLE)	
+		if(event->m_attr == EVENT_ATTR_CYCLE)	
 		{
-			event->alarm_time += event->interval;
+			event->m_alarm += event->m_interval;
 		}
 		else
 		{
@@ -217,16 +216,25 @@ bool MinHeap::Empty()
 
 void MinHeap::Tick()
 {
-	TimerEvent * event = m_min_heap[0];	
+	Event * event = m_min_heap[0];	
 	time_t now_time = CURRENTTIME();
 	while(!Empty())
 	{
 		if(event == NULL)
 			break;
-		if(event->alarm_time > now_time)
+		if(event->m_alarm > now_time)
 			break;
-		if(event->handler)
-			event->handler(event->arg);
+		if(event->m_interval == 0)
+		{
+			// 此event需要删除
+			m_min_heap[0] = NULL;
+			pop_timer();
+			// 将event销毁，只此一处销毁，其他地方不能销毁该event
+			MM_DELETE(event);
+			break;
+		}
+		if(event->m_call)
+			event->m_call(event->m_fd,event->m_arg,event->m_args);
 		pop_timer();
 		event = m_min_heap[0];
 	}
@@ -237,11 +245,11 @@ void MinHeap::Display()
 	for(int i = 0; i < m_cursize;i++)
 	{
 		if(m_min_heap[i] == NULL)
-			printf("[%d(null)] ",i);
+			LOG2("L","MINHEAP","[%d(null)] ",i);
 		else
-			printf("[%d(%u)]",i,m_min_heap[i]->alarm_time);
+			LOG2("L","MINHEAP","[%d(%u)]",i,m_min_heap[i]->m_alarm);
 	}
-	printf("\n----------------------------------\n");
+	LOG2("L","MINHEAP","----------------------------------");
 }
 
 }

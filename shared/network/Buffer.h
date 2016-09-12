@@ -26,7 +26,7 @@ namespace Shared
  *
  */
 
-#define BUFFER_NODE_SIZE 81960				// 缓冲区大小
+#define BUFFER_NODE_SIZE 4096				// 缓冲区大小
 #define BUFFER_NODE_INIT_NUM 2
 
 // 缓冲区链表节点
