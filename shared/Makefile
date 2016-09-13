@@ -40,9 +40,9 @@ OBJS = Config.o Log.o Epoll_Engine.o TcpSocket.o Mutex.o \
 	   mm_Thread.o mm_ThreadPool.o mm_Task.o Select_Engine.o \
 	   Event_Handles.o Field.o 
 
-all:	libShare.a
+all:	libshared.a
 
-libShare.a:	$(OBJS)
+libshared.a:	$(OBJS)
 	ar cru $@ $(OBJS)
 	ranlib $@
 

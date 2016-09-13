@@ -37,6 +37,7 @@
 #include <tr1/memory>
 #include <ext/hash_map>
 #include <base/Mutex.h>
+#include <network/MemoryPool.h>
 
 namespace Shared
 {
@@ -59,12 +60,32 @@ public:
 	typedef std::tr1::shared_ptr<Value> value_sptr;
 	typedef typename __gnu_cxx::hash_map<Key,value_sptr>::iterator Iterator;
 public:
-	// 向管理集合中添加一个对象
-	bool Append(Key k,Value * v)
+	/**
+	 *	@brief 向集合中添加一个对象。
+	 *
+	 *	@param k	[in] 关键字
+	 *	@param val	[in] 对象指针，该指针必须是由
+	 *					 系统堆分配的内存。如果是
+	 *					 本库的内存池分配，请使用
+	 *					 楼下函数。
+	 *	@param isUseSP [in] 是否使用了libshared库的内存池（memorypool）
+	 *						默认为不使用，如若使用，请设置为true。
+	 *
+	 *	@return true	添加成功
+	 *			false	添加失败
+	 *
+	 **/
+	bool Append(Key k,Value * v,bool isUseMP = false)
 	{
 		MutexLockGuard lock(&m_mutex);
+
+		value_sptr val;
+
+		if(isUseMP)
+			val.reset(v,SHARED_DELETE<Value>());
+		else
+			val.reset(v);
 		
-		value_sptr val(v);
 		Iterator itr = m_objmap.find(k);	
 		
 		if(itr != m_objmap.end())
@@ -137,6 +158,7 @@ public:
 	}
 private:
 	mutable Mutex m_mutex;	// 锁
+	// hash map使用key和智能指针
 	__gnu_cxx::hash_map<Key,value_sptr> m_objmap;
 };
 

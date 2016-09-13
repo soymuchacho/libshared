@@ -53,7 +53,7 @@ bool SigEventMgr::AddSigEvent(Event * ev)
 	if(!ev)
 		return false;
 
-	return Append(ev->m_eid,ev);
+	return Append(ev->m_eid,ev,true);
 }
 
 bool SigEventMgr::GetSigEvent(int sig,event_sptr& ev)

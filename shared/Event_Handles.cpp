@@ -53,7 +53,7 @@ bool EventHandles::Register_Event(EVENT * ev)
 	if(ev == NULL)
 		return false;
 
-	return Append(ev->m_eid,ev);
+	return Append(ev->m_eid,ev,true);
 }
 
 bool EventHandles::Event_Excute(EVENT_ID eid, int fd , int arg , void * args)
