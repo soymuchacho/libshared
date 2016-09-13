@@ -38,16 +38,6 @@
 namespace Shared
 {
 
-static void printData(unsigned char * buf,int size)
-{
-	unsigned char  * start = buf;
-	for(int i = 0; i < size; i++)
-	{
-		printf("%02x ",*(start + i));
-	}
-	printf("\n");
-}
-
 initializeSingleton( MemoryPool );
 
 MemoryPool::MemoryPool()
