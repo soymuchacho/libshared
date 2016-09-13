@@ -149,6 +149,13 @@ bool TcpSocket::OnRead()
 	return true;
 }
 
+bool TcpSocket::OnRecvData()
+{
+	while(readBuffer->GetReadSize() > 0)
+		return Dispatch();
+	return true;
+}
+
 void TcpSocket::OnError()
 {
 	Disconnect();

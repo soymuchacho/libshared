@@ -106,6 +106,8 @@ public:
 	virtual bool OnWrite() = 0;
 	// 开始接收数据
 	virtual bool OnRecvData() = 0;
+	// 数据解析
+	virtual bool Dispatch() = 0;
 	// 发送
 	virtual int Write(void * ,int) = 0;
 	// 是否可写

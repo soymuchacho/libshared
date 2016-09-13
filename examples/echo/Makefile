@@ -1,16 +1,16 @@
-INCLUDE = -I../shared/ 
-CXX = g++
+INCLUDE = -I../../shared/ 
 GCC = g++
 CPPFLAGS = -ggdb $(INCLUDE) -Wno-deprecated -std=c++11
-CPPFLAGS += -O2 -DSERVER_INCLUDE_H
+CPPFLAGS += -O2 
 
-OBJS = main.o 
-LIBS = -L../shared/ -lShare -lpthread -lm -ldl
+OBJS = EchoSocket.o echo.o
+LIBS = -L../../build -lshared -lpthread -lm -ldl
 
-all:	main
+all:	echo
 
-main:	$(OBJS)
-	g++ -o $@ $^ $(LIBS)  
+echo:	$(OBJS)
+	$(GCC) $(CPPFLAGS) -o $@ $^ $(LIBS) 
 clean:
-	rm *.o *.a -f
+	rm *.o *.a echo -f
+	rm log -rf
 

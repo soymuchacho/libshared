@@ -53,8 +53,12 @@ template<class Key,class Value>
 class ObjectMgr
 {
 public:
-	ObjectMgr();
-	virtual ~ObjectMgr();
+	ObjectMgr(){
+	
+	}
+	virtual ~ObjectMgr(){
+	
+	}
 public:
 	// Typdef
 	typedef std::tr1::shared_ptr<Value> value_sptr;

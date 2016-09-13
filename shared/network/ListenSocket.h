@@ -103,6 +103,11 @@ public:
 	
 	}
 	
+	// 数据解析
+	bool Dispatch() {
+	
+	}
+
 	int Write(void *,int) {
 	
 	}

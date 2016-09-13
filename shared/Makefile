@@ -50,4 +50,4 @@ clean:
 	rm *.o *.a -f
 
 install:
-	cp libshared.a ./build/ -f
+	cp libshared.a ../build/ -f

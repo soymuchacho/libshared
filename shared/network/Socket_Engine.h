@@ -47,11 +47,9 @@
 namespace Shared
 {
 
-#define MAX_DESCRIPTORS 65535
-
 typedef std::tr1::shared_ptr<Shared::Socket_Engine> sockengine_sptr;
 typedef std::tr1::weak_ptr<Shared::Socket_Engine> sockengine_wptr;
-
+#define MAX_DESCRIPTORS 65535
 
 class Socket_Engine
 {

@@ -33,7 +33,6 @@
 
 #include <network/SigEventMgr.h>
 #include <network/MemoryPool.h>
-#include <utility/ObjectMgr.hpp>
 
 namespace Shared
 {

@@ -69,10 +69,11 @@ public:
 		m_writtenMutex.UnLock();	
 	}
 public:
+	// 多态
 	// 一般子类只需继承实现这3个函数
 	// 数据已经存放在缓冲区中
-	bool OnRecvData() {}
-	// 多态
+	virtual bool OnRecvData();
+	virtual bool Dispatch() {}
 	virtual void OnConnect();
 	virtual void OnDisConnect();
 public:
