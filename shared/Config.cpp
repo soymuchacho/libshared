@@ -32,7 +32,7 @@
  * */
 
 #include <base/Config.h>
-#include <base/my_func.h>
+#include <utility/String.h>
 #include <base/Log.h>
 #include <sys/types.h>
 #include <sys/stat.h>

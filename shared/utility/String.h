@@ -24,16 +24,16 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * > LIBSHARED  VERSION 		:		0.0.1 
- * > File Name					:		my_func.h
+ * > File Name					:		String.h
  * > Author						:		soymuchacho
  * > Created Time				:		2015-10
- * > brief						:		something
+ * > brief						:		字符串操作
  *
  * */
 
 
-#ifndef SHARED_MY_FUNC_H
-#define SHARED_MY_FUNC_H
+#ifndef SHARED_STRING_H
+#define SHARED_STRING_H
 
 #include <cctype>
 #include <iostream>
@@ -94,5 +94,5 @@ inline void trim(char * str)
 	start[j] = '\0';
 }
 
-}
+}// END NAMESPACE SHARED
 #endif
