@@ -1,16 +1,19 @@
-INCLUDE = -I../shared/ 
-CXX = g++
+INCLUDE = -I../../shared/ 
 GCC = g++
 CPPFLAGS = -ggdb $(INCLUDE) -Wno-deprecated -std=c++11
-CPPFLAGS += -O2 -DSERVER_INCLUDE_H
+CPPFLAGS += -O2 
 
-OBJS = main.o 
-LIBS = -L../shared/ -lShare -lpthread -lm -ldl
+OBJS = day-time.o TimeSocket.o 
+LIBS = -L../../build/ -lshared -lpthread -lm -ldl
 
-all:	main
+all:	daytime client
 
-main:	$(OBJS)
-	g++ -o $@ $^ $(LIBS)  
+daytime:	$(OBJS)
+	$(GCC) -o $@ $^ $(LIBS)  
+
+client: client.o
+	$(GCC) -o $@ $^ $(LIBS)  
+
 clean:
-	rm *.o *.a -f
+	rm *.o *.a client daytime log/ -rf
 
