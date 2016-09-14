@@ -81,7 +81,6 @@ bool Epoll_Engine::AddSocket(basesocket_sptr & socket)
 	// 不存在同时操作一个fds[fd]，因此不需要加锁。
 	if(!socket)
 	{
-		LOGDEBUG("debug","AddSocket socket is null");
 		return false;
 	}
 	int fd = socket->GetFd();
@@ -124,7 +123,6 @@ bool Epoll_Engine::AddFd(int fd)
 	ev.events |= EPOLLONESHOT;
 	if(epoll_ctl(m_EpollFd,EPOLL_CTL_ADD,fd,&ev) == -1)
 	{
-		LOGDEBUG("debug","添加 fd %d 失败！error %d",fd,errno);
 	}
 	return true;
 }
@@ -139,7 +137,6 @@ bool Epoll_Engine::RemoveFd(int fd)
 	ev.events |= EPOLLONESHOT;
 	if(epoll_ctl(m_EpollFd,EPOLL_CTL_DEL,fd,&ev) == -1)
 	{
-		LOGDEBUG("debug","删除 fd %d 失败！error %d",fd,errno);
 	}	
 	return true;
 }
@@ -202,7 +199,7 @@ void Epoll_Engine::Engine_Loop()
 	
 	if( socketpair(AF_UNIX,SOCK_STREAM,0,pipefd) == -1)
 	{
-		LOGDEBUG("debug","create pipe error!");
+		LOGDEBUG("libshared","create pipe error!");
 		return;
 	}
 	__shared_setnonblocking( pipefd[1] );
@@ -266,7 +263,6 @@ void Epoll_Engine::Engine_Loop()
 						if(eno == 0 || eno == 32)
 						{
 							// 在OnWrite中已经做过处理，这里不必再处理！
-							LOGDWORN("debug","do nothing");
 							continue;
 						}
 						MM_Task * task = new (MM_MALLOC(sizeof(MM_Task))) MM_Task(SWITCH_MM_TASK_ONERROR,(Socket_Engine *)this,fd,socket->GetCtime());
@@ -381,7 +377,6 @@ bool Epoll_Engine::Event_Add(EVENT * ev)
 {
 	if(ev == NULL)
 	{
-		LOGDWORN("debug","Event_Add : ev or basesocket is null");
 		return false;
 	}
 
@@ -407,7 +402,6 @@ bool Epoll_Engine::Event_Add(EVENT * ev)
 			}
 			break;
 		default:
-			LOGDWORN("debug","none event type %d",ev->m_eType);
 			return false;
 	}
 	return true;
@@ -426,7 +420,6 @@ bool Epoll_Engine::Event_Del(EVENT * ev)
 {
 	if(ev == NULL)
 	{
-		LOGDWORN("debug","Event_Del : ev or basesocket is null");
 		return false;
 	}
 
@@ -452,7 +445,7 @@ bool Epoll_Engine::Event_Del(EVENT * ev)
 			}
 			break;
 		default:
-			LOGDWORN("debug","none event type %d",ev->m_eType);
+			break;
 	}
 }
 

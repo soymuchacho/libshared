@@ -43,6 +43,8 @@ using namespace std;
 
 int main()
 {
+	// 初始化Log
+	Shared::Shared_Log().Initialize("echo_output",Shared::LOG_RELEASE);
 	// 初始化引擎类
 	Shared::sockengine_sptr engine;
 	Shared::Init_Engine<Shared::Epoll_Engine>(engine);

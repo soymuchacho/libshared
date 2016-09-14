@@ -66,7 +66,7 @@ public:
 	void Write(LOGLEVEL level,const char * type,const char * fn,int line,const char * fmt,...);
 	void WriteLog(LOGLEVEL level,const char * type,const char * type1,const char * idtype,unsigned int id,const char * fmt, ...);
 	void WriteData(LOGLEVEL level,unsigned char * data,unsigned int size);
-
+public:
 	string GetTimestamp();
 	void OutTime(FILE * stream);
 	void OutTimestamp(FILE * file);
@@ -75,12 +75,12 @@ public:
 	void AddWriteTask(string & s);
 	bool GetWriteTask(string & s);
 private:
-	mutable Mutex	m_mutex;
 	FILE			*logFile; 
 	int				log_file_lines;	
 	LOGLEVEL		log_level;
 	string			fn;
 	string			path;
+	mutable Mutex	m_mutex;
 private:
 	list< string >	m_list;
 };

@@ -49,7 +49,7 @@ initializeSingleton(Log);
 Log::Log()
 {
 	logFile = NULL;
-	Initialize("OutPut",LOG_DEBUG);
+//	Initialize("OutPut",LOG_DEBUG);
 }
 
 Log::~Log()

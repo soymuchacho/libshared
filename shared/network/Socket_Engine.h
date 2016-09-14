@@ -96,5 +96,6 @@ protected:
 	SigEventMgr			* m_sigMgr;					// 信号事件管理集合
 	EventHandles		* m_evMgr;					// IO事件管理集合
 };
+
 }
 #endif

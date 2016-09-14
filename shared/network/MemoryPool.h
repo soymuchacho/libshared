@@ -71,6 +71,7 @@
 #include <base/Mutex.h>
 #include <base/Singleton.h>
 #include <base/Log.h>
+
 namespace Shared
 {
 
@@ -145,7 +146,18 @@ static T * MM_NEW()
 
 // 用于BaseSocket类的构造
 template<class T>
-static T * MM_NEW(int fd , const struct sockaddr_in * peer)
+static T * MM_NEW(unsigned int fd,unsigned int ctime)
+{
+
+	unsigned int size = sizeof(T);
+	void * mem = MemoryPool::getSingleton().Malloc(size);
+	T * ptr = new (mem) T(fd,ctime);
+	return ptr;
+}
+
+// 用于BaseSocket类的构造
+template<class T>
+static T * MM_NEW(int fd,const struct sockaddr_in * peer)
 {
 
 	unsigned int size = sizeof(T);
@@ -154,15 +166,6 @@ static T * MM_NEW(int fd , const struct sockaddr_in * peer)
 	return ptr;
 }
 
-template<class T>
-static T * MM_NEW(unsigned int fd,unsigned int ctime)
-{
-	
-	unsigned int size = sizeof(T);
-	void * mem = MemoryPool::getSingleton().Malloc(size);
-	T * ptr = new (mem) T(fd,ctime);
-	return ptr;
-}
 
 // 用于与new相对应的delete
 template<class T>

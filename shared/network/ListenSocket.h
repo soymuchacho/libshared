@@ -72,21 +72,22 @@ public:
 	bool OnRead() {
 		if(!m_connected) return true;
 		socklen_t len = sizeof(sockaddr_in);
+
 		new_fd = accept(m_uFd,(sockaddr *)&new_peer,&len);
 		if(new_fd > 0)
 		{
 			T * s = MM_NEW<T>(new_fd,&new_peer);
 			if(s == NULL)
 			{
-				LOGDWORN("Worn","accept new T error!");
 				return true;
 			}
 			s->SetFd(new_fd);
-			
+
 			std::tr1::shared_ptr<Socket_Engine> eng_sptr;
 			GetSocketEngine(eng_sptr);
+			s->SetSocketEngine(eng_sptr);	
+
 			s->SetSocketEngine(eng_sptr);
-			
 			s->SetIp(inet_ntoa(new_peer.sin_addr));
 			s->SetCtime(time(NULL));
 			basesocket_sptr sptr(s,SHARED_DELETE<T>());
@@ -159,19 +160,19 @@ public:
 		address.sin_port = ntohs(port);
 		if(bind(m_uFd,(const sockaddr *)&address,sizeof(sockaddr_in)) < 0)
 		{
-			LOG2("L","TCP","bind error!");
 			return false;
 		}
 		if(listen(m_uFd,50) < 0)
 		{
-			LOG2("L","TCP","listen error!");
 			return false;
 		}
 		m_connected = true;
 		basesocket_sptr s = basesocket_sptr(this,SHARED_DELETE<BaseSocket>());
 		std::tr1::shared_ptr<Socket_Engine> eng_sptr;
 		if(GetSocketEngine(eng_sptr))
+		{
 			eng_sptr->AddSocket(s);
+		}
 		return true;
 	}
 protected:

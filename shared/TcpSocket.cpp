@@ -74,8 +74,8 @@ TcpSocket::TcpSocket(int fd,const struct sockaddr_in * peer)
 {
 	SetFd(fd);	
 
-	readBuffer = new Buffer();
-	writeBuffer = new Buffer();
+	readBuffer = MM_NEW<Buffer>();
+	writeBuffer = MM_NEW<Buffer>();
 	
 	memcpy(&m_peer,peer,sizeof(sockaddr));
 	long arg = 1;
@@ -88,14 +88,13 @@ TcpSocket::TcpSocket(int fd,const struct sockaddr_in * peer)
 
 TcpSocket::~TcpSocket()
 {
-	SAFE_DELETE(readBuffer);
-	SAFE_DELETE(writeBuffer);
+	MM_DELETE(readBuffer);
+	MM_DELETE(writeBuffer);
 	m_writeLock = 0;
 }
 
 bool TcpSocket::OnRead()
 {
-	LOGDEBUG("debug","TcpSocket OnRead");
 	int total = 0;
 	MutexLockGuard lock(&m_readMutex);
 	while(true)
@@ -108,7 +107,7 @@ bool TcpSocket::OnRead()
 		int bytes = recv(m_uFd,(char *)readBuffer->GetWriteOffSet(),space,0);
 		if(bytes == 0 )
 		{
-			LOG2("L","TCP","read 0,the peer has been closed");
+			LOGDEBUG("libshared","read 0,the peer has been closed");
 			return false;
 		}
 		else if(bytes < 0)
@@ -136,7 +135,6 @@ bool TcpSocket::OnRead()
 	{
 		if(OnRecvData() == false)
 		{
-			LOG2("L","TCP","recv data return false");
 			return false;
 		}
 
@@ -193,7 +191,6 @@ bool TcpSocket::OnWrite()
 		}
 		else
 		{
-//			LOGDATA(writeBuffer->GetReadOffSet(),size);
 			total += size;
 			writeBuffer->IncrementRead(size);
 			if(size < bytes)
@@ -270,7 +267,7 @@ void TcpSocket::Disconnect()
 	shutdown(m_uFd,SD_BOTH);
 	close(m_uFd);
 	Delete();
-	LOG2("L","TCP","tcp disconnect ...");
+	LOGDEBUG("libshared","tcp disconnect ...");
 }
 
 void TcpSocket::Delete()
