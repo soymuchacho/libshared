@@ -6,7 +6,17 @@ Requirement
 -----------------
 * Linux 
 * c++11 
-
+Direectory Structure
+-----------------
+#build
+#examples
+##daytime
+##echo
+##time-task
+#shared
+##base
+##include
+##utility
 Building & install
 ---------------
     
