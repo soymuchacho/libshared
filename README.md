@@ -6,7 +6,6 @@ Requirement
 -----------------
 * Linux 
 * c++11 
-* makefile
 
 Building & install
 ---------------
