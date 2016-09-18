@@ -6,22 +6,24 @@ Requirement
 -----------------
 * Linux 
 * c++11 
+
 Direectory Structure
 -----------------
-#build
-#examples
-##daytime
-##echo
-##time-task
-#shared
-##base
-##include
-##utility
+>build
+>examples
+>>daytime
+>>echo
+>>time-task
+>shared
+>>base
+>>include
+>>utility
+
 Building & install
 ---------------
-    
-    $ cd libshared/
+
     $ mkdir build
+    $ cd libshared/
     $ make clean 
     $ make 
     $ make install 
