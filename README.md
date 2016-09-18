@@ -10,15 +10,16 @@ Requirement
 
 Direectory Structure
 ---------------------------------
-* build --------------- 
-* examples ------------
-    * daytime ---------
-    * echo ------------
-    * time-task -------
-* shared --------------
-    * base ------------
-    * include ---------
-    * utility ---------
+    |—— build                                       // libshared.a
+    |—— examples                                    // some examples whth use libshared
+    |    |—— daytime                                // day time server and client
+    |    |—— echo                                   // echo server
+    |    |—— time-task                              // time task example
+    |—— shared                                      // libshared main directory
+    |    |—— base                                   // base
+    |    |—— network                                // network headfile
+    |    |—— utility                                // utility headfile
+    |    |—— include                                // include   
 
 Building & install
 ---------------
