@@ -1,8 +1,7 @@
 ![](https://github.com/soymuchacho/GitImage/raw/master/share.gif)
 libshared
 ==============
-    `linux` `epoll` `c++11`
-    Lightweight `multithreaded` network library for Linux
+    Lightweight multithreaded network library for Linux
 Requirement
 -----------------
 * Linux 
@@ -10,7 +9,7 @@ Requirement
 
 Direectory Structure
 ---------------------------------
-    |—— build                                       // libshared.a
+    |—— build                                       // 
     |—— examples                                    // some examples whth use libshared
     |    |—— daytime                                // day time server and client
     |    |—— echo                                   // echo server
