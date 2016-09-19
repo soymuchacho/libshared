@@ -64,6 +64,7 @@ bool EchoSocket::Dispatch()
 	{
 		buffer[rdsize] = '\0';
 		printf("%s",buffer);
+		Write(buffer,rdsize);
 	}
 
 	Shared::MM_FREE(buffer);

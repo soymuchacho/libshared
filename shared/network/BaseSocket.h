@@ -104,7 +104,7 @@ public:
 	virtual bool OnRead() = 0;
 	// 发送数据
 	virtual bool OnWrite() = 0;
-	// 开始接收数据
+	// 接收数据完数据调用，此时数据已经存放在缓冲区中
 	virtual bool OnRecvData() = 0;
 	// 数据解析
 	virtual bool Dispatch() = 0;
