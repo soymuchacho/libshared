@@ -32,6 +32,12 @@ Building & install
     $ make 
     $ make install 
 
+Wish Extension
+------------------------------------
+will suport mysql
+will suport python 
+will suport lua 
+
 Change Log
 ----------------------------------
 
