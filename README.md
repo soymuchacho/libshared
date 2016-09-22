@@ -19,7 +19,7 @@ Direectory Structure
     |    |—— network                                // 网络相关的封装
     |    |—— utility                                // 实用库
     |    |—— include                                // 头文件
-    |—— mysql                                       // 对mysql的支持
+    |—— sql											// 对mysql的支持
     |—— lua											// c++调用lua及lua调用c++接口支持
     |—— python										// c++调用python及python调用c++接口支持
 
@@ -35,13 +35,18 @@ Building & install
     $ make 
     $ make install 
 
+	// 请先自行安装Mysql,然后再进行编译
+	// 增加mysql支持
+	$ make EnableMYSQL=true
+
 Wishes Extension
 ------------------------------------
-    will suport mysql
-    will suport python 
-    will suport lua 
+	2016.5.1
+	* suport mysql
+    * suport python 
+    * suport lua 
 
 Change Log
 ----------------------------------
 
-
+2016.9.22 新增mysql操作的支持
