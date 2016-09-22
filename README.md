@@ -19,9 +19,9 @@ Direectory Structure
     |    |—— network                                // 网络相关的封装
     |    |—— utility                                // 实用库
     |    |—— include                                // 头文件
-    |——— mysql                                      // 
-    |——— lua
-    |——— python
+    |—— mysql                                       // 对mysql的支持
+    |—— lua											// c++调用lua及lua调用c++接口支持
+    |—— python										// c++调用python及python调用c++接口支持
 
 Class 
 ----------------------------------
