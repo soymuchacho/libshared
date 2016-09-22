@@ -31,12 +31,14 @@
  *
  * */
 
-#include <mysql/MSYQLConnection.h>
+#include <sql/MYSQLConnection.h>
+#include <network/MemoryPool.h>
+#include <base/Log.h>
 
 namespace Shared
 {
 
-namespace MYSQL
+namespace SQL
 {
 
 MYSQLConnection::MYSQLConnection()
@@ -66,11 +68,18 @@ bool MYSQLConnection::ConnectMYSQL(char * host,char * user,char * pwd,char * db)
 	strncpy(m_pwd,pwd,MYSQL_PWD_SIZE - 1);
 	strncpy(m_db,db,MYSQL_DB_SIZE - 1);
 	// 初始化
-	if( !mysql_init(m_sqlsock) )
+	if( !(m_sqlsock = mysql_init(0)) )
+	{
+		LOGDEBUG("mysql","mysql init error!");
 		return false;
+	}
+	unsigned long flag;
 	// 连接数据库
-	if( !mysql_real_connect(m_sqlsock,m_host,m_user,m_pwd,m_db))
+	if( !mysql_real_connect(m_sqlsock,m_host,m_user,m_pwd,m_db,3306,NULL,flag))
+	{
+		LOGDEBUG("mysql","errno(%d) : %s",mysql_errno(m_sqlsock),mysql_error(m_sqlsock));
 		return false;
+	}
 	return true;
 }
 
@@ -114,7 +123,7 @@ ResultSet * MYSQLConnection::FetchResultSet()
 	else
 	{
 		// 获取后面的结果集合
-		if(msyql_next_result(m_sqlsock) == 0)
+		if(mysql_next_result(m_sqlsock) == 0)
 		{
 			ResultSet * res = MM_NEW<ResultSet>();
 			if(res == NULL)

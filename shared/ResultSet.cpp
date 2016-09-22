@@ -31,12 +31,13 @@
  *
  * */
 
-#include <mysql/ResultSet.h>
+#include <sql/ResultSet.h>
+#include <base/Log.h>
 
 namespace Shared
 {
 
-namespace MYSQL
+namespace SQL
 {
 
 ResultSet::ResultSet()
@@ -67,16 +68,16 @@ unsigned long ResultSet::GetString(unsigned int row, unsigned int field,char ** 
 {
 	if(m_row != row)
 	{
-		m_mysqlrows = mysql_fetch_row(result);
-		m_lengths = mysql_fetch_lengths(result); 
-		this->row = row;
+		m_mysqlrows = mysql_fetch_row(m_result);
+		m_lengths = mysql_fetch_lengths(m_result); 
+		m_row = row;
 	}
 	
 	*value = m_mysqlrows[field];
-	return m_legths[field];
+	return m_lengths[field];
 }
 
-unsigned int ResultSet::FieldCount()
+unsigned int ResultSet::FieldsCount()
 {
 	return mysql_field_count(m_sqlsock);
 }
