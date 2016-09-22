@@ -31,3 +31,36 @@
  *
  * */
 
+#ifndef SHARED_MYSQL_RESULTSET_H
+#define SHARED_MYSQL_RESULTSET_H
+
+#include <mysql/mysql.h>
+
+namespace Shared
+{
+
+namespace MYSQL
+{
+
+class ResultSet : public noncopyable
+{
+public:
+	ResultSet();
+	~ResultSet();
+public:
+	bool Initialize(MYSQL * sock);
+	unsigned int FieldsCount();
+	unsigned int RowCount();
+	unsigned long GetString(unsigned int row,unsigned int field,char **value);
+private:
+	MYSQL			* m_sqlsock;
+	MYSQL_RES		* m_result;
+	MYSQL_ROW		  m_mysqlrows;
+	unsigned long	* m_lengths;
+	unsigned int	  m_row;
+};//END CLASS RESULTSET
+
+}//END NAMESPACE MYSQL
+
+}//END NAMESPACE SHARED
+

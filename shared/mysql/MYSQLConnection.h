@@ -31,3 +31,72 @@
  *
  * */
 
+
+#ifndef SHARED_MYSQL_CONNECTION_H
+#define SHARED_MYSQL_CONNECTION_H
+
+#include <base/NonCopyable.h>
+#include <mysql.h>
+
+namespace Shared
+{
+
+namespace MYSQL
+{
+
+// 数据库状体
+typedef enum mysql_connection_state
+{
+	MYSQL_CONNECTION_BUSY,
+	MYSQL_CONNECTION_IDLE,
+}MYSQL_CONNECTION_STATE;
+
+#define MYSQL_HOST_SIZE		64
+#define MYSQL_USER_SIZE		MYSQL_HOST_SIZE
+#define MYSQL_PWD_SIZE		MYSQL_HOST_SIZE
+#define MYSQL_DB_SIZE		MYSQL_HOST_SIZE
+
+// 数据库连接类
+class MYSQLConnection : public noncopyable
+{
+public:
+	MYSQLConnection();
+	~MYSQLConnection();
+public:
+	/**
+	 *	@brief 连接数据库
+	 *
+	 **/
+	bool ConnectMYSQL(char * host,char * user,char * pwd,char * db);
+	/**
+	 *	@brief 数据库重新连接
+	 */
+	bool ReconnectMYSQL();
+	/*
+	 *	@brief 执行sql语句
+	 */
+	bool RealQuery(string sql);
+	/**
+	 *	@brief 获取一个结果集
+	 */
+	ResultSet * FetchResultSet();
+	/**
+	 *	@brief 检测数据库连接状态，如果连接断开，则进行重连
+	 */
+	void Update();
+private:
+	MYSQL *		m_sqlsock;				/**< mysql连接句柄 >*/
+	ResultSet * m_retset;				/**< 数据库结果集 >*/
+	bool		firstFetch;				/**< 第一次获取结果集 >*/
+private:
+	char		m_host[MYSQL_HOST_SIZE];				/**< 数据库host >*/
+	char		m_user[MYSQL_USER_SIZE];				/**< 数据库用户名 >*/
+	char		m_pwd[MYSQL_PWD_SIZE];				/**< 数据库用户的密码 >*/
+	char		m_db[MYSQL_DB_SIZE];				/**< 需要连接的数据库 >*/
+};//END CLASS MYSQLCONNECTION
+
+}//END NAMESPACE MYSQL
+
+}//END NAMESPACE SHARED
+
+#endif
