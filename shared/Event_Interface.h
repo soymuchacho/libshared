@@ -47,7 +47,7 @@
 namespace Shared
 {
 
-
+/**< @brief 注册IO事件宏 >*/
 #define shared_registerioevent(engine,evid,callback) \
 	do{\
 		Shared::RegisterEvent(engine,Shared::CreateEvent(evid, \
@@ -55,6 +55,7 @@ namespace Shared
 					callback)); \
 	}while(0)
 
+/**< @brief 注册时间永久事件宏，不用时需要手动删除事件 >*/
 #define shared_registertimerevent(engine,ev,callback,fd,arg,args,interval) \
 	do{\
 		ev = CreateEvent(0,Shared::EVENT_TYPE_TIMER,Shared::EVENT_ATTR_CYCLE, \
@@ -62,6 +63,7 @@ namespace Shared
 		Shared::RegisterEvent(engine,ev);\
 	}while(0)
 
+/**< @brief 注册信号事件 >*/
 #define shared_registersignalevent(engine,ev,sig,callback,fd,arg,args) \
 	do{ \
 		ev = CreateEvent(sig,Shared::EVENT_TYPE_TIMER,Shared::EVENT_ATTR_CYCLE, \
