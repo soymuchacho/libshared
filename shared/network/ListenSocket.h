@@ -61,6 +61,11 @@ public:
 	}
 
 public:
+
+	void LoadHandles() {
+	
+	}
+
 	void OnAccept(void * pointer) {
 	
 	}

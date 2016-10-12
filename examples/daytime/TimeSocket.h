@@ -44,11 +44,11 @@ public:
 	TimeSocket(int fd, const struct sockaddr_in * peer);
 	virtual ~TimeSocket();
 public:
+	virtual void LoadHandles();
 	virtual bool Dispatch();
 	virtual void OnConnect();
 	virtual void OnDisConnect();
 private:
-	void LoadHandles();
 	bool HandleMessage();
 public:
 	void * HandleGetDayTime(int fd, int size , void * data);

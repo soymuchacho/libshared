@@ -69,7 +69,6 @@ void TimeSocket::LoadHandles()
 void TimeSocket::OnConnect()
 {
 	LOG("server","daytime","fd",this->GetFd(),"---新用户连接---");
-	LoadHandles();
 }
 
 void TimeSocket::OnDisConnect()
