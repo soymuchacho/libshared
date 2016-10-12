@@ -62,7 +62,7 @@ namespace Shared
 		Shared::RegisterEvent(engine,ev);\
 	}while(0)
 
-#define shared_registersignalevent(engine,ev,sig,callbakc,fd,arg,args) \
+#define shared_registersignalevent(engine,ev,sig,callback,fd,arg,args) \
 	do{ \
 		ev = CreateEvent(sig,Shared::EVENT_TYPE_TIMER,Shared::EVENT_ATTR_CYCLE, \
 				callback,fd,arg,args); \
