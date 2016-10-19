@@ -102,7 +102,17 @@ public:
 		}
 		return true;
 	}
-	
+
+	bool Append(Key k, value_sptr& sptr)
+	{
+		Iterator itr = m_objmap.find(k);
+		if(itr != m_objmap.end())
+			return false;
+		else
+			m_objmap.insert(make_pair(k,sptr));
+		return true;
+	}
+
 	// 从管理集合中获取一个对象
 	bool Get(Key k,value_sptr& sptr)
 	{
@@ -192,7 +202,7 @@ public:
 	}
 
 	template<class P1,class P2>
-	void Travalcall(std::function<void (Key,value_sptr,P1)> callback,P1 p1,P2 p2)
+	void Travalcall(std::function<bool (Key,value_sptr,P1,P2)> callback,P1 p1,P2 p2)
 	{
 		MutexLockGuard lock(&m_mutex);	
 		Iterator itr;
@@ -207,7 +217,7 @@ public:
 
 
 	template<class P1,class P2,class P3>
-	void Travalcall(std::function<void (Key,value_sptr,P1,P2,P3)> callback,P1 p1, P2 p2,P3 p3)
+	void Travalcall(std::function<bool (Key,value_sptr,P1,P2,P3)> callback,P1 p1, P2 p2,P3 p3)
 	{
 		MutexLockGuard lock(&m_mutex);	
 		Iterator itr;
