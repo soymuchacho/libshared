@@ -58,7 +58,15 @@ namespace Shared
 /**< @brief 注册时间永久事件宏，不用时需要手动删除事件 >*/
 #define shared_registertimerevent(engine,ev,callback,fd,arg,args,interval) \
 	do{\
-		ev = CreateEvent(0,Shared::EVENT_TYPE_TIMER,Shared::EVENT_ATTR_CYCLE, \
+		ev = Shared::CreateEvent(0,Shared::EVENT_TYPE_TIMER,Shared::EVENT_ATTR_CYCLE, \
+				callback,fd,arg,args,interval); \
+		Shared::RegisterEvent(engine,ev);\
+	}while(0)
+
+/**< @brief 注册单一时间事件（仅执行一次），不用时需要手动删除事件 >*/
+#define shared_registertimersingleevent(engine,callback,fd,arg,args,interval) \
+	do{\
+		Shared::Event * ev = Shared::CreateEvent(0,Shared::EVENT_TYPE_TIMER,Shared::EVENT_ATTR_ONCE, \
 				callback,fd,arg,args,interval); \
 		Shared::RegisterEvent(engine,ev);\
 	}while(0)
@@ -66,7 +74,7 @@ namespace Shared
 /**< @brief 注册信号事件 >*/
 #define shared_registersignalevent(engine,ev,sig,callback,fd,arg,args) \
 	do{ \
-		ev = CreateEvent(sig,Shared::EVENT_TYPE_TIMER,Shared::EVENT_ATTR_CYCLE, \
+		ev = Shared::CreateEvent(sig,Shared::EVENT_TYPE_TIMER,Shared::EVENT_ATTR_CYCLE, \
 				callback,fd,arg,args); \
 		Shared::RegisterEvent(engine,ev);\
 	}while(0)
