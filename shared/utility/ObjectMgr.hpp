@@ -38,6 +38,7 @@
 #include <ext/hash_map>
 #include <base/Mutex.h>
 #include <network/MemoryPool.h>
+#include <functional>
 
 namespace Shared
 {
@@ -84,7 +85,8 @@ public:
 		MutexLockGuard lock(&m_mutex);
 
 		value_sptr val;
-
+	
+		// 返回失败
 		if(isUseMP)
 			val.reset(v,SHARED_DELETE<Value>());
 		else
@@ -158,6 +160,63 @@ public:
 		{
 			itr->second.reset();
 			m_objmap.erase(itr++);
+		}
+	}
+public:
+	/**< @brief 遍历，传入回调函数 >*/
+	void Travalcall(std::function<bool (Key,value_sptr)> callback)
+	{
+		MutexLockGuard lock(&m_mutex);
+		Iterator itr;
+		for(itr = m_objmap.begin(); itr != m_objmap.end(); itr++)
+		{
+			if(callback(itr->first,itr->second))
+				continue;
+			else
+				return ;
+		}
+	}
+	
+	template<class P1>
+	void Travalcall(std::function<bool (Key,value_sptr,P1)> callback,P1 p1)
+	{
+		MutexLockGuard lock(&m_mutex);	
+		Iterator itr;
+		for(itr = m_objmap.begin(); itr != m_objmap.end(); itr++)
+		{
+			if(callback(itr->first,itr->second,p1))
+				continue;
+			else
+				return ;
+		}
+	}
+
+	template<class P1,class P2>
+	void Travalcall(std::function<void (Key,value_sptr,P1)> callback,P1 p1,P2 p2)
+	{
+		MutexLockGuard lock(&m_mutex);	
+		Iterator itr;
+		for(itr = m_objmap.begin(); itr != m_objmap.end(); itr++)
+		{
+			if(callback(itr->first,itr->second,p1,p2))
+				continue;
+			else
+				return ;
+		}
+	}
+
+
+	template<class P1,class P2,class P3>
+	void Travalcall(std::function<void (Key,value_sptr,P1,P2,P3)> callback,P1 p1, P2 p2,P3 p3)
+	{
+		MutexLockGuard lock(&m_mutex);	
+		Iterator itr;
+		for(itr = m_objmap.begin(); itr != m_objmap.end(); itr++)
+		{
+			if(callback(itr->first,itr->second,p1,p2,p3))
+				continue;
+			else
+				return ;
 		}
 	}
 private:
