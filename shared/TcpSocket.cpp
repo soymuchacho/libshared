@@ -150,7 +150,10 @@ bool TcpSocket::OnRead()
 bool TcpSocket::OnRecvData()
 {
 	while(readBuffer->GetReadSize() > 0)
-		return Dispatch();
+	{
+		if(Dispatch() == false)
+			return false;
+	}
 	return true;
 }
 
@@ -252,6 +255,7 @@ void TcpSocket::OnConnect()
 
 void TcpSocket::OnDisConnect()
 {
+
 }
 
 void TcpSocket::Disconnect()
@@ -259,6 +263,8 @@ void TcpSocket::Disconnect()
 	if(!m_connected) return;
 	m_connected = false;
 	this->OnDisConnect();
+	// 将缓冲区中没有发送的数据发送完毕
+	this->OnWrite();	
 	// 2015.10.22 guqi
 	// 关闭m_uFd的时候也能触发
 	// epoll_ctl del操作，所以将

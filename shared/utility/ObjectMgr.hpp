@@ -65,6 +65,10 @@ public:
 	typedef std::tr1::shared_ptr<Value> value_sptr;
 	typedef typename __gnu_cxx::hash_map<Key,value_sptr>::iterator Iterator;
 public:
+	unsigned int Count() {
+		return m_objmap.size();
+	}
+public:
 	/**
 	 *	@brief 向集合中添加一个对象。
 	 *

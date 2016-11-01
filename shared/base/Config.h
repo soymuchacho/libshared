@@ -63,6 +63,9 @@ static inline Config & Shared_Config()
 	return Config::getSingleton();
 }
 
+
 }// END NAMESPACE
+
+#define SharedConfig Shared::Shared_Config()
 
 #endif// END SHARED_CONFIG_H

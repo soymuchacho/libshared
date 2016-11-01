@@ -92,6 +92,8 @@ static inline Log & Shared_Log()
 
 }// END NAMESPACE
 
+#define SharedLog Shared::Shared_Log()
+
 // 二进制打印
 #define LOGDATA(data,size) \
 	Shared::Shared_Log().WriteData(Shared::LOG_DEBUG,(unsigned char *)(data),size)

@@ -157,10 +157,13 @@ void RegisterEvent(sockengine_sptr se,Event *ev)
  *
  */
 static inline 
-void RemoveEvent(sockengine_sptr se,Event *ev) 
+void RemoveEvent(sockengine_sptr se,Event * &ev) 
 { 
-	if(se)
+	if(se && ev != NULL)
+	{
 		se->Event_Del(ev);
+		ev = NULL;
+	}
 }
 
 
