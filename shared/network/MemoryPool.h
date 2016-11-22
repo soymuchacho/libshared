@@ -167,6 +167,17 @@ static T * MM_NEW(int fd,const struct sockaddr_in * peer)
 	return ptr;
 }
 
+// 可变参数
+template<class T,class...ARGS>
+static T * MM_NEW(ARGS...args)
+{
+	unsigned int size = sizeof(T);
+	void * mem = MemoryPool::getSingleton().Malloc(size);
+	T * ptr = new (mem) T(args...);
+	return ptr;
+}
+
+/*
 template<class T,class T0,class T1,class T2>
 static T * MM_NEW(T0 a0, T1 a1, T2 a2)
 {
@@ -175,7 +186,7 @@ static T * MM_NEW(T0 a0, T1 a1, T2 a2)
 	T * ptr = new (mem) T(a0,a1,a2);
 	return ptr;
 }
-
+*/
 // 用于与new相对应的delete
 template<class T>
 static void MM_DELETE(T *& ptr)
