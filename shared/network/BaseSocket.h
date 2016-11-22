@@ -57,7 +57,7 @@ class BaseSocket : public std::tr1::enable_shared_from_this< BaseSocket >
 public:
 	BaseSocket() 
 	{
-		
+
 	} 
 	
 	virtual ~BaseSocket() {	}

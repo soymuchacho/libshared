@@ -58,7 +58,7 @@ public:
 	
 	}
 	virtual ~ObjectMgr(){
-	
+		Clear();	
 	}
 public:
 	// Typdef

@@ -71,6 +71,7 @@
 #include <base/Mutex.h>
 #include <base/Singleton.h>
 #include <base/Log.h>
+#include <typeinfo>
 
 namespace Shared
 {
@@ -166,6 +167,14 @@ static T * MM_NEW(int fd,const struct sockaddr_in * peer)
 	return ptr;
 }
 
+template<class T,class T0,class T1,class T2>
+static T * MM_NEW(T0 a0, T1 a1, T2 a2)
+{
+	unsigned int size = sizeof(T);
+	void * mem = MemoryPool::getSingleton().Malloc(size);
+	T * ptr = new (mem) T(a0,a1,a2);
+	return ptr;
+}
 
 // 用于与new相对应的delete
 template<class T>
@@ -187,7 +196,7 @@ struct SHARED_DELETE
 	{
 		if(ptr != NULL)
 		{
-			LOGDEBUG("debug","SHARED_DELETE");
+			LOGDEBUG("debug"," %s shared delete",typeid(ptr).name());
 			(ptr)->~T();
 			MemoryPool::getSingleton().Free(ptr);
 			ptr = NULL;
