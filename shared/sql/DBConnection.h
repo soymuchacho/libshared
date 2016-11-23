@@ -24,23 +24,23 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * > LIBSHARED  VERSION 		:		0.0.1 
- * > File Name					:		MYSQLConnection.h
+ * > File Name					:		DBConnection.h
  * > Author						:		soymuchacho
- * > Created Time				:		2016年09月22日 星期四 09时54分06秒
- * > brief						:		
+ * > Created Time				:		2016年11月23日 星期三 09时58分02秒
+ * > brief						:		数据库基类	
  *
  * */
-
-
-#ifndef SHARED_MYSQL_CONNECTION_H
-#define SHARED_MYSQL_CONNECTION_H
+#ifndef SHARED_DB_CONNECTION_H
+#define SHARED_DB_CONNECTION_H
 
 #include <base/NonCopyable.h>
 #include <sql/ResultSet.h>
-#include <sql/DBConnection.h>
-#include <mysql/mysql.h>
-#include <string>
-using namespace std;
+#include <include/Common.h>
+
+#define MYSQL_HOST_SIZE		64
+#define MYSQL_USER_SIZE		MYSQL_HOST_SIZE
+#define MYSQL_PWD_SIZE		MYSQL_HOST_SIZE
+#define MYSQL_DB_SIZE		MYSQL_HOST_SIZE
 
 namespace Shared
 {
@@ -48,50 +48,28 @@ namespace Shared
 namespace SQL
 {
 
-// 数据库状体
-typedef enum mysql_connection_state
-{
-	MYSQL_CONNECTION_BUSY,
-	MYSQL_CONNECTION_IDLE,
-}MYSQL_CONNECTION_STATE;
+	class DBConnection : public noncopyable
+	{
+	public:
+		DBConnection() {}
+		virtual ~DBConnection() {}
+	public:
+		// 连接数据库
+		virtual bool ConnectDB(char * host,char * user,char * pwd, char * db) = 0;
+		// 重连数据库
+		virtual bool ReconnectDB() = 0;
+		// 执行SQL语句
+		virtual bool RealQuery(string sql) = 0;
+		// 检测数据库连接状态
+		virtual void Update() = 0;
+	protected:
+		char		m_host[MYSQL_HOST_SIZE];				/**< 数据库host >*/
+		char		m_user[MYSQL_USER_SIZE];				/**< 数据库用户名 >*/
+		char		m_pwd[MYSQL_PWD_SIZE];				/**< 数据库用户的密码 >*/
+		char		m_db[MYSQL_DB_SIZE];				/**< 需要连接的数据库 >*/
+	};
+}// END NAMESPACE SQL
 
-// 数据库连接类
-class MYSQLConnection : public DBConnection
-{
-public:
-	MYSQLConnection();
-	virtual ~MYSQLConnection();
-public:
-	/**
-	 *	@brief 连接数据库
-	 *
-	 **/
-	virtual bool ConnectDB(char * host,char * user,char * pwd,char * db);
-	/**
-	 *	@brief 数据库重新连接
-	 */
-	virtual bool ReconnectDB();
-	/*
-	 *	@brief 执行sql语句
-	 */
-	virtual bool RealQuery(string sql);
-	/**
-	 *	@brief 检测数据库连接状态，如果连接断开，则进行重连
-	 */
-	virtual void Update();
-public:
-	/**
-	 *	@brief 获取一个结果集
-	 */
-	ResultSet * FetchResultSet();
-private:
-	MYSQL *		m_sqlsock;				/**< mysql连接句柄 >*/
-	ResultSet * m_retset;				/**< 数据库结果集 >*/
-	bool		firstFetch;				/**< 第一次获取结果集 >*/
-};//END CLASS MYSQLCONNECTION
-
-}//END NAMESPACE MYSQL
-
-}//END NAMESPACE SHARED
+}// END NAMESPACE SHARED
 
 #endif

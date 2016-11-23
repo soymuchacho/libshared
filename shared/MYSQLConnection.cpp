@@ -56,7 +56,7 @@ MYSQLConnection::~MYSQLConnection()
 	mysql_close(m_sqlsock);
 }
 
-bool MYSQLConnection::ConnectMYSQL(char * host,char * user,char * pwd,char * db)
+bool MYSQLConnection::ConnectDB(char * host,char * user,char * pwd,char * db)
 {
 	if(host == NULL || user == NULL || pwd == NULL || db == NULL)
 	{
@@ -83,7 +83,7 @@ bool MYSQLConnection::ConnectMYSQL(char * host,char * user,char * pwd,char * db)
 	return true;
 }
 
-bool MYSQLConnection::ReconnectMYSQL()
+bool MYSQLConnection::ReconnectDB()
 {
 	// 关闭原先连接
 	mysql_close(m_sqlsock);
@@ -141,7 +141,7 @@ void MYSQLConnection::Update()
 {
 	if(mysql_ping(m_sqlsock) != 0)
 	{
-		ReconnectMYSQL();
+		ReconnectDB();
 	}
 }
 
