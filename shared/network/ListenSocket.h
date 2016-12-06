@@ -121,19 +121,23 @@ public:
 	void Finalize(basesocket_sptr s)	{
 	
 	}
-	
+
 	void Connect() {
 	
 	}
+
+	void OnConnect() {
 	
-	void OnDisconnect() {
+	}
+	
+	void OnDisConnect() {
 	
 	}
 
 	void Disconnect() {
 		if(!m_connected)	return;
 		m_connected = false;
-		OnDisconnect();
+		OnDisConnect();
 		basesocket_sptr s;
 		std::tr1::shared_ptr<Socket_Engine> eng_sptr;
 		if(GetSocketEngine(eng_sptr))

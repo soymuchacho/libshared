@@ -80,14 +80,23 @@ public:
 	 */
 	virtual void Update();
 public:
+	void SetState(MYSQL_CONNECTION_STATE state) {
+		m_state = state;
+	} 
+
+	MYSQL_CONNECTION_STATE GetState() {
+		return m_state;
+	}
+public:
 	/**
 	 *	@brief 获取一个结果集
 	 */
 	ResultSet * FetchResultSet();
 private:
-	MYSQL *		m_sqlsock;				/**< mysql连接句柄 >*/
-	ResultSet * m_retset;				/**< 数据库结果集 >*/
-	bool		firstFetch;				/**< 第一次获取结果集 >*/
+	MYSQL *					m_sqlsock;				/**< mysql连接句柄 >*/
+	ResultSet *				m_retset;				/**< 数据库结果集 >*/
+	bool					firstFetch;				/**< 第一次获取结果集 >*/
+	MYSQL_CONNECTION_STATE	m_state;				/**< 当前连接的状态 >*/
 };//END CLASS MYSQLCONNECTION
 
 }//END NAMESPACE MYSQL

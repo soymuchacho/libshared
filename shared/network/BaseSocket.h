@@ -51,8 +51,7 @@ typedef std::tr1::shared_ptr<Shared::BaseSocket> BaseSocket_sptr;
 
 
 // 操作...
-// 继承enable_shared_from_this< BaseSocket >,可以使用强引用的this指针shared_from_this()
-class BaseSocket : public std::tr1::enable_shared_from_this< BaseSocket >
+class BaseSocket 
 {
 public:
 	BaseSocket() 
@@ -99,6 +98,10 @@ public:
 public:
 	// 加载回调函数
 	virtual void LoadHandles() = 0;
+	// 连接时
+	virtual void OnConnect() = 0;
+	// 断开连接时
+	virtual void OnDisConnect() = 0;
 	// 接受连接
 	virtual void OnAccept(void * pointer) = 0;
 	// 连接出错

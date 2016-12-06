@@ -49,6 +49,8 @@ namespace Shared
 /* 当前所使用的事件多路分发器实例*/
 static std::tr1::weak_ptr<Shared::Socket_Engine> g_wpCurrentEngine;
 
+#define GLOBAL_CURRENT_ENGINE Shared::g_wpCurrentEngine
+
 /* 计时最小单位（60毫秒）*/
 static const int	TIME_OUT = 60;
 
