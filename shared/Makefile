@@ -41,11 +41,6 @@ OBJS = Config.o Log.o Epoll_Engine.o TcpSocket.o Mutex.o \
 	   mm_Thread.o mm_ThreadPool.o mm_Task.o Select_Engine.o \
 	   Event_Handles.o Field.o Event_Interface.o 
 
-# 条件编译
-ifeq ($(EnableMYSQL),true)
-	OBJS += MYSQLConnection.o ResultSet.o	
-endif
-
 all:	libshared.a
 
 libshared.a:	$(OBJS) 
