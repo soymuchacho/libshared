@@ -35,7 +35,7 @@
 #ifndef SHARED_MM_THREAD_H
 #define SHARED_MM_THREAD_H
 
-#include <network/BaseThread.h>
+#include <common/BaseThread.h>
 
 namespace Shared
 {

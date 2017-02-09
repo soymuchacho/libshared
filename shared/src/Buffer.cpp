@@ -31,9 +31,9 @@
  *
  * */
 
-#include <network/Buffer.h>
+#include <common/Buffer.h>
 #include <common/Log.h>
-#include <network/MemoryPool.h>
+#include <common/MemoryPool.h>
 
 namespace Shared
 {

@@ -35,7 +35,7 @@
 #define SHARED_BASESOCKET_H	
 
 #include <common/Log.h>
-#include <network/MemoryPool.h>
+#include <common/MemoryPool.h>
 #include <tr1/memory>
 
 namespace Shared

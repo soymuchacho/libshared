@@ -36,9 +36,9 @@
 #include <include/Event.h>
 #include <sys/epoll.h>
 #include <common/Log.h>
-#include <network/mm_ThreadPool.h>
-#include <network/mm_Task.h>
-#include <network/MemoryPool.h>
+#include <network/ThreadPool.h>
+#include <network/Task.h>
+#include <common/MemoryPool.h>
 #include <network/Global_Val.h>
 #include <utility/TimeManager.h>
 

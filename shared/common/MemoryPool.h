@@ -67,7 +67,7 @@
  * 
  * */
 //////////////////////////////////////////////////////////////
-#include <network/MemInc.h>
+#include <common/MemInc.h>
 #include <common/Mutex.h>
 #include <common/Singleton.h>
 #include <common/Log.h>

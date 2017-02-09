@@ -34,7 +34,7 @@
 #ifndef SHARED_EVENT_INTERFACE_H
 #define SHARED_EVENT_INTERFACE_H
 
-#include <network/MemoryPool.h>
+#include <common/MemoryPool.h>
 #include <network/Epoll_Engine.h>
 #include <network/Min_Heap.h>
 #include <network/BaseSocket.h>

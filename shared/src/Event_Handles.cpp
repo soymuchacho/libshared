@@ -32,7 +32,7 @@
  * */
 
 #include <network/Event_Handles.h>
-#include <network/MemoryPool.h>
+#include <common/MemoryPool.h>
 
 namespace Shared
 {

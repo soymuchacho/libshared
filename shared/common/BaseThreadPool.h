@@ -24,67 +24,54 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * > LIBSHARED  VERSION 		:		0.0.1 
- * > File Name					:		SqlShared.h
+ * > File Name					:		BaseThreadPool.h
  * > Author						:		soymuchacho
- * > Created Time				:		2017年01月06日 星期五 10时08分50秒
- * > brief						:		mysql数据库的应用动态连接库
+ * > Created Time				:		2015-10
+ * > brief						:		线程池基类
  *
  * */
 
-#ifndef SQL_SHARED_H
-#define SQL_SHARED_H
+#ifndef SHARED_BASETHREADPOOL_H
+#define SHARED_BASETHREADPOOL_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <common/BaseThread.h>
 
-#ifndef OUT
-#define OUT
-#endif
+namespace Shared
+{
 
-#ifndef IN
-#define IN
-#endif
+class BaseTask;
+// 线程池支持的最大线程数量 ： 一般是 CPU数量 * 2
+#define MAX_THREADS_NUM 24 
 
-#ifndef SQLSHARED_API
-#define SQLSHARED_API
-#endif
+class BaseThreadPool
+{
+public:
+	BaseThreadPool(int threadnum)
+	{
+		if(threadnum > MAX_THREADS_NUM || threadnum < 0)
+		{
+			m_tnum = MAX_THREADS_NUM;
+		}
+		else
+			m_tnum = threadnum;
+	}
 
-typedef int         INT;
-typedef bool        BOOL;
-typedef void        VOID;
-    
+	virtual ~BaseThreadPool()
+	{
+	
+	}
+public:
+	inline int GetThreadNum()	{	return m_tnum;	}
+public:
+	// 初始化库
+	virtual bool			InitThreadPool() = 0;
+	// 选出一个空闲线程
+	virtual BaseThread *	FetchOneThread() = 0;
+	virtual bool			AddOneTask(BaseTask * task) = 0;
+	virtual BaseTask *		FetchOneTask() = 0;
+protected:
+	int m_tnum;		// 当前池中最线程数量
+};
 
-// 返回值定义
-#define SQLSHARED_OK           0           /* 执行成功 */
-#define SQLSHARED_ERROR       -1          /* 执行失败 */
-
-/*
- *  @biref 查询语句的回调函数...
- */
-typedef int (*selectcallback)(void * used,int argc, char ** argv,char ** coloumnname);
-
-/*
- *  @brief 数据库连接句柄
- *  这是一个很有用的句柄，用于执行数据库操作，
- *  通过SqlShared_Open获得
- *
- */
-typedef struct SqlHandle SqlHandle;
-
-/*
- *  @brief 打开数据库，若数据库不存在，则创建此数据库！
- */
-SQLSHARED_API INT SqlShared_Open(IN const char * host,IN const char * dbname,IN const char * username,IN const char * pwd,OUT SqlHandle ** ppDB);
-// 执行sql语句.. 
-SQLSHARED_API INT SqlShared_Exec(IN SqlHandle * pDB,selectcallback callback,IN void * used,OUT char * error);
-// 关闭数据库
-SQLSHARED_API INT SqlShared_Close(IN SqlHandle * pDB);
-
-#ifdef __cplusplus
 }
 #endif
-
-#endif
-
-

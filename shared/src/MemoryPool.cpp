@@ -31,7 +31,7 @@
  *
  * */
 
-#include <network/MemoryPool.h>
+#include <common/MemoryPool.h>
 #include <include/Event_Interface.h>
 #include <common/Log.h>
 

@@ -32,7 +32,7 @@
  * */
 
 #include <network/SigEventMgr.h>
-#include <network/MemoryPool.h>
+#include <common/MemoryPool.h>
 
 namespace Shared
 {

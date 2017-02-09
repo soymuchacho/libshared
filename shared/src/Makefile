@@ -37,7 +37,7 @@ INCLUDE += -I../ -I../3rd/
 OBJS = Config.o Log.o Epoll_Engine.o TcpSocket.o Mutex.o \
 	   Buffer.o Encryption.o MemoryPool.o Random.o \
 	   Locker.o Min_Heap.o SigEventMgr.o TimeManager.o\
-	   mm_Thread.o mm_ThreadPool.o mm_Task.o Select_Engine.o \
+	   Thread.o ThreadPool.o Task.o Select_Engine.o \
 	   Event_Handles.o Field.o Event_Interface.o ResultSet.o MysqlConnection.o 
 
 all:	libshared.a

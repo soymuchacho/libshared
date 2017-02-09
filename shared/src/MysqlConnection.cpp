@@ -32,7 +32,7 @@
  * */
 
 #include <db_mysql/MysqlConnection.h>
-#include <network/MemoryPool.h>
+#include <common/MemoryPool.h>
 #include <common/Log.h>
 
 

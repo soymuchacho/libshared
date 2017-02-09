@@ -24,42 +24,50 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * > LIBSHARED  VERSION 		:		0.0.1 
- * > File Name					:		mm_Task.cpp
+ * > File Name					:		ThreadPool.h
  * > Author						:		soymuchacho
  * > Created Time				:		2015-10
- * > brief						:		事件任务
+ * > brief						:		
  *
  * */
 
-#include <network/mm_Task.h>
-#include <network/BaseSocket.h>
-#include <network/Socket_Engine.h>
+#ifndef SHARED_MM_THREADPOOL_H
+#define SHARED_MM_THREADPOOL_H
+
+#include <network/Thread.h>
+#include <common/Singleton.h>
+#include <common/BaseThreadPool.h>
+#include <common/Mutex.h>
+#include <list>
 
 namespace Shared
 {
 
-MM_Task::MM_Task(SWITCH_MM_TASK swi,Socket_Engine * se,unsigned int fd,unsigned long ctime)
-	: BaseTask(),
-	 m_taskSwi(swi),
-	 m_se(se),
-	 m_fd(fd),
-	 m_ctime(ctime)
+#define THREADS_NUM 10
+
+class BaseTask;
+class MM_Task;
+
+class MM_ThreadPool : public BaseThreadPool , public Singleton< MM_ThreadPool >
 {
+	friend class Singleton< MM_ThreadPool >;
+private:
+	MM_ThreadPool();
+	virtual ~MM_ThreadPool();
+public:
+	bool			InitThreadPool();
+	BaseThread *	FetchOneThread();
+	bool			AddOneTask(BaseTask * task);
+	BaseTask *		FetchOneTask();
+	void			Run();
+protected:
+	mutable Mutex m_mutex;
+	MM_Thread  m_Threads[MAX_THREADS_NUM];
+	list<BaseTask *> m_tasks;		// 任务队列！
+};
+
+#define sMMThreads (Shared::MM_ThreadPool::getSingleton())
 
 }
+#endif
 
-MM_Task::~MM_Task()
-{
-}
-
-
-bool MM_Task::GetSocket(basesocket_sptr & s)	
-{	
-	if(m_se != NULL)
-	{
-		return m_se->GetSocket(m_fd,m_ctime,s);
-	}
-	return false;
-}
-
-}

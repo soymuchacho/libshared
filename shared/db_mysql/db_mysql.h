@@ -24,54 +24,37 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * > LIBSHARED  VERSION 		:		0.0.1 
- * > File Name					:		BaseThreadPool.h
+ * > File Name					:		db_mysql.h
  * > Author						:		soymuchacho
- * > Created Time				:		2015-10
- * > brief						:		线程池基类
+ * > Created Time				:		2017年01月06日 星期五 10时08分50秒
+ * > brief						:		
  *
  * */
 
-#ifndef SHARED_BASETHREADPOOL_H
-#define SHARED_BASETHREADPOOL_H
+#ifndef SHARED_DB_MYSQL_H
+#define SHARED_DB_MYSQL_H
 
-#include <network/BaseThread.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-namespace Shared
-{
+#ifndef OUT
+#define OUT
+#endif
 
-class BaseTask;
-// 线程池支持的最大线程数量 ： 一般是 CPU数量 * 2
-#define MAX_THREADS_NUM 24 
+#ifndef IN
+#define IN
+#endif
 
-class BaseThreadPool
-{
-public:
-	BaseThreadPool(int threadnum)
-	{
-		if(threadnum > MAX_THREADS_NUM || threadnum < 0)
-		{
-			m_tnum = MAX_THREADS_NUM;
-		}
-		else
-			m_tnum = threadnum;
-	}
+#ifndef SQLSHARED_API
+#define SQLSHARED_API
+#endif
 
-	virtual ~BaseThreadPool()
-	{
-	
-	}
-public:
-	inline int GetThreadNum()	{	return m_tnum;	}
-public:
-	// 初始化库
-	virtual bool			InitThreadPool() = 0;
-	// 选出一个空闲线程
-	virtual BaseThread *	FetchOneThread() = 0;
-	virtual bool			AddOneTask(BaseTask * task) = 0;
-	virtual BaseTask *		FetchOneTask() = 0;
-protected:
-	int m_tnum;		// 当前池中最线程数量
-};
 
+#ifdef __cplusplus
 }
 #endif
+
+#endif
+
+

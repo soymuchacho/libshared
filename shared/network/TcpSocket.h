@@ -36,7 +36,7 @@
 
 #include <network/BaseSocket.h>
 #include <include/Common.h>
-#include <network/Buffer.h>
+#include <common/Buffer.h>
 #include <common/Mutex.h>
 #include <network/Socket_Engine.h>
 #include <common/Log.h>

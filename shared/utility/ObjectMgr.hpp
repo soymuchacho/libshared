@@ -37,7 +37,7 @@
 #include <tr1/memory>
 #include <ext/hash_map>
 #include <common/Mutex.h>
-#include <network/MemoryPool.h>
+#include <common/MemoryPool.h>
 #include <functional>
 
 namespace Shared

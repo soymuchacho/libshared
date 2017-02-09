@@ -40,7 +40,7 @@
 #include <include/Event.h>
 #include <network/SigEventMgr.h>
 #include <network/Min_Heap.h>
-#include <network/MemoryPool.h>
+#include <common/MemoryPool.h>
 #include <network/Event_Handles.h>
 
 

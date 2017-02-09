@@ -32,7 +32,7 @@
  * */
 
 #include <network/Min_Heap.h>
-#include <network/MemoryPool.h>
+#include <common/MemoryPool.h>
 #include <include/Event.h>
 #include <common/Log.h>
 #include <utility/TimeManager.h>
