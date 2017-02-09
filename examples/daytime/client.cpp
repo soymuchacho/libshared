@@ -32,9 +32,9 @@
  * */
 
 #include "Protocol.h"
-#include <Event_Interface.h>
-#include <base/Config.h>
-#include <Event.h>
+#include <include/Event_Interface.h>
+#include <common/Config.h>
+#include <include/Event.h>
 
 class ClientSocket : public Shared::TcpSocket
 {

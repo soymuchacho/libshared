@@ -31,9 +31,9 @@
  *
  * */
 
-#include <Event_Interface.h>
-#include <base/Log.h>
-#include <base/Config.h>
+#include <include/Event_Interface.h>
+#include <common/Log.h>
+#include <common/Config.h>
 #include "TimeSocket.h"
 #include "Protocol.h"
 
