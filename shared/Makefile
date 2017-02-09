@@ -39,7 +39,11 @@ all:
 	@list='$(SUBDIRS)';for subdir in $$list; do \
 		$(MAKE) -C $$subdir;\
 	done
-
+.PHONY: install
+install:
+	@list='$(SUBDIRS)';for subdir in $$list; do \
+		$(MAKE) -C $$subdir install; \
+	done
 
 .PHONY: clean
 clean:

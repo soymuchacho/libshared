@@ -32,7 +32,7 @@
  ##
 
 
-PUBPATH = ../build
+PUBPATH = ../../build
 CXX = g++
 GCC = g++
 CPPFLAGS += -ggdb $(INCLUDE) $(LIBS) -Wno-deprecated -std=c++11
