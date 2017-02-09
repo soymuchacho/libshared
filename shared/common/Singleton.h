@@ -36,7 +36,7 @@
 #define SHARED_SINGLETON_H
 
 #include <include/Common.h>
-#include <base/NonCopyable.h>
+#include <common/NonCopyable.h>
 
 namespace Shared
 {

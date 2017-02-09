@@ -36,8 +36,8 @@
 
 #include <network/Socket_Engine.h>
 #include <network/BaseSocket.h>
-#include <base/Mutex.h>
-#include <Event.h>
+#include <common/Mutex.h>
+#include <include/Event.h>
 
 namespace Shared
 {

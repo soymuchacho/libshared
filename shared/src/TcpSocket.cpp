@@ -32,9 +32,9 @@
  * */
 
 #include <network/TcpSocket.h>
-#include <Event_Interface.h>
-#include <base/Log.h>
-#include <base/Mutex.h>
+#include <include/Event_Interface.h>
+#include <common/Log.h>
+#include <common/Mutex.h>
 
 namespace Shared
 {

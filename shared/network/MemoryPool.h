@@ -68,9 +68,9 @@
  * */
 //////////////////////////////////////////////////////////////
 #include <network/MemInc.h>
-#include <base/Mutex.h>
-#include <base/Singleton.h>
-#include <base/Log.h>
+#include <common/Mutex.h>
+#include <common/Singleton.h>
+#include <common/Log.h>
 #include <typeinfo>
 
 namespace Shared

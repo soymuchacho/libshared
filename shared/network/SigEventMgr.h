@@ -35,10 +35,10 @@
 #ifndef SHAERD_SIGEVENT_MANAGER_H
 #define SHARED_SIGEVENT_MANAGER_H
 
-#include <base/Singleton.h>
-#include <base/Mutex.h>
+#include <common/Singleton.h>
+#include <common/Mutex.h>
 #include <utility/ObjectMgr.hpp>
-#include <Event.h>
+#include <include/Event.h>
 
 namespace Shared
 {

@@ -34,8 +34,8 @@
 #ifndef SHARED_EVENT_HANDLES_H
 #define SHARED_EVENT_HANDLES_H
 
-#include <Event.h>
-#include <base/NonCopyable.h>
+#include <include/Event.h>
+#include <common/NonCopyable.h>
 #include <utility/ObjectMgr.hpp>
 
 namespace Shared

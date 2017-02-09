@@ -33,8 +33,8 @@
 #ifndef SHARED_DB_CONNECTION_H
 #define SHARED_DB_CONNECTION_H
 
-#include <base/NonCopyable.h>
-#include <sql/ResultSet.h>
+#include <common/NonCopyable.h>
+#include <db_mysql/ResultSet.h>
 #include <include/Common.h>
 
 #define MYSQL_HOST_SIZE		64
@@ -45,7 +45,7 @@
 namespace DBMYSQL
 {
 
-	class DBConnection : public noncopyable
+    class DBConnection : public Shared::noncopyable
 	{
 	public:
 		DBConnection() {}

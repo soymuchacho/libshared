@@ -35,9 +35,9 @@
 #define SHARED_MM_THREADPOOL_H
 
 #include <network/mm_Thread.h>
-#include <base/Singleton.h>
+#include <common/Singleton.h>
 #include <network/BaseThreadPool.h>
-#include <base/Mutex.h>
+#include <common/Mutex.h>
 #include <list>
 
 namespace Shared

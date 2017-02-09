@@ -35,7 +35,7 @@
 #define SHARED_BASETHREAD_H
 
 #include <pthread.h>
-#include <base/Log.h>
+#include <common/Log.h>
 
 namespace Shared
 {

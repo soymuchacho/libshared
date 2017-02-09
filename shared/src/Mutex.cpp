@@ -31,8 +31,8 @@
  *
  * */
 
-#include <base/Mutex.h>
-#include <base/Log.h>
+#include <common/Mutex.h>
+#include <common/Log.h>
 
 namespace Shared
 {

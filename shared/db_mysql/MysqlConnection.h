@@ -35,11 +35,10 @@
 #ifndef SHARED_MYSQL_CONNECTION_H
 #define SHARED_MYSQL_CONNECTION_H
 
-#include <base/NonCopyable.h>
-#include <sql/ResultSet.h>
-#include <sql/DBConnection.h>
-#include <mysql/mysql.h>
+#include <common/NonCopyable.h>
+#include <db_mysql/DBConnection.h>
 #include <string>
+
 using namespace std;
 
 namespace DBMYSQL

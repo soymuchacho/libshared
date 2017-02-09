@@ -37,9 +37,9 @@
 #include <network/BaseSocket.h>
 #include <include/Common.h>
 #include <network/Buffer.h>
-#include <base/Mutex.h>
+#include <common/Mutex.h>
 #include <network/Socket_Engine.h>
-#include <base/Log.h>
+#include <common/Log.h>
 
 namespace Shared
 {

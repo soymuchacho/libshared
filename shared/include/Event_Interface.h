@@ -42,8 +42,8 @@
 #include <network/ListenSocket.h>
 #include <network/Global_Val.h>
 #include <utility/TimeManager.h>
-#include <base/Log.h>
-#include <Event.h>
+#include <common/Log.h>
+#include <include/Event.h>
 namespace Shared
 {
 

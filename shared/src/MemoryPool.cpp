@@ -32,8 +32,8 @@
  * */
 
 #include <network/MemoryPool.h>
-#include <Event_Interface.h>
-#include <base/Log.h>
+#include <include/Event_Interface.h>
+#include <common/Log.h>
 
 namespace Shared
 {

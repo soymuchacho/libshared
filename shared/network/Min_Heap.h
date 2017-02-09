@@ -34,8 +34,8 @@
 #ifndef SHARED_MIN_HEAP_H
 #define SHARED_MIN_HEAP_H
 
-#include <base/Singleton.h>
-#include <base/Mutex.h>
+#include <common/Singleton.h>
+#include <common/Mutex.h>
 
 namespace Shared
 {

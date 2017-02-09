@@ -34,7 +34,7 @@
 #ifndef SHARED_RANDOM_H
 #define SHARED_RANDOM_H
 
-#include <base/Singleton.h>
+#include <common/Singleton.h>
 
 namespace Shared
 {

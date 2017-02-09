@@ -31,9 +31,9 @@
  *
  * */
 
-#include <base/Config.h>
+#include <common/Config.h>
 #include <utility/String.h>
-#include <base/Log.h>
+#include <common/Log.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>

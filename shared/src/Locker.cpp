@@ -31,7 +31,7 @@
  *
  * */
 
-#include <base/Locker.h>
+#include <common/Locker.h>
 
 namespace Shared
 {

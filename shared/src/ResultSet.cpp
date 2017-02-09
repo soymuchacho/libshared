@@ -24,51 +24,61 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * > LIBSHARED  VERSION 		:		0.0.1 
- * > File Name					:		Singleton.h
+ * > File Name					:		ResultSet.cpp
  * > Author						:		soymuchacho
- * > Created Time				:		2015-10
- * > brief						:		单键 
+ * > Created Time				:		2016年09月22日 星期四 10时23分53秒
+ * > brief						:		
  *
  * */
 
+#include <db_mysql/ResultSet.h>
+#include <common/Log.h>
 
-#ifndef MYSQL_SINGLETON_H
-#define MYSQL_SINGLETON_H
-
-namespace MYSQL
+DBMYSQL::ResultSet::ResultSet()
 {
-
-#define initializeSingleton(type) \
-	template<> type * Shared::Singleton<type>::mSingleton = 0;\
-	template<> pthread_once_t Shared::Singleton<type>::ponce_ = PTHREAD_ONCE_INIT
-
-template<class type>
-class Singleton : public noncopyable
-{
-protected:
-	Singleton()
-	{
-	}
-
-	~Singleton()
-	{
-	}
-public:
-	inline static type & getSingleton()
-	{
-		pthread_once(&ponce_, &Singleton::init);
-		return (*mSingleton);
-	}
-private:
-	static void init()
-	{
-		mSingleton = new type;
-		ASSERT(mSingleton != NULL);
-	}
-private:
-	static type *			mSingleton;
-	static pthread_once_t	ponce_;
-};
-
+	
 }
-#endif
+
+DBMYSQL::ResultSet::~ResultSet()
+{
+	mysql_free_result(m_result);
+}
+
+bool DBMYSQL::ResultSet::Initialize(MYSQL * sock)
+{
+	m_sqlsock = sock;
+	m_result = mysql_store_result(sock);
+	
+	if(m_result == NULL)
+	{
+		LOGDEBUG("mysql","mysql_store_result return null!");
+		return false;
+	}
+
+	return true;;
+}
+
+unsigned long DBMYSQL::ResultSet::GetString(unsigned int row, unsigned int field,char ** value)
+{
+	if(m_row != row)
+	{
+		m_mysqlrows = mysql_fetch_row(m_result);
+		m_lengths = mysql_fetch_lengths(m_result); 
+		m_row = row;
+	}
+	
+	*value = m_mysqlrows[field];
+	return m_lengths[field];
+}
+
+unsigned int DBMYSQL::ResultSet::FieldsCount()
+{
+	return mysql_field_count(m_sqlsock);
+}
+
+unsigned int DBMYSQL::ResultSet::RowCount()
+{
+	return mysql_affected_rows(m_sqlsock);
+}
+
+

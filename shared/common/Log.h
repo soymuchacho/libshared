@@ -34,8 +34,8 @@
 #ifndef SHARED_LOG_H
 #define SHARED_LOG_H
 
-#include <base/Singleton.h>
-#include <base/Mutex.h>
+#include <common/Singleton.h>
+#include <common/Mutex.h>
 #include <include/Common.h>
 #include <list>
 

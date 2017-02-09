@@ -31,25 +31,10 @@
  *
  * */
 
-/**
- *	> Copyright(c) 2015 guqi
- *
- *	> LIBSHARED  VERSION :		0.0.1 
- *
- *	> File Name			 :		Min_Heap.cpp
- *
- *	> Author			 :		guqi
- *
- *	> Mail				 :		guqi_282@126.com
- *
- *	> Created Time		 :		2015-10
- *
- * */
-
 #include <network/Min_Heap.h>
 #include <network/MemoryPool.h>
-#include <Event.h>
-#include <base/Log.h>
+#include <include/Event.h>
+#include <common/Log.h>
 #include <utility/TimeManager.h>
 
 namespace Shared

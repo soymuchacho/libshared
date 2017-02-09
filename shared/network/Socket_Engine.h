@@ -36,8 +36,8 @@
 #define SHARED_SOCKET_ENGINE_H
 
 #include <network/BaseSocket.h>
-#include <base/Mutex.h>
-#include <Event.h>
+#include <common/Mutex.h>
+#include <include/Event.h>
 #include <network/SigEventMgr.h>
 #include <network/Min_Heap.h>
 #include <network/MemoryPool.h>

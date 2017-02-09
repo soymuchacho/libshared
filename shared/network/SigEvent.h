@@ -34,7 +34,7 @@
 #ifndef SHARED_SIGNAL_EVENT_H
 #define SHARED_SIGNAL_EVENT_H
 
-#include <Event.h>
+#include <include/Event.h>
 
 namespace Shared
 {

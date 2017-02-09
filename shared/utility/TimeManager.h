@@ -38,7 +38,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <string.h>
-#include <base/Singleton.h>
+#include <common/Singleton.h>
 
 namespace Shared
 {

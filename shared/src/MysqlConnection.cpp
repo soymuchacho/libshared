@@ -31,9 +31,9 @@
  *
  * */
 
-#include <sql/MYSQLConnection.h>
+#include <db_mysql/MysqlConnection.h>
 #include <network/MemoryPool.h>
-#include <base/Log.h>
+#include <common/Log.h>
 
 
 DBMYSQL::MYSQLConnection::MYSQLConnection()
@@ -99,14 +99,14 @@ bool DBMYSQL::MYSQLConnection::RealQuery(string sql)
 	return true;
 }
 
-ResultSet * DBMYSQL::MYSQLConnection::FetchResultSet()
+DBMYSQL::ResultSet * DBMYSQL::MYSQLConnection::FetchResultSet()
 {
-	ResultSet * res = NULL;
+    DBMYSQL::ResultSet * res = NULL;
 
 	if(firstFetch)
 	{
 		// 第一此获取
-		ResultSet * res = MM_NEW<ResultSet>();
+        DBMYSQL::ResultSet * res = Shared::MM_NEW<DBMYSQL::ResultSet>();
 		if(res == NULL)
 		{
 			LOGDEBUG("mysql","malloc error");
@@ -120,7 +120,7 @@ ResultSet * DBMYSQL::MYSQLConnection::FetchResultSet()
 		// 获取后面的结果集合
 		if(mysql_next_result(m_sqlsock) == 0)
 		{
-			ResultSet * res = MM_NEW<ResultSet>();
+            DBMYSQL::ResultSet * res = Shared::MM_NEW<DBMYSQL::ResultSet>();
 			if(res == NULL)
 			{
 				LOGDEBUG("mysql","malloc error");

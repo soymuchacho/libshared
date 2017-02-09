@@ -35,7 +35,7 @@
 #define SHARED_EVENT_H
 
 #include <functional>
-#include <base/NonCopyable.h>
+#include <common/NonCopyable.h>
 #include <tr1/memory>
 
 namespace Shared

@@ -34,7 +34,7 @@
 #ifndef SHARED_BASESOCKET_H
 #define SHARED_BASESOCKET_H	
 
-#include <base/Log.h>
+#include <common/Log.h>
 #include <network/MemoryPool.h>
 #include <tr1/memory>
 

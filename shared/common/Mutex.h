@@ -34,7 +34,7 @@
 #ifndef SHARED_MUTEX_H
 #define SHARED_MUTEX_H
 
-#include <base/NonCopyable.h>
+#include <common/NonCopyable.h>
 #include <include/Common.h>
 
 namespace Shared
