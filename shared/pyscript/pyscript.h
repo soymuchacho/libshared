@@ -36,12 +36,31 @@
 
 #include <unistd.h>
 #include <common/Log.h>
+#include <common/MemoryPool.h>
 
 namespace Shared
 {
 
 namespace PYSCRIPT
 {
+
+    template<typename T>
+    void GetFuncParamStr(std::string & str, T && arg)
+    {
+        std::string strType = typeid(arg).name();
+        if(strType.compare("PKc") == 0)
+            str += "s"; 
+        else if(strType.compare("b"))
+        else
+            str += "O";
+    }
+
+    template<typename T,typename... Args>
+    void GetFuncParamStr(std::string & str, T && arg, Args&&... args)
+    {
+        GetFuncParamStr(str,forword<Args>(args)...)); 
+    }
+
     // 返回值类
     class PyRet
     {
@@ -94,14 +113,16 @@ namespace PYSCRIPT
             return true;
         }
 
-        PyRet * CallFunction(char * function)
+        template<typename... Args>
+        PyRet * CallFunction(char * function,Args... args)
         {
             PyObject * pFunc = PyDict_GetItemString(pDict,function);
-            if(!pFUnc)
+            if(!pFunc)
             {
                 LOGDEBUG("debug","can't find %s func",function);
                 return false;
             }
+            PyObject * pRet = PyObject_CallFunction(pFunc,"",args...);
         }
 
         PyRet * ConstructClassInstance(char * className);
