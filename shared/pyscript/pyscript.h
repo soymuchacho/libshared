@@ -34,6 +34,7 @@
 #ifndef SHARED_PYSCRIPT_H
 #define SHARED_PYSCRIPT_H
 
+#include <python2.7/Python.h>
 #include <unistd.h>
 #include <common/Log.h>
 #include <common/MemoryPool.h>
@@ -51,6 +52,7 @@ namespace PYSCRIPT
         if(strType.compare("PKc") == 0)
             str += "s"; 
         else if(strType.compare("b"))
+            str += "c";
         else
             str += "O";
     }
@@ -58,7 +60,7 @@ namespace PYSCRIPT
     template<typename T,typename... Args>
     void GetFuncParamStr(std::string & str, T && arg, Args&&... args)
     {
-        GetFuncParamStr(str,forword<Args>(args)...)); 
+        GetFuncParamStr(str,std::forward<Args>(args)...); 
     }
 
     // 返回值类
@@ -88,14 +90,15 @@ namespace PYSCRIPT
         pyfile(){
         }
         ~pyfile(){
+            Py_DECREF(m_fp);
+            Py_DECREF(m_pDict);
         }
     public:
         // 初始化...导入文件
         bool Initialize(char * filename){
         
-            char file[256] = {0};
             // 去掉.py结尾
-            file = strtok(filename,".");
+            char * file = strtok(filename,".");
             // 导入
             m_fp = PyImport_ImportModule(file);
             if(!m_fp)
@@ -113,16 +116,25 @@ namespace PYSCRIPT
             return true;
         }
 
+        // 此处返回的PyRet需要自己手动释放！调用MM_DELETE来释放！
         template<typename... Args>
         PyRet * CallFunction(char * function,Args... args)
         {
-            PyObject * pFunc = PyDict_GetItemString(pDict,function);
+            PyObject * pFunc = PyDict_GetItemString(m_pDict,function);
             if(!pFunc)
             {
                 LOGDEBUG("debug","can't find %s func",function);
                 return false;
             }
             PyObject * pRet = PyObject_CallFunction(pFunc,"",args...);
+            PyRet * ret = MM_NEW<PyRet>(pRet);
+            if(ret == NULL)
+            {
+                Py_DECREF(pRet);
+                LOGDEBUG("debug","CallFunction返回值分配空间失败！");
+                return NULL;
+            }
+            return ret;
         }
 
         PyRet * ConstructClassInstance(char * className);
@@ -149,7 +161,7 @@ namespace PYSCRIPT
 
             // 初始化python解释器环境
             Py_Initialize();
-            if(!Py_IsInitialize())
+            if(!Py_IsInitialized())
             {
                 LOGDEBUG("debug","initialize pyscript error : python解释器初始化error!");
                 return false;
@@ -178,13 +190,26 @@ namespace PYSCRIPT
                 {
                     // 文件导入..
                     LOGDEBUG("debug","import pyfile : %s ",dirp->d_name);
-                    Import_PyFile(dirp->d_name);
+                    ImportPyFile(dirp->d_name);
                 }
             }
             return true;
         }
         // 释放Python环境
         void Release(){
+            // 卸载掉加载的文件
+            map<std::string,pyfile *>::iterator itr;
+            for(itr = m_objectmap.begin(); itr != m_objectmap.end();itr++)
+            {
+                pyfile * pf = itr->second;
+                if(pf)
+                {
+                    MM_DELETE(pf);
+                }
+            }
+            m_objectmap.clear();
+
+            // 关闭Python解释器
             Py_Finalize();
         }
     private:
