@@ -38,6 +38,7 @@
 #include <unistd.h>
 #include <common/Log.h>
 #include <common/MemoryPool.h>
+#include <pyscript/py_config.h>
 
 namespace Shared
 {
@@ -45,16 +46,29 @@ namespace Shared
 namespace PYSCRIPT
 {
 
+    /*
+     * typeid.name 返回值 
+     * bool : b
+     * char : c
+     * signed char : a
+     * unsigned char : h
+     * (signed) short (int) : s
+     * unsigned short (int) : t
+     * (signed)(int): i
+     * unsigned int : j
+     * long : l
+     * unsigned long : m
+     * long long : x
+     * unsigned long long : y
+     * float : f
+     * double : d
+     * long double : e
+     */
     template<typename T>
     void GetFuncParamStr(std::string & str, T && arg)
     {
         std::string strType = typeid(arg).name();
-        if(strType.compare("PKc") == 0)
-            str += "s"; 
-        else if(strType.compare("b"))
-            str += "c";
-        else
-            str += "O";
+        str += GetTypeStr(strType);
     }
 
     template<typename T,typename... Args>
@@ -74,12 +88,15 @@ namespace PYSCRIPT
             Py_DECREF(m_obj);
         }
     public:
-        string          GetString();
-        int             GetInt();
-        unsigned int    GetUInt();
-        float           GetFloat();
-        long            GetLong();
-        long long       GetLongLong();
+        PyObject *          GetPyObject() { return m_obj; }
+        string              GetString() { return PyString_AsString(m_obj); }
+        int                 GetInt() { return PyInt_AsLong(m_obj); }
+        unsigned int        GetUInt() { return PyInt_AsUnsignedLongMask(m_obj); }
+        float               GetFloat() { return PyFloat_AsDouble(m_obj); }
+        double              GetDouble() { return PyFloat_AsDouble(m_obj); }
+        long                GetLong() { return PyInt_AsLong(m_obj); }
+        Py_ssize_t          GetPyssize_t() { return PyInt_AsUnsignedLongLongMask(m_obj); }
+        unsigned long long  GetULongLong() { return PyInt_AsUnsignedLongLongMask(m_obj); }
     private:
         PyObject * m_obj;
     };

@@ -5,9 +5,6 @@
  * modification, are permitted provided that the following conditions
  * are met:
  * 1. Redistributions of source code must retain the above copyright
-#ifndef _PY_IMPORT_H
-#define _PY_IMPORT_H
-#endif
  *    notice, this list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
@@ -27,31 +24,13 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * > LIBSHARED  VERSION 		:		0.0.1 
- * > File Name					:		py_import.h
+ * > File Name					:		demo.cpp
  * > Author						:		soymuchacho
- * > Created Time				:		2016年12月16日 星期五 11时23分45秒
- * > brief						:	    导入python模块...	
+ * > Created Time				:		2017年02月24日 星期五 16时00分08秒
+ * > brief						:		
  *
  * */
 
-namespace Shared
-{
-
-namespace PyScript
-{
-    // python 模块导入
-    class Py_Import : Singleton<Py_Import>
-    {
-        friend class Singleton<Py_Import>;
-    private:
-        Py_Import();
-        ~Py_Import();
-    public:
-    private:
-    };
-
-}
-
-}// END NAMESPACE SHARED
+#include <>
 
 
