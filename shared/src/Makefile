@@ -34,6 +34,7 @@
 
 include ../Makefile.Define
 INCLUDE += -I../ -I../3rd/
+LIBS += -lpthread -lpython2.7
 OBJS = Config.o Log.o Epoll_Engine.o TcpSocket.o Mutex.o \
 	   Buffer.o Encryption.o MemoryPool.o Random.o \
 	   Locker.o Min_Heap.o SigEventMgr.o TimeManager.o\
@@ -44,7 +45,7 @@ OBJS = Config.o Log.o Epoll_Engine.o TcpSocket.o Mutex.o \
 all:	libshared.a
 
 libshared.a:	$(OBJS) 
-	ar cru $@ $(OBJS) $(LIBS)
+	ar cru $@ $(OBJS)
 	ranlib $@ 
 
 clean:

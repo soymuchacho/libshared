@@ -32,7 +32,7 @@
  * */
 
 #include "EchoSocket.h"
-#include <network/MemoryPool.h>
+#include <common/MemoryPool.h>
 
 EchoSocket::EchoSocket()
 {

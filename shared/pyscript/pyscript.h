@@ -74,6 +74,7 @@ namespace PYSCRIPT
     template<typename T,typename... Args>
     void GetFuncParamStr(std::string & str, T && arg, Args&&... args)
     {
+        str += typeid(arg).name();
         GetFuncParamStr(str,std::forward<Args>(args)...); 
     }
 
@@ -112,10 +113,8 @@ namespace PYSCRIPT
         }
     public:
         // 初始化...导入文件
-        bool Initialize(char * filename){
+        bool Initialize(char * file){
         
-            // 去掉.py结尾
-            char * file = strtok(filename,".");
             // 导入
             m_fp = PyImport_ImportModule(file);
             if(!m_fp)
@@ -130,20 +129,43 @@ namespace PYSCRIPT
                 LOGDEBUG("debug","python module parse dict error!");
                 return false;
             }
+
+            // 打印..
+            if(!PyDict_Check(m_pDict))
+                return false;
+
+            PyObject *k,*keys;
+            keys = PyDict_Keys(m_pDict);
+            for(int i = 0; i < PyList_GET_SIZE(keys);i++)
+            {
+                k = PyList_GET_ITEM(keys,i);
+                char * c_name = PyString_AsString(k);
+                LOGDEBUG("debug","attr : %s",c_name);
+            }
             return true;
         }
 
         // 此处返回的PyRet需要自己手动释放！调用MM_DELETE来释放！
         template<typename... Args>
-        PyRet * CallFunction(char * function,Args... args)
+        PyRet * CallFunction(const char * function,Args... args)
         {
             PyObject * pFunc = PyDict_GetItemString(m_pDict,function);
             if(!pFunc)
             {
                 LOGDEBUG("debug","can't find %s func",function);
-                return false;
+                return NULL;
             }
-            PyObject * pRet = PyObject_CallFunction(pFunc,"",args...);
+
+            string str;
+            GetFuncParamStr(str,args...);
+           
+            LOGDEBUG("debug","function %s param : %s",function,str.c_str());
+
+            PyObject * pRet = PyObject_CallFunction(pFunc,(char *)str.c_str(),args...);
+        
+            if(pRet == NULL)
+                return NULL;
+            
             PyRet * ret = MM_NEW<PyRet>(pRet);
             if(ret == NULL)
             {
@@ -165,17 +187,21 @@ namespace PYSCRIPT
     class pyscript
     {
     public:
-        pyscript();
-        ~pyscript();
+        pyscript() {
+        
+        }
+        ~pyscript(){
+            
+        }
     public:
         // 初始化Python环境,加载pyfile_path目录下的所有python文件
-        bool Initialize(char * pyfile_path){
+        bool Initialize(const char * pyfile_path){
             if(pyfile_path == NULL)
             {
                 LOGDEBUG("debug","initialize pyscript error : pyfile path is null!");
                 return false; 
             }
-
+            LOGDEBUG("debug","pyscript begin initialize");
             // 初始化python解释器环境
             Py_Initialize();
             if(!Py_IsInitialized())
@@ -200,17 +226,48 @@ namespace PYSCRIPT
                 return false;
             }
 
+            LOGDEBUG("debug","pyscript initialize open dir %s",pyfile_path);
             while((dirp = readdir(dp)) != NULL)
             {
+                LOGDEBUG("debug","[%s]:[%d]",dirp->d_name,dirp->d_type);
                 // 循环该目录下的文件
-                if(dirp->d_type == DT_BLK)
+                if(dirp->d_type != DT_DIR)
                 {
                     // 文件导入..
                     LOGDEBUG("debug","import pyfile : %s ",dirp->d_name);
-                    ImportPyFile(dirp->d_name);
+                  
+                    // 判断是不是.py文件
+                    if(strstr(dirp->d_name,".py") != NULL && strstr(dirp->d_name,".pyc") == NULL)
+                    {
+                        // 去掉.py结尾
+                        char * file = strtok(dirp->d_name,".");
+
+                        ImportPyFile(file);
+                    }
                 }
             }
+            LOGDEBUG("debug","pyscript end initialize");
             return true;
+        }
+
+        // 此处返回的PyRet需要自己手动释放！调用MM_DELETE来释放！
+        template<typename... Args>
+        PyRet * CallFunction(const char * function,Args... args)
+        {
+            map<std::string,pyfile *>::iterator itr;
+            for(itr = m_objectmap.begin(); itr != m_objectmap.end();itr++)
+            {
+                pyfile * pf = itr->second;
+                if(pf)
+                {
+                    PyRet * pr = pf->CallFunction(function,forward<Args>(args)...);
+                    if(pr == NULL)
+                        continue;
+                    else
+                        return pr;
+                }
+            }
+            return NULL;
         }
         // 释放Python环境
         void Release(){
@@ -245,12 +302,21 @@ namespace PYSCRIPT
                 return false;
             }
 
+            map<std::string,pyfile *>::iterator itr;
+            itr = m_objectmap.find(filename);
+            if(itr != m_objectmap.end())
+            {
+                LOGDEBUG("debug","python 模块%s已经存在，不需要继续加载！",filename);
+                return true;
+            }
+
             if(pf->Initialize(filename) == false)
             {
                 LOGDEBUG("debug","pyfile Initialize error!");
                 MM_DELETE(pf);
                 return false;
             }
+            LOGDEBUG("debug","pyfile initialize %s",filename);
             m_objectmap.insert(make_pair(filename,pf));
             return true;
         }

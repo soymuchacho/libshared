@@ -31,6 +31,43 @@
  *
  * */
 
-#include <>
+#include <stdio.h>
+#include <iostream>
+#include <pyscript/pyscript.h>
+#include <common/MemoryPool.h>
+#include <common/Log.h>
+using namespace std;
+
+
+int main()
+{
+    Shared::Shared_Log().Initialize("output",Shared::LOG_DEBUG);
+    Shared::PYSCRIPT::pyscript * pt = Shared::MM_NEW<Shared::PYSCRIPT::pyscript>();
+    if(pt == NULL)
+    {
+        LOGDEBUG("demo","malloc error!");
+        return 0;
+    }
+    LOGDEBUG("demo","begin pyscript!");    
+    string path = "./python";
+    pt->Initialize(path.c_str());
+
+    Shared::PYSCRIPT::PyRet * ret = pt->CallFunction<char *>("sayHi",(char *)"myname");
+    Shared::PYSCRIPT::PyRet * ret2 = pt->CallFunction<int,int>("myfunc",1,2);
+    if(ret != NULL)
+    {
+        LOGDEBUG("debug","ret != NULL");
+        Shared::MM_DELETE(ret);
+    }
+
+    if(ret2 != NULL)
+    {
+        LOGDEBUG("demo","myfunc result : %d",ret2->GetInt());
+        Shared::MM_DELETE(ret2);
+    }
+    pt->Release();
+    getchar();
+    return 0;
+}
 
 
