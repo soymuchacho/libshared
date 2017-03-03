@@ -15,6 +15,8 @@ Direectory Structure
     |    |—— daytime                                // 时间核对服务器及客户端
     |    |—— echo                                   // echo服务器
     |    |—— time-task                              // 计时事件的使用例程
+    |    |-- python-demo                            // python脚本加载及调用实例
+    |    |-- ManagerServer                          // 企业管理软件服务器端实例
     |—— shared                                      // libshared的主体
     |    |—— common                                 // 网络基础库
     |    |—— network                                // 网络相关的封装
@@ -24,26 +26,25 @@ Direectory Structure
     |    |—— luascript								// c++调用lua及lua调用c++接口支持
     |    |—— pyscript								// c++调用python及python调用c++接口支持
     |    |—— src                                    // 原码cpp存放为值
-Class 
-----------------------------------
 
 Building & install
 ----------------------------------
 
-    $ cd libshared/
+    $ cd libshared/shared
     $ make clean 
     $ make 
     $ make install 
 
 Wishes Extension
 ------------------------------------
-	2016.5.1
 	* suport mysql
     * suport python 
     * suport lua 
+    * suport windows
 
 Change Log
 ----------------------------------
 
     2016.9.22 新增mysql操作的支持
     2017.2.9  目录调整
+    2017.3.2  新增ManagerServer例程
