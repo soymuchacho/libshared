@@ -87,7 +87,6 @@ public:
 	}
 	inline void SetSocketEngine(std::tr1::shared_ptr<Socket_Engine> & sptr){
 		m_wpEngine = sptr;
-		LoadHandles();
 	}
 	inline bool GetSocketEngine(std::tr1::shared_ptr<Socket_Engine>& sptr){
 		sptr = m_wpEngine.lock();
@@ -96,8 +95,6 @@ public:
 		return false;
 	}
 public:
-	// 加载回调函数
-	virtual void LoadHandles() = 0;
 	// 连接时
 	virtual void OnConnect() = 0;
 	// 断开连接时

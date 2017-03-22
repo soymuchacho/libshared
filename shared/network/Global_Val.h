@@ -47,20 +47,20 @@ namespace Shared
 
 	
 /* 当前所使用的事件多路分发器实例*/
-static std::tr1::weak_ptr<Shared::Socket_Engine> g_wpCurrentEngine;
+extern std::tr1::weak_ptr<Shared::Socket_Engine> g_wpCurrentEngine;
 
 #define GLOBAL_CURRENT_ENGINE Shared::g_wpCurrentEngine
 
 /* 计时最小单位（60毫秒）*/
-static const int	TIME_OUT = 60;
+extern const int	TIME_OUT;
 
 /* 用于设置多路分发器超时时间变量，当多路分发器未超时返回时，
  * 需要重新计算剩余时间，并设置下一次多路分发器的超时时间
  * */
-static int			timeout = 60;
+extern int			timeout;
 
 /* 管道，用于监听信号 */
-static int			pipefd[2];
+extern int			pipefd[2];
 
 
 

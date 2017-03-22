@@ -32,5 +32,60 @@
  * */
 
 #include "LoginSocket.h"
+#include <include/Shared.h>
 
+std::once_flag LoginSocket::m_flag;
+
+LoginSocket::LoginSocket()
+{
+    std::call_once(m_flag,LoginSocket::LoadHandles);
+}
+
+LoginSocket::LoginSocket(int fd, const sockaddr_in * peer)
+    :Shared::TcpSocket(fd,peer)
+{
+    std::call_once(m_flag,LoginSocket::LoadHandles);
+}
+
+LoginSocket::~LoginSocket()
+{
+
+}
+
+void LoginSocket::LoadHandles()
+{
+    // 保证其只被执行一次...
+    Shared::sockengine_sptr engine = Shared::GetGlobalCurrentEngine();
+    if(engine)
+    {
+        shared_registerioevent(engine,Protocol::MSG_CS_USER_LOGIN,
+                              LoginSocket::HandleUserLogin);
+    }
+}
+
+void LoginSocket::OnConnect()
+{
+    OUTPUT("loginsocket","client[fd = %d] connect",this->GetFd());
+}
+
+void LoginSocket::OnDisconnect()
+{
+    OUTPUT("loginsocket","client[fd = %d] disconnect",this->GetFd());
+}
+
+bool LoginSocket::Dispatch()
+{
+    OUTPUT("loginsocket","dispatch[fd = %d]",this->GetFd());
+    return true;
+}
+
+void * LoginSocket::HandleUserLogin(int fd, int size, void * data)
+{
+    if(data == NULL)
+    {
+        return NULL;
+    }
+
+    OUTPUT("loginsocket","user login[fd = %d]",fd);
+}
 

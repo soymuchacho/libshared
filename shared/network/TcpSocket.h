@@ -69,7 +69,6 @@ public:
 		m_writtenMutex.UnLock();	
 	}
 public:
-	virtual void LoadHandles() {}
 	// 数据已经存放在缓冲区中
 	virtual bool OnRecvData();
 	// 从缓冲区中读取数据

@@ -33,17 +33,18 @@
 
 #include "TimeSocket.h"
 #include <utility/TimeManager.h>
-#include <include/Event_Interface.h>
+#include <include/Shared.h>
+std::once_flag TimeSocket::m_flag;
 
 TimeSocket::TimeSocket()
 {
-
+    std::call_once(m_flag,LoadHandles);
 }
 
 TimeSocket::TimeSocket(int fd, const struct sockaddr_in * peer)
 	: TcpSocket(fd,peer)
 {
-
+    std::call_once(m_flag,LoadHandles);
 }
 
 TimeSocket::~TimeSocket()
@@ -53,15 +54,12 @@ TimeSocket::~TimeSocket()
 
 void TimeSocket::LoadHandles()
 {
-	Shared::sockengine_sptr engine;
-	if(GetSocketEngine(engine))
+    Shared::sockengine_sptr engine = Shared::GetGlobalCurrentEngine();
+	if(engine)
 	{
 		LOG2("server","daytime","register io event eid %d",MSG_GET_DAY_TIME);
 		shared_registerioevent(engine,MSG_GET_DAY_TIME,
-				std::bind(&TimeSocket::HandleGetDayTime,this,
-					std::placeholders::_1,
-					std::placeholders::_2,
-					std::placeholders::_3));
+				TimeSocket::HandleGetDayTime);
 	}
 
 }
@@ -121,7 +119,29 @@ bool TimeSocket::HandleMessage()
 
 void * TimeSocket::HandleGetDayTime(int fd, int size , void * data)
 {
-	LOG2("server","daytime","recv get day time msg");
+    Shared::sockengine_sptr engine = Shared::GetGlobalCurrentEngine();
+	if(!engine)
+    {
+        LOG2("server","daytime","can't find engine!");
+        return NULL;
+    }
+    
+    Shared::basesocket_sptr basesock;
+    engine->GetSocket(fd,basesock);
+    if(!basesock)
+    {
+        LOG2("server","daytime","can't find socket instance!");
+        return NULL;
+    }
+    
+    timesocket_sptr tsp = dynamic_pointer_cast<TimeSocket>(basesock);
+    if(!tsp)
+    {
+        LOG2("server","daytime","can't find socket instance!");
+        return NULL;
+    }
+
+    LOG2("server","daytime","recv get day time msg");
 	unsigned int now_time = time(NULL); 
 	struct tm * now_tm;
 	now_tm = localtime((time_t *)&now_time);
@@ -130,9 +150,12 @@ void * TimeSocket::HandleGetDayTime(int fd, int size , void * data)
 	memset(&daytime,0,sizeof(CMSG_GET_DAY_TIME));
 	sprintf(daytime.daytime,"%d-%d-%d %d:%d:%d",now_tm->tm_year + 1900,
 			now_tm->tm_mon + 1,now_tm->tm_mday,now_tm->tm_hour,now_tm->tm_min,now_tm->tm_sec);	
-
-	// 发送包头
-	Write(&m_head,sizeof(MSG_HEAD));
+    
+    MSG_HEAD head;
+    head.eid = MSG_GET_DAY_TIME;
+    head.packsize = sizeof(CMSG_GET_DAY_TIME);
+    // 发送包头
+	tsp->Write(&head,sizeof(MSG_HEAD));
 	// 发送数据包
-	Write(&daytime,sizeof(CMSG_GET_DAY_TIME));
+	tsp->Write(&daytime,sizeof(CMSG_GET_DAY_TIME));
 }

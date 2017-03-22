@@ -35,6 +35,8 @@
 #define TIMESOCKET_H
 
 #include <network/TcpSocket.h>
+#include <thread>
+#include <mutex>
 #include "Protocol.h"
 
 class TimeSocket : public Shared::TcpSocket
@@ -44,18 +46,21 @@ public:
 	TimeSocket(int fd, const struct sockaddr_in * peer);
 	virtual ~TimeSocket();
 public:
-	virtual void LoadHandles();
 	virtual bool Dispatch();
 	virtual void OnConnect();
 	virtual void OnDisConnect();
 private:
 	bool HandleMessage();
 public:
-	void * HandleGetDayTime(int fd, int size , void * data);
+	static void LoadHandles();
+	static void * HandleGetDayTime(int fd, int size , void * data);
 private:
 	MSG_HEAD	m_head;
 	int			m_dlen;
 	char *		m_data;
+    static std::once_flag m_flag;
 };
+
+typedef std::tr1::shared_ptr<TimeSocket> timesocket_sptr;
 
 #endif

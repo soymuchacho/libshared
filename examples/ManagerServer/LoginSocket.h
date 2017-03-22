@@ -34,6 +34,33 @@
 #ifndef LOGIN_SOCKET_H
 #define LOGIN_SOCKET_H
 
+#include <network/TcpSocket.h>
+#include <thread>
+#include <mutex>
+#include "Protocol.h"
+
+class LoginSocket : public Shared::TcpSocket
+{
+public:
+    LoginSocket();
+    LoginSocket(int fd, const struct sockaddr_in * peer);
+    ~LoginSocket();
+public:
+    void OnConnect();
+    void OnDisconnect();
+    bool Dispatch();
+public:
+    bool HandleMessage();
+public:
+    // 加载消息事件
+    static void LoadHandles();
+    static void * HandleUserLogin(int fd,int size,void * data);
+private:
+    char *      m_buf;
+    Protocol::MSG_HEAD    m_head;
+    static std::once_flag m_flag;
+};
+
 
 #endif
 

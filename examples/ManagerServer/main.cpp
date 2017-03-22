@@ -32,10 +32,41 @@
  * */
 
 #include <iostream>
+#include <include/Shared.h>
+#include "LoginSocket.h"
 using namespace std;
+using namespace Shared;
 
 int main()
 {
+    // 初始化配置文件
+    SharedConfig.Initialize("./cfg_server.ini");
+    // 初始化日志
+    SharedLog.Initialize("output.log",LOG_DEBUG);
+    // 初始化epoll engine
+    sockengine_sptr epoll_engine;
+    Init_Engine<Epoll_Engine>(epoll_engine);
+    if(!epoll_engine)
+    {
+        OUTPUT("main","init epoll engine error!");
+        return 0;
+    }
+    OUTPUT("main","init socket engine successful");
+    // 获取ip,port配置
+    char ip[256] = {0};
+    short int port = 0;
+    SharedConfig.GetStringValue("ip",ip,256);
+    port = SharedConfig.GetIntValue("port");
+    // 创建监听
+    if( CreateListenSocket<LoginSocket>(epoll_engine,ip,port) == false )
+    {
+        OUTPUT("main","create listen socket error!ip = %s , port = %d ",ip,port);
+        return 0;
+    }
+    OUTPUT("main","create listen socket successful!ip = %s, port = %d",ip,port);
+
+    // 开启大循环
+    epoll_engine->Engine_Loop();
     return 0;
 }
 

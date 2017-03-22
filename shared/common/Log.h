@@ -113,4 +113,6 @@ static inline Log & Shared_Log()
 #define LOG2(type,type1,fmt,...) \
 	Shared::Shared_Log().WriteLog(Shared::LOG_RELEASE,type,type1,"",0,fmt,##__VA_ARGS__)
 
+#define OUTPUT(type,fmt, ...) \
+    Shared::Shared_Log().Write(Shared::LOG_RELEASE,type,__FILE__,__LINE__,fmt,##__VA_ARGS__)
 #endif// END SHARED_LOG_H

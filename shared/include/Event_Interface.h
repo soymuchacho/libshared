@@ -100,6 +100,20 @@ static inline void Init_Engine(sockengine_sptr & sptr)
 }
 
 /*
+ *  @brief 获取全局socket engine实例 即 g_wpCurrentEngine
+ *
+ */
+
+static std::tr1::shared_ptr<Shared::Socket_Engine> 
+GetGlobalCurrentEngine()
+{
+    sockengine_wptr wp_engine;
+    sockengine_sptr sp_engine = g_wpCurrentEngine.lock();
+    
+    return sp_engine;
+}
+
+/*
  *	@brief : 创建事件结构体,必须由RemoveEvent来销毁
  *
  *	@param : eid 事件id，由用户自己指定，若为sig事件，则为sig信号值，若为时间事件，则为0
