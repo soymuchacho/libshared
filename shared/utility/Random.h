@@ -41,7 +41,7 @@ namespace Shared
 
 class Random : public Singleton< Random >
 {
-	friend class Singleton< Random >;
+    SINGLETON_PARENT_FRIEND(Random);
 private:
 	Random();
 	~Random();

@@ -50,7 +50,7 @@ class MM_Task;
 
 class MM_ThreadPool : public BaseThreadPool , public Singleton< MM_ThreadPool >
 {
-	friend class Singleton< MM_ThreadPool >;
+    SINGLETON_PARENT_FRIEND(MM_ThreadPool);
 private:
 	MM_ThreadPool();
 	virtual ~MM_ThreadPool();

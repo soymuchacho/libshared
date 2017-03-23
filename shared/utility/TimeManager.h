@@ -45,7 +45,7 @@ namespace Shared
 
 class TimeManager : public Singleton< TimeManager > 
 {
-	friend class Singleton< TimeManager >;
+	SINGLETON_PARENT_FRIEND(TimeManager);
 private:
         struct  timeval _tstart,_tend;
         time_t  m_SetTime;

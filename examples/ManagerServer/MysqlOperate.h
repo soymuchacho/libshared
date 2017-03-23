@@ -34,6 +34,16 @@
 #ifndef MYSQL_OPERATE_H
 #define MYSQL_OPERATE_H
 
+class MysqlOperate : public Shared::DBMYSQL::MysqlConnection, public Shared::Singleton< MysqlOperate >
+{
+    friend class Shared::Singleton< MysqlOperate >
+private:
+    MysqlOperate();
+    ~MysqlOperate();
+private:
+    Shared::Event * m_update;               // 时间事件
+};
+
 
 #endif
 

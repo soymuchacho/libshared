@@ -44,7 +44,7 @@ namespace Shared
 
 class Config : public Singleton< Config >
 {
-	friend class Singleton< Config >;
+    SINGLETON_PARENT_FRIEND(Config);
 private:
 	Config();
 	~Config();

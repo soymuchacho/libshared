@@ -34,3 +34,13 @@
 #include "MysqlOperate.h"
 
 
+MysqlOperate::MysqlOperate()
+{
+
+}
+
+MysqlOperate::～MysalOperate()
+{
+
+}
+

@@ -55,7 +55,7 @@ static void * ThreadWriteLog(void *);
 
 class Log : public Singleton<Log>
 {
-	friend class Singleton< Log >;
+    SINGLETON_PARENT_FRIEND(Log);
 private:
 	Log();
 	~Log();

@@ -79,7 +79,7 @@ namespace Shared
 // 单键
 class MemoryPool : public Singleton< MemoryPool >
 {
-	friend class Singleton < MemoryPool >; 
+    SINGLETON_PARENT_FRIEND(MemoryPool);
 private:
 	MemoryPool();
 	~MemoryPool();

@@ -34,6 +34,23 @@
 #ifndef USER_H
 #define USER_H
 
+typedef enum User_Category
+{
+    USER_CATEGORY_ADMIN = 0,
+    USER_CATEGORY_NORMAL = 1,
+    USER_CATEGORY_GUEST = 2,
+}USER_CATEGORY;
+
+class User
+{
+public:
+    User();
+    ~User();
+private:
+    
+    USER_CATEGORY        m_level;                // 用户级别
+};
+
 
 #endif
 

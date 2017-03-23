@@ -34,26 +34,8 @@
 #ifndef SHARED_DB_MYSQL_H
 #define SHARED_DB_MYSQL_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifndef OUT
-#define OUT
-#endif
-
-#ifndef IN
-#define IN
-#endif
-
-#ifndef SQLSHARED_API
-#define SQLSHARED_API
-#endif
-
-
-#ifdef __cplusplus
-}
-#endif
+#include <db_mysql/MysqlConnection.h>
+#include <db_mysql/ResultSet.h>
 
 #endif
 
