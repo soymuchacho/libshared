@@ -35,6 +35,7 @@
 #ifndef SHARED_MYSQL_CONNECTION_H
 #define SHARED_MYSQL_CONNECTION_H
 
+#include "mysql/mysql.h"
 #include <common/NonCopyable.h>
 #include <db_mysql/DBConnection.h>
 #include <string>

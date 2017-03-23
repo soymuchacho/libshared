@@ -33,19 +33,55 @@
 
 #include "MysqlOperate.h"
 
+initializeSingleton(MysqlOperate);
+
 
 MysqlOperate::MysqlOperate()
 {
 
 }
 
-MysqlOperate::～MysalOperate()
+MysqlOperate::~MysqlOperate()
 {
 
 }
 
+bool MysqlOperate::Initialize()
+{
+    // 读取配置文件...获取host,db,user,pwd
+    SharedConfig.Initialize("cfg_mysqldb.ini");
+    char host[256] = {0};
+    char user[64] = {0};
+    char pwd[64] = {0};
+    char db[64] = {0};
+
+    SharedConfig.GetStringValue("db_host",host,256);
+    SharedConfig.GetStringValue("db_user",user,64);
+    SharedConfig.GetStringValue("db_pwd",pwd,64);
+    SharedConfig.GetStringValue("db_database",db,64);
+
+    OUTPUT("mysql","connect mysql : host[%s] db[%s] user[%s] pwd[%s]",host,db,user,pwd);
+    if( ConnectDB(host,user,pwd,db) == false )
+    {
+        OUTPUT("mysql","mysql connect failed!");
+        return false;
+    }
+    OUTPUT("mysql","mysql connect successful!");
+    
+    // 创建时间事件
+    Shared::sockengine_sptr engine = Shared::GetGlobalCurrentEngine();
+    if(engine)
+    {
+        OUTPUT("mysql","mysql update timer event create");
+        shared_registertimerevent(engine,m_update,MysqlOperate::UpdateTimeEventCallBack,0,0,NULL,1000);
+    }
+    return true;
+}
+
 void * MysqlOperate::UpdateTimeEventCallBack(int f, int arg,void * args)
 {
+    OUTPUT("mysql","update");
+    sMysqlOpMgr.Update();
     return 0;
 }
 

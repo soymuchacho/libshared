@@ -1,8 +1,8 @@
 CXX = g++
 INCLUDE = -I../../shared/
 CPPFLAGS = -ggdb $(INCLUDE) -Wno-deprecated -O2 -std=c++11
-LIBS = -L../../build/ -lshared -lpython2.7
-OBJECTS = main.o LoginSocket.o User.o Mail.o
+LIBS = -L../../build/ -L/usr/lib64/mysql -lshared -lpython2.7 -lmysqlclient
+OBJECTS = main.o LoginSocket.o User.o Mail.o MysqlOperate.o
 
 all : ManagerServer
 

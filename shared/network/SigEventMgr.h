@@ -53,8 +53,6 @@ public:
 	bool GetSigEvent(int sig,event_sptr& ev);
 	bool RemoveSigEvent(int sig);
 	void Execute(int sig);
-private:
-	void Clear();
 };
 
 }

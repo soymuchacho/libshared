@@ -65,11 +65,6 @@ bool SigEventMgr::RemoveSigEvent(int sig)
 	return Remove(sig);
 }
 
-void SigEventMgr::Clear()
-{
-	Clear();
-}
-
 void SigEventMgr::Execute(int sig)
 {
 	event_sptr ev;

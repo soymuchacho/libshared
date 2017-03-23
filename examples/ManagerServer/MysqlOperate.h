@@ -34,18 +34,23 @@
 #ifndef MYSQL_OPERATE_H
 #define MYSQL_OPERATE_H
 
-class MysqlOperate : public Shared::DBMYSQL::MysqlConnection, public Shared::Singleton< MysqlOperate >
+#include <include/Shared.h>
+
+class MysqlOperate : public DBMYSQL::MYSQLConnection ,  public Shared::Singleton< MysqlOperate >
 {
-    friend class Shared::Singleton< MysqlOperate >
+    SINGLETON_PARENT_FRIEND(MysqlOperate);
 private:
     MysqlOperate();
     ~MysqlOperate();
+public:
+    bool Initialize();
 public:
     static void * UpdateTimeEventCallBack(int,int,void *);
 private:
     Shared::Event * m_update;               // 时间事件
 };
 
+#define sMysqlOpMgr (MysqlOperate::getSingleton())
 
 #endif
 

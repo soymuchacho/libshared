@@ -34,8 +34,20 @@
 #include <iostream>
 #include <include/Shared.h>
 #include "LoginSocket.h"
+#include "MysqlOperate.h"
 using namespace std;
 using namespace Shared;
+
+bool init()
+{
+    // 初始化服务器相关的
+    if(sMysqlOpMgr.Initialize() == false)
+    {
+        OUTPUT("main","初始化数据库失败！");
+        return false;
+    }
+    return true;
+}
 
 int main()
 {
@@ -52,6 +64,13 @@ int main()
         return 0;
     }
     OUTPUT("main","init socket engine successful");
+    OUTPUT("main","init something in server begin");
+    if(init() == false)
+    {
+        OUTPUT("main","init something in server failed");
+        return 0;
+    }
+    OUTPUT("main","init something in server end");
     // 获取ip,port配置
     char ip[256] = {0};
     short int port = 0;
