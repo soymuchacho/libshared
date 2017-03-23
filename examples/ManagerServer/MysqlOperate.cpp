@@ -44,3 +44,8 @@ MysqlOperate::～MysalOperate()
 
 }
 
+void * MysqlOperate::UpdateTimeEventCallBack(int f, int arg,void * args)
+{
+    return 0;
+}
+

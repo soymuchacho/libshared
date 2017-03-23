@@ -40,6 +40,8 @@ class MysqlOperate : public Shared::DBMYSQL::MysqlConnection, public Shared::Sin
 private:
     MysqlOperate();
     ~MysqlOperate();
+public:
+    static void * UpdateTimeEventCallBack(int,int,void *);
 private:
     Shared::Event * m_update;               // 时间事件
 };

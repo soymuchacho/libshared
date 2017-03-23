@@ -46,7 +46,7 @@ namespace Shared
 	template<> pthread_once_t Shared::Singleton<type>::ponce_ = PTHREAD_ONCE_INIT
 
 #define SINGLETON_PARENT_FRIEND(class_name) \
-    friend class Singleton< class_name >
+    friend class Shared::Singleton< class_name >
 
 template<class type>
 class Singleton : public noncopyable
