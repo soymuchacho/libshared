@@ -1,1 +1,0 @@
-/usr/local/bin/gcc      CMakeFiles/tolua++.bin.dir/tolua.o CMakeFiles/tolua++.bin.dir/toluabind.o  -o ../bin/tolua++.bin  -L../../../lua-5.1.5/lib  -L../../lib -rdynamic -ltolua++ -llua -lm -ldl -Wl,-rpath,../../../lua-5.1.5/lib:../../lib 

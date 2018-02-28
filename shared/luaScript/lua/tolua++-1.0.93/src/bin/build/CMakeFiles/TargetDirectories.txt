@@ -1,1 +1,0 @@
-/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/bin/build/CMakeFiles/tolua++.bin.dir
