@@ -29,16 +29,17 @@ Direectory Structure
 
 Building & install
 ----------------------------------
-使用cmake
+	使用cmake
     $ cd libshared/shared
     $ cmake . 
     $ make 
 
-使用makefile
+	使用makefile
     $ cd libshared/shared
     $ make clean 
     $ make 
-    $ make install 
+    $ make install
+ 
 Wishes Extension
 ------------------------------------
 	* suport mysql
