@@ -29,12 +29,16 @@ Direectory Structure
 
 Building & install
 ----------------------------------
+使用cmake
+    $ cd libshared/shared
+    $ cmake . 
+    $ make 
 
+使用makefile
     $ cd libshared/shared
     $ make clean 
     $ make 
     $ make install 
-
 Wishes Extension
 ------------------------------------
 	* suport mysql
@@ -48,3 +52,4 @@ Change Log
     2016.9.22 新增mysql操作的支持
     2017.2.9  目录调整
     2017.3.2  新增ManagerServer例程
+	2018.2.28 新增luaScript库
