@@ -133,25 +133,25 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-src/CMakeFiles/libshared.dir/rule:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/libshared.dir/rule
-.PHONY : src/CMakeFiles/libshared.dir/rule
+src/CMakeFiles/shared.dir/rule:
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/shared.dir/rule
+.PHONY : src/CMakeFiles/shared.dir/rule
 
 # Convenience name for target.
-libshared: src/CMakeFiles/libshared.dir/rule
-.PHONY : libshared
+shared: src/CMakeFiles/shared.dir/rule
+.PHONY : shared
 
 # fast build rule for target.
-libshared/fast:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/build
-.PHONY : libshared/fast
+shared/fast:
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/build
+.PHONY : shared/fast
 
 Buffer.o: Buffer.cpp.o
 .PHONY : Buffer.o
 
 # target to build an object file
 Buffer.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Buffer.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Buffer.cpp.o
 .PHONY : Buffer.cpp.o
 
 Buffer.i: Buffer.cpp.i
@@ -159,7 +159,7 @@ Buffer.i: Buffer.cpp.i
 
 # target to preprocess a source file
 Buffer.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Buffer.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Buffer.cpp.i
 .PHONY : Buffer.cpp.i
 
 Buffer.s: Buffer.cpp.s
@@ -167,7 +167,7 @@ Buffer.s: Buffer.cpp.s
 
 # target to generate assembly for a file
 Buffer.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Buffer.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Buffer.cpp.s
 .PHONY : Buffer.cpp.s
 
 Config.o: Config.cpp.o
@@ -175,7 +175,7 @@ Config.o: Config.cpp.o
 
 # target to build an object file
 Config.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Config.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Config.cpp.o
 .PHONY : Config.cpp.o
 
 Config.i: Config.cpp.i
@@ -183,7 +183,7 @@ Config.i: Config.cpp.i
 
 # target to preprocess a source file
 Config.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Config.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Config.cpp.i
 .PHONY : Config.cpp.i
 
 Config.s: Config.cpp.s
@@ -191,7 +191,7 @@ Config.s: Config.cpp.s
 
 # target to generate assembly for a file
 Config.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Config.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Config.cpp.s
 .PHONY : Config.cpp.s
 
 Encryption.o: Encryption.cpp.o
@@ -199,7 +199,7 @@ Encryption.o: Encryption.cpp.o
 
 # target to build an object file
 Encryption.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Encryption.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Encryption.cpp.o
 .PHONY : Encryption.cpp.o
 
 Encryption.i: Encryption.cpp.i
@@ -207,7 +207,7 @@ Encryption.i: Encryption.cpp.i
 
 # target to preprocess a source file
 Encryption.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Encryption.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Encryption.cpp.i
 .PHONY : Encryption.cpp.i
 
 Encryption.s: Encryption.cpp.s
@@ -215,7 +215,7 @@ Encryption.s: Encryption.cpp.s
 
 # target to generate assembly for a file
 Encryption.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Encryption.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Encryption.cpp.s
 .PHONY : Encryption.cpp.s
 
 Epoll_Engine.o: Epoll_Engine.cpp.o
@@ -223,7 +223,7 @@ Epoll_Engine.o: Epoll_Engine.cpp.o
 
 # target to build an object file
 Epoll_Engine.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Epoll_Engine.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Epoll_Engine.cpp.o
 .PHONY : Epoll_Engine.cpp.o
 
 Epoll_Engine.i: Epoll_Engine.cpp.i
@@ -231,7 +231,7 @@ Epoll_Engine.i: Epoll_Engine.cpp.i
 
 # target to preprocess a source file
 Epoll_Engine.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Epoll_Engine.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Epoll_Engine.cpp.i
 .PHONY : Epoll_Engine.cpp.i
 
 Epoll_Engine.s: Epoll_Engine.cpp.s
@@ -239,7 +239,7 @@ Epoll_Engine.s: Epoll_Engine.cpp.s
 
 # target to generate assembly for a file
 Epoll_Engine.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Epoll_Engine.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Epoll_Engine.cpp.s
 .PHONY : Epoll_Engine.cpp.s
 
 Event_Handles.o: Event_Handles.cpp.o
@@ -247,7 +247,7 @@ Event_Handles.o: Event_Handles.cpp.o
 
 # target to build an object file
 Event_Handles.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Event_Handles.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Event_Handles.cpp.o
 .PHONY : Event_Handles.cpp.o
 
 Event_Handles.i: Event_Handles.cpp.i
@@ -255,7 +255,7 @@ Event_Handles.i: Event_Handles.cpp.i
 
 # target to preprocess a source file
 Event_Handles.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Event_Handles.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Event_Handles.cpp.i
 .PHONY : Event_Handles.cpp.i
 
 Event_Handles.s: Event_Handles.cpp.s
@@ -263,7 +263,7 @@ Event_Handles.s: Event_Handles.cpp.s
 
 # target to generate assembly for a file
 Event_Handles.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Event_Handles.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Event_Handles.cpp.s
 .PHONY : Event_Handles.cpp.s
 
 Event_Interface.o: Event_Interface.cpp.o
@@ -271,7 +271,7 @@ Event_Interface.o: Event_Interface.cpp.o
 
 # target to build an object file
 Event_Interface.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Event_Interface.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Event_Interface.cpp.o
 .PHONY : Event_Interface.cpp.o
 
 Event_Interface.i: Event_Interface.cpp.i
@@ -279,7 +279,7 @@ Event_Interface.i: Event_Interface.cpp.i
 
 # target to preprocess a source file
 Event_Interface.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Event_Interface.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Event_Interface.cpp.i
 .PHONY : Event_Interface.cpp.i
 
 Event_Interface.s: Event_Interface.cpp.s
@@ -287,7 +287,7 @@ Event_Interface.s: Event_Interface.cpp.s
 
 # target to generate assembly for a file
 Event_Interface.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Event_Interface.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Event_Interface.cpp.s
 .PHONY : Event_Interface.cpp.s
 
 Field.o: Field.cpp.o
@@ -295,7 +295,7 @@ Field.o: Field.cpp.o
 
 # target to build an object file
 Field.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Field.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Field.cpp.o
 .PHONY : Field.cpp.o
 
 Field.i: Field.cpp.i
@@ -303,7 +303,7 @@ Field.i: Field.cpp.i
 
 # target to preprocess a source file
 Field.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Field.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Field.cpp.i
 .PHONY : Field.cpp.i
 
 Field.s: Field.cpp.s
@@ -311,7 +311,7 @@ Field.s: Field.cpp.s
 
 # target to generate assembly for a file
 Field.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Field.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Field.cpp.s
 .PHONY : Field.cpp.s
 
 Locker.o: Locker.cpp.o
@@ -319,7 +319,7 @@ Locker.o: Locker.cpp.o
 
 # target to build an object file
 Locker.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Locker.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Locker.cpp.o
 .PHONY : Locker.cpp.o
 
 Locker.i: Locker.cpp.i
@@ -327,7 +327,7 @@ Locker.i: Locker.cpp.i
 
 # target to preprocess a source file
 Locker.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Locker.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Locker.cpp.i
 .PHONY : Locker.cpp.i
 
 Locker.s: Locker.cpp.s
@@ -335,7 +335,7 @@ Locker.s: Locker.cpp.s
 
 # target to generate assembly for a file
 Locker.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Locker.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Locker.cpp.s
 .PHONY : Locker.cpp.s
 
 Log.o: Log.cpp.o
@@ -343,7 +343,7 @@ Log.o: Log.cpp.o
 
 # target to build an object file
 Log.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Log.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Log.cpp.o
 .PHONY : Log.cpp.o
 
 Log.i: Log.cpp.i
@@ -351,7 +351,7 @@ Log.i: Log.cpp.i
 
 # target to preprocess a source file
 Log.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Log.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Log.cpp.i
 .PHONY : Log.cpp.i
 
 Log.s: Log.cpp.s
@@ -359,7 +359,7 @@ Log.s: Log.cpp.s
 
 # target to generate assembly for a file
 Log.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Log.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Log.cpp.s
 .PHONY : Log.cpp.s
 
 MemoryPool.o: MemoryPool.cpp.o
@@ -367,7 +367,7 @@ MemoryPool.o: MemoryPool.cpp.o
 
 # target to build an object file
 MemoryPool.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/MemoryPool.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/MemoryPool.cpp.o
 .PHONY : MemoryPool.cpp.o
 
 MemoryPool.i: MemoryPool.cpp.i
@@ -375,7 +375,7 @@ MemoryPool.i: MemoryPool.cpp.i
 
 # target to preprocess a source file
 MemoryPool.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/MemoryPool.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/MemoryPool.cpp.i
 .PHONY : MemoryPool.cpp.i
 
 MemoryPool.s: MemoryPool.cpp.s
@@ -383,7 +383,7 @@ MemoryPool.s: MemoryPool.cpp.s
 
 # target to generate assembly for a file
 MemoryPool.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/MemoryPool.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/MemoryPool.cpp.s
 .PHONY : MemoryPool.cpp.s
 
 Min_Heap.o: Min_Heap.cpp.o
@@ -391,7 +391,7 @@ Min_Heap.o: Min_Heap.cpp.o
 
 # target to build an object file
 Min_Heap.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Min_Heap.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Min_Heap.cpp.o
 .PHONY : Min_Heap.cpp.o
 
 Min_Heap.i: Min_Heap.cpp.i
@@ -399,7 +399,7 @@ Min_Heap.i: Min_Heap.cpp.i
 
 # target to preprocess a source file
 Min_Heap.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Min_Heap.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Min_Heap.cpp.i
 .PHONY : Min_Heap.cpp.i
 
 Min_Heap.s: Min_Heap.cpp.s
@@ -407,7 +407,7 @@ Min_Heap.s: Min_Heap.cpp.s
 
 # target to generate assembly for a file
 Min_Heap.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Min_Heap.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Min_Heap.cpp.s
 .PHONY : Min_Heap.cpp.s
 
 Mutex.o: Mutex.cpp.o
@@ -415,7 +415,7 @@ Mutex.o: Mutex.cpp.o
 
 # target to build an object file
 Mutex.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Mutex.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Mutex.cpp.o
 .PHONY : Mutex.cpp.o
 
 Mutex.i: Mutex.cpp.i
@@ -423,7 +423,7 @@ Mutex.i: Mutex.cpp.i
 
 # target to preprocess a source file
 Mutex.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Mutex.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Mutex.cpp.i
 .PHONY : Mutex.cpp.i
 
 Mutex.s: Mutex.cpp.s
@@ -431,7 +431,7 @@ Mutex.s: Mutex.cpp.s
 
 # target to generate assembly for a file
 Mutex.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Mutex.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Mutex.cpp.s
 .PHONY : Mutex.cpp.s
 
 MysqlConnection.o: MysqlConnection.cpp.o
@@ -439,7 +439,7 @@ MysqlConnection.o: MysqlConnection.cpp.o
 
 # target to build an object file
 MysqlConnection.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/MysqlConnection.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/MysqlConnection.cpp.o
 .PHONY : MysqlConnection.cpp.o
 
 MysqlConnection.i: MysqlConnection.cpp.i
@@ -447,7 +447,7 @@ MysqlConnection.i: MysqlConnection.cpp.i
 
 # target to preprocess a source file
 MysqlConnection.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/MysqlConnection.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/MysqlConnection.cpp.i
 .PHONY : MysqlConnection.cpp.i
 
 MysqlConnection.s: MysqlConnection.cpp.s
@@ -455,7 +455,7 @@ MysqlConnection.s: MysqlConnection.cpp.s
 
 # target to generate assembly for a file
 MysqlConnection.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/MysqlConnection.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/MysqlConnection.cpp.s
 .PHONY : MysqlConnection.cpp.s
 
 Poll_Engine.o: Poll_Engine.cpp.o
@@ -463,7 +463,7 @@ Poll_Engine.o: Poll_Engine.cpp.o
 
 # target to build an object file
 Poll_Engine.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Poll_Engine.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Poll_Engine.cpp.o
 .PHONY : Poll_Engine.cpp.o
 
 Poll_Engine.i: Poll_Engine.cpp.i
@@ -471,7 +471,7 @@ Poll_Engine.i: Poll_Engine.cpp.i
 
 # target to preprocess a source file
 Poll_Engine.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Poll_Engine.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Poll_Engine.cpp.i
 .PHONY : Poll_Engine.cpp.i
 
 Poll_Engine.s: Poll_Engine.cpp.s
@@ -479,7 +479,7 @@ Poll_Engine.s: Poll_Engine.cpp.s
 
 # target to generate assembly for a file
 Poll_Engine.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Poll_Engine.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Poll_Engine.cpp.s
 .PHONY : Poll_Engine.cpp.s
 
 Random.o: Random.cpp.o
@@ -487,7 +487,7 @@ Random.o: Random.cpp.o
 
 # target to build an object file
 Random.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Random.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Random.cpp.o
 .PHONY : Random.cpp.o
 
 Random.i: Random.cpp.i
@@ -495,7 +495,7 @@ Random.i: Random.cpp.i
 
 # target to preprocess a source file
 Random.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Random.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Random.cpp.i
 .PHONY : Random.cpp.i
 
 Random.s: Random.cpp.s
@@ -503,7 +503,7 @@ Random.s: Random.cpp.s
 
 # target to generate assembly for a file
 Random.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Random.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Random.cpp.s
 .PHONY : Random.cpp.s
 
 ResultSet.o: ResultSet.cpp.o
@@ -511,7 +511,7 @@ ResultSet.o: ResultSet.cpp.o
 
 # target to build an object file
 ResultSet.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/ResultSet.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/ResultSet.cpp.o
 .PHONY : ResultSet.cpp.o
 
 ResultSet.i: ResultSet.cpp.i
@@ -519,7 +519,7 @@ ResultSet.i: ResultSet.cpp.i
 
 # target to preprocess a source file
 ResultSet.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/ResultSet.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/ResultSet.cpp.i
 .PHONY : ResultSet.cpp.i
 
 ResultSet.s: ResultSet.cpp.s
@@ -527,7 +527,7 @@ ResultSet.s: ResultSet.cpp.s
 
 # target to generate assembly for a file
 ResultSet.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/ResultSet.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/ResultSet.cpp.s
 .PHONY : ResultSet.cpp.s
 
 Select_Engine.o: Select_Engine.cpp.o
@@ -535,7 +535,7 @@ Select_Engine.o: Select_Engine.cpp.o
 
 # target to build an object file
 Select_Engine.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Select_Engine.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Select_Engine.cpp.o
 .PHONY : Select_Engine.cpp.o
 
 Select_Engine.i: Select_Engine.cpp.i
@@ -543,7 +543,7 @@ Select_Engine.i: Select_Engine.cpp.i
 
 # target to preprocess a source file
 Select_Engine.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Select_Engine.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Select_Engine.cpp.i
 .PHONY : Select_Engine.cpp.i
 
 Select_Engine.s: Select_Engine.cpp.s
@@ -551,7 +551,7 @@ Select_Engine.s: Select_Engine.cpp.s
 
 # target to generate assembly for a file
 Select_Engine.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Select_Engine.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Select_Engine.cpp.s
 .PHONY : Select_Engine.cpp.s
 
 SigEventMgr.o: SigEventMgr.cpp.o
@@ -559,7 +559,7 @@ SigEventMgr.o: SigEventMgr.cpp.o
 
 # target to build an object file
 SigEventMgr.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/SigEventMgr.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/SigEventMgr.cpp.o
 .PHONY : SigEventMgr.cpp.o
 
 SigEventMgr.i: SigEventMgr.cpp.i
@@ -567,7 +567,7 @@ SigEventMgr.i: SigEventMgr.cpp.i
 
 # target to preprocess a source file
 SigEventMgr.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/SigEventMgr.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/SigEventMgr.cpp.i
 .PHONY : SigEventMgr.cpp.i
 
 SigEventMgr.s: SigEventMgr.cpp.s
@@ -575,7 +575,7 @@ SigEventMgr.s: SigEventMgr.cpp.s
 
 # target to generate assembly for a file
 SigEventMgr.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/SigEventMgr.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/SigEventMgr.cpp.s
 .PHONY : SigEventMgr.cpp.s
 
 Task.o: Task.cpp.o
@@ -583,7 +583,7 @@ Task.o: Task.cpp.o
 
 # target to build an object file
 Task.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Task.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Task.cpp.o
 .PHONY : Task.cpp.o
 
 Task.i: Task.cpp.i
@@ -591,7 +591,7 @@ Task.i: Task.cpp.i
 
 # target to preprocess a source file
 Task.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Task.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Task.cpp.i
 .PHONY : Task.cpp.i
 
 Task.s: Task.cpp.s
@@ -599,7 +599,7 @@ Task.s: Task.cpp.s
 
 # target to generate assembly for a file
 Task.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Task.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Task.cpp.s
 .PHONY : Task.cpp.s
 
 TcpSocket.o: TcpSocket.cpp.o
@@ -607,7 +607,7 @@ TcpSocket.o: TcpSocket.cpp.o
 
 # target to build an object file
 TcpSocket.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/TcpSocket.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/TcpSocket.cpp.o
 .PHONY : TcpSocket.cpp.o
 
 TcpSocket.i: TcpSocket.cpp.i
@@ -615,7 +615,7 @@ TcpSocket.i: TcpSocket.cpp.i
 
 # target to preprocess a source file
 TcpSocket.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/TcpSocket.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/TcpSocket.cpp.i
 .PHONY : TcpSocket.cpp.i
 
 TcpSocket.s: TcpSocket.cpp.s
@@ -623,7 +623,7 @@ TcpSocket.s: TcpSocket.cpp.s
 
 # target to generate assembly for a file
 TcpSocket.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/TcpSocket.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/TcpSocket.cpp.s
 .PHONY : TcpSocket.cpp.s
 
 Thread.o: Thread.cpp.o
@@ -631,7 +631,7 @@ Thread.o: Thread.cpp.o
 
 # target to build an object file
 Thread.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Thread.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Thread.cpp.o
 .PHONY : Thread.cpp.o
 
 Thread.i: Thread.cpp.i
@@ -639,7 +639,7 @@ Thread.i: Thread.cpp.i
 
 # target to preprocess a source file
 Thread.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Thread.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Thread.cpp.i
 .PHONY : Thread.cpp.i
 
 Thread.s: Thread.cpp.s
@@ -647,7 +647,7 @@ Thread.s: Thread.cpp.s
 
 # target to generate assembly for a file
 Thread.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/Thread.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/Thread.cpp.s
 .PHONY : Thread.cpp.s
 
 ThreadPool.o: ThreadPool.cpp.o
@@ -655,7 +655,7 @@ ThreadPool.o: ThreadPool.cpp.o
 
 # target to build an object file
 ThreadPool.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/ThreadPool.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/ThreadPool.cpp.o
 .PHONY : ThreadPool.cpp.o
 
 ThreadPool.i: ThreadPool.cpp.i
@@ -663,7 +663,7 @@ ThreadPool.i: ThreadPool.cpp.i
 
 # target to preprocess a source file
 ThreadPool.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/ThreadPool.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/ThreadPool.cpp.i
 .PHONY : ThreadPool.cpp.i
 
 ThreadPool.s: ThreadPool.cpp.s
@@ -671,7 +671,7 @@ ThreadPool.s: ThreadPool.cpp.s
 
 # target to generate assembly for a file
 ThreadPool.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/ThreadPool.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/ThreadPool.cpp.s
 .PHONY : ThreadPool.cpp.s
 
 TimeManager.o: TimeManager.cpp.o
@@ -679,7 +679,7 @@ TimeManager.o: TimeManager.cpp.o
 
 # target to build an object file
 TimeManager.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/TimeManager.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/TimeManager.cpp.o
 .PHONY : TimeManager.cpp.o
 
 TimeManager.i: TimeManager.cpp.i
@@ -687,7 +687,7 @@ TimeManager.i: TimeManager.cpp.i
 
 # target to preprocess a source file
 TimeManager.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/TimeManager.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/TimeManager.cpp.i
 .PHONY : TimeManager.cpp.i
 
 TimeManager.s: TimeManager.cpp.s
@@ -695,7 +695,7 @@ TimeManager.s: TimeManager.cpp.s
 
 # target to generate assembly for a file
 TimeManager.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/TimeManager.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/TimeManager.cpp.s
 .PHONY : TimeManager.cpp.s
 
 pyscript.o: pyscript.cpp.o
@@ -703,7 +703,7 @@ pyscript.o: pyscript.cpp.o
 
 # target to build an object file
 pyscript.cpp.o:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/pyscript.cpp.o
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/pyscript.cpp.o
 .PHONY : pyscript.cpp.o
 
 pyscript.i: pyscript.cpp.i
@@ -711,7 +711,7 @@ pyscript.i: pyscript.cpp.i
 
 # target to preprocess a source file
 pyscript.cpp.i:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/pyscript.cpp.i
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/pyscript.cpp.i
 .PHONY : pyscript.cpp.i
 
 pyscript.s: pyscript.cpp.s
@@ -719,7 +719,7 @@ pyscript.s: pyscript.cpp.s
 
 # target to generate assembly for a file
 pyscript.cpp.s:
-	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/pyscript.cpp.s
+	cd /opt/vesper/git/libshared/shared && $(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/pyscript.cpp.s
 .PHONY : pyscript.cpp.s
 
 # Help Target
@@ -731,9 +731,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... install/local"
-	@echo "... libshared"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... shared"
 	@echo "... Buffer.o"
 	@echo "... Buffer.i"
 	@echo "... Buffer.s"

@@ -133,17 +133,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named libshared
+# Target rules for targets named shared
 
 # Build rule for target.
-libshared: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 libshared
-.PHONY : libshared
+shared: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 shared
+.PHONY : shared
 
 # fast build rule for target.
-libshared/fast:
-	$(MAKE) -f src/CMakeFiles/libshared.dir/build.make src/CMakeFiles/libshared.dir/build
-.PHONY : libshared/fast
+shared/fast:
+	$(MAKE) -f src/CMakeFiles/shared.dir/build.make src/CMakeFiles/shared.dir/build
+.PHONY : shared/fast
 
 # Help Target
 help:
@@ -156,7 +156,7 @@ help:
 	@echo "... install/local"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... libshared"
+	@echo "... shared"
 .PHONY : help
 
 
