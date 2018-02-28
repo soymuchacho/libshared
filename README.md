@@ -17,14 +17,14 @@ Direectory Structure
     |    |—— time-task                              // 计时事件的使用例程
     |    |-- python-demo                            // python脚本加载及调用实例
     |    |-- ManagerServer                          // 企业管理软件服务器端实例
-    |—— luaScript				    // c++调用lua及lua调用c++接口支持
+    |—— luaScript					// c++调用lua及lua调用c++接口支持
     |—— shared                                      // libshared的主体
     |    |—— common                                 // 网络基础库
     |    |—— network                                // 网络相关的封装
     |    |—— utility                                // 实用库
     |    |—— include                                // 头文件
-    |    |—— db_mysql				    // 对mysql的支持
-    |    |—— pyscript				    // c++调用python及python调用c++接口支持
+    |    |—— db_mysql					// 对mysql的支持
+    |    |—— pyscript					// c++调用python及python调用c++接口支持
     |    |—— src                                    // 原码cpp存放为值
 
 Building & install
