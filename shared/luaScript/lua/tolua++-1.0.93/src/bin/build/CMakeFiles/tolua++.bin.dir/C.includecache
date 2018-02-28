@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../../../include/tolua++.h
+lua.h
+../../../include/lua.h
+lauxlib.h
+../../../include/lauxlib.h
+
+/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/bin/tolua.c
+tolua++.h
+/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/bin/tolua++.h
+lua.h
+/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/bin/lua.h
+lualib.h
+/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/bin/lualib.h
+lauxlib.h
+/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/bin/lauxlib.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+
+/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/bin/toluabind.c
+stdlib.h
+/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/bin/stdlib.h
+string.h
+/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/bin/string.h
+tolua++.h
+/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/bin/tolua++.h
+
