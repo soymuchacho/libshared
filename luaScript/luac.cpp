@@ -6,7 +6,7 @@
 ///	purpose:	
 //////////////////////////////////////////////////////////////////////
 #include <luac.h>
-#include "SeFileLog.h"
+#include "Log.h"
 
 namespace LuaC
 {
@@ -166,12 +166,12 @@ long long CLuaInt64::getData() const
 
 void luaLogDebug(std::string strText)
 {
-	SeLogDebug(strText.c_str());
+	LOGDEBUG("debug",strText.c_str());
 }
 
 void luaLogError(std::string strText)
 {
-	SeLogError(strText.c_str());
+	LOGDEBUG("debug",strText.c_str());
 }
 
 
