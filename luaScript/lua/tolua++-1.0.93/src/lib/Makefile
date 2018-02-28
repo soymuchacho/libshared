@@ -42,10 +42,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93
+CMAKE_SOURCE_DIR = /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93
+CMAKE_BINARY_DIR = /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -72,14 +72,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(CMAKE_COMMAND) -E cmake_progress_start /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/CMakeFiles /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/lib/CMakeFiles/progress.marks
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f CMakeFiles/Makefile2 src/lib/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/CMakeFiles 0
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(CMAKE_COMMAND) -E cmake_progress_start /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/CMakeFiles /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/src/lib/CMakeFiles/progress.marks
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f CMakeFiles/Makefile2 src/lib/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f CMakeFiles/Makefile2 src/lib/clean
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f CMakeFiles/Makefile2 src/lib/clean
 .PHONY : clean
 
 # The main clean target
@@ -88,22 +88,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f CMakeFiles/Makefile2 src/lib/preinstall
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f CMakeFiles/Makefile2 src/lib/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f CMakeFiles/Makefile2 src/lib/preinstall
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f CMakeFiles/Makefile2 src/lib/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/lib/CMakeFiles/tolua++.dir/rule:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f CMakeFiles/Makefile2 src/lib/CMakeFiles/tolua++.dir/rule
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f CMakeFiles/Makefile2 src/lib/CMakeFiles/tolua++.dir/rule
 .PHONY : src/lib/CMakeFiles/tolua++.dir/rule
 
 # Convenience name for target.
@@ -112,7 +112,7 @@ tolua++: src/lib/CMakeFiles/tolua++.dir/rule
 
 # fast build rule for target.
 tolua++/fast:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/build
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/build
 .PHONY : tolua++/fast
 
 tolua_event.o: tolua_event.c.o
@@ -120,7 +120,7 @@ tolua_event.o: tolua_event.c.o
 
 # target to build an object file
 tolua_event.c.o:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_event.c.o
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_event.c.o
 .PHONY : tolua_event.c.o
 
 tolua_event.i: tolua_event.c.i
@@ -128,7 +128,7 @@ tolua_event.i: tolua_event.c.i
 
 # target to preprocess a source file
 tolua_event.c.i:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_event.c.i
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_event.c.i
 .PHONY : tolua_event.c.i
 
 tolua_event.s: tolua_event.c.s
@@ -136,7 +136,7 @@ tolua_event.s: tolua_event.c.s
 
 # target to generate assembly for a file
 tolua_event.c.s:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_event.c.s
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_event.c.s
 .PHONY : tolua_event.c.s
 
 tolua_is.o: tolua_is.c.o
@@ -144,7 +144,7 @@ tolua_is.o: tolua_is.c.o
 
 # target to build an object file
 tolua_is.c.o:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_is.c.o
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_is.c.o
 .PHONY : tolua_is.c.o
 
 tolua_is.i: tolua_is.c.i
@@ -152,7 +152,7 @@ tolua_is.i: tolua_is.c.i
 
 # target to preprocess a source file
 tolua_is.c.i:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_is.c.i
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_is.c.i
 .PHONY : tolua_is.c.i
 
 tolua_is.s: tolua_is.c.s
@@ -160,7 +160,7 @@ tolua_is.s: tolua_is.c.s
 
 # target to generate assembly for a file
 tolua_is.c.s:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_is.c.s
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_is.c.s
 .PHONY : tolua_is.c.s
 
 tolua_map.o: tolua_map.c.o
@@ -168,7 +168,7 @@ tolua_map.o: tolua_map.c.o
 
 # target to build an object file
 tolua_map.c.o:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_map.c.o
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_map.c.o
 .PHONY : tolua_map.c.o
 
 tolua_map.i: tolua_map.c.i
@@ -176,7 +176,7 @@ tolua_map.i: tolua_map.c.i
 
 # target to preprocess a source file
 tolua_map.c.i:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_map.c.i
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_map.c.i
 .PHONY : tolua_map.c.i
 
 tolua_map.s: tolua_map.c.s
@@ -184,7 +184,7 @@ tolua_map.s: tolua_map.c.s
 
 # target to generate assembly for a file
 tolua_map.c.s:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_map.c.s
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_map.c.s
 .PHONY : tolua_map.c.s
 
 tolua_push.o: tolua_push.c.o
@@ -192,7 +192,7 @@ tolua_push.o: tolua_push.c.o
 
 # target to build an object file
 tolua_push.c.o:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_push.c.o
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_push.c.o
 .PHONY : tolua_push.c.o
 
 tolua_push.i: tolua_push.c.i
@@ -200,7 +200,7 @@ tolua_push.i: tolua_push.c.i
 
 # target to preprocess a source file
 tolua_push.c.i:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_push.c.i
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_push.c.i
 .PHONY : tolua_push.c.i
 
 tolua_push.s: tolua_push.c.s
@@ -208,7 +208,7 @@ tolua_push.s: tolua_push.c.s
 
 # target to generate assembly for a file
 tolua_push.c.s:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_push.c.s
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_push.c.s
 .PHONY : tolua_push.c.s
 
 tolua_to.o: tolua_to.c.o
@@ -216,7 +216,7 @@ tolua_to.o: tolua_to.c.o
 
 # target to build an object file
 tolua_to.c.o:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_to.c.o
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_to.c.o
 .PHONY : tolua_to.c.o
 
 tolua_to.i: tolua_to.c.i
@@ -224,7 +224,7 @@ tolua_to.i: tolua_to.c.i
 
 # target to preprocess a source file
 tolua_to.c.i:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_to.c.i
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_to.c.i
 .PHONY : tolua_to.c.i
 
 tolua_to.s: tolua_to.c.s
@@ -232,7 +232,7 @@ tolua_to.s: tolua_to.c.s
 
 # target to generate assembly for a file
 tolua_to.c.s:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_to.c.s
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/tolua_to.c.s
 .PHONY : tolua_to.c.s
 
 # Help Target
@@ -270,6 +270,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93 && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93 && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

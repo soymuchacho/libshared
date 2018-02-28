@@ -4,11 +4,11 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_C
-  "/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/lib/tolua_event.c" "/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/lib/CMakeFiles/tolua++.dir/tolua_event.c.o"
-  "/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/lib/tolua_is.c" "/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/lib/CMakeFiles/tolua++.dir/tolua_is.c.o"
-  "/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/lib/tolua_map.c" "/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/lib/CMakeFiles/tolua++.dir/tolua_map.c.o"
-  "/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/lib/tolua_push.c" "/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/lib/CMakeFiles/tolua++.dir/tolua_push.c.o"
-  "/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/lib/tolua_to.c" "/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/lib/CMakeFiles/tolua++.dir/tolua_to.c.o"
+  "/opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/src/lib/tolua_event.c" "/opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/src/lib/CMakeFiles/tolua++.dir/tolua_event.c.o"
+  "/opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/src/lib/tolua_is.c" "/opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/src/lib/CMakeFiles/tolua++.dir/tolua_is.c.o"
+  "/opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/src/lib/tolua_map.c" "/opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/src/lib/CMakeFiles/tolua++.dir/tolua_map.c.o"
+  "/opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/src/lib/tolua_push.c" "/opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/src/lib/CMakeFiles/tolua++.dir/tolua_push.c.o"
+  "/opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/src/lib/tolua_to.c" "/opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/src/lib/CMakeFiles/tolua++.dir/tolua_to.c.o"
   )
 SET(CMAKE_C_COMPILER_ID "GNU")
 

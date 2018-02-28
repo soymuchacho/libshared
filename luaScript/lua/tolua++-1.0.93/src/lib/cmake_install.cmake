@@ -1,4 +1,4 @@
-# Install script for directory: /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/lib
+# Install script for directory: /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/src/lib
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

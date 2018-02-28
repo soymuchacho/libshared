@@ -1,3 +1,3 @@
 FILE(REMOVE_RECURSE
-  "/opt/vesper/workspace/trunk/program_demo/Share/lib/linux/libtolua++.a"
+  "/opt/vesper/git/libshared/build/libtolua++.a"
 )

@@ -1,4 +1,4 @@
-# Install script for directory: /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93
+# Install script for directory: /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  INCLUDE("/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/src/lib/cmake_install.cmake")
+  INCLUDE("/opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/src/lib/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 
@@ -44,7 +44,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)

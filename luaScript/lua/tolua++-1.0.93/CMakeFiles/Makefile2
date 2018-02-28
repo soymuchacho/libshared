@@ -50,10 +50,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93
+CMAKE_SOURCE_DIR = /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93
+CMAKE_BINARY_DIR = /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93
 
 #=============================================================================
 # Directory level rules for directory src/lib
@@ -77,7 +77,7 @@ src/lib/preinstall:
 src/lib/CMakeFiles/tolua++.dir/all:
 	$(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/depend
 	$(MAKE) -f src/lib/CMakeFiles/tolua++.dir/build.make src/lib/CMakeFiles/tolua++.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/CMakeFiles  1 2 3 4 5
+	$(CMAKE_COMMAND) -E cmake_progress_report /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/CMakeFiles  1 2 3 4 5
 	@echo "Built target tolua++"
 .PHONY : src/lib/CMakeFiles/tolua++.dir/all
 
@@ -87,9 +87,9 @@ all: src/lib/CMakeFiles/tolua++.dir/all
 
 # Build rule for subdir invocation for target.
 src/lib/CMakeFiles/tolua++.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 src/lib/CMakeFiles/tolua++.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /opt/vesper/workspace/trunk/program_demo/Share/lua/tolua++-1.0.93/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /opt/vesper/git/libshared/luaScript/lua/tolua++-1.0.93/CMakeFiles 0
 .PHONY : src/lib/CMakeFiles/tolua++.dir/rule
 
 # Convenience name for target.
