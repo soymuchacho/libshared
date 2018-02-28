@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <content  ScriptID="1001" Name="MoleBehavior.lua" Path="./Script/lua/MoleBehavior.lua" />
+</root>

@@ -1,0 +1,2 @@
+/usr/bin/ar cr /opt/vesper/workspace/trunk/program_demo/Share/lib/linux/libluaScript.a  CMakeFiles/luaScript.dir/luaState.cpp.o CMakeFiles/luaScript.dir/luaScript.cpp.o CMakeFiles/luaScript.dir/luac.cpp.o
+/usr/bin/ranlib /opt/vesper/workspace/trunk/program_demo/Share/lib/linux/libluaScript.a
